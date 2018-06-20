@@ -46,6 +46,7 @@ public class Schema_From_Query {
 		String queryType="dbpedia";
 		
 		Match_Struc res = getSchema.getSchemaFromQuery(query, queryType);
+		
 		// System.out.println("Schema created from query: \n\n"+res.getRepairedSchema());
 		// System.out.println("Query Schema "+ res.getQuerySchema());
 		// System.out.println("Query Schema Head "+ res.getQuerySchemaHead());
@@ -260,10 +261,17 @@ public class Schema_From_Query {
 		//and return
 		
 		// res.setRepairedSchema(schema);
-		// res.setRepairedSchemaTree(createTreeFromSchemaString(schema));
+		
+		//Test tom (tree)
+		//The next line was commented before
+		System.out.println("Test tree from schema string:");
+		 res.setRepairedSchemaTree(createTreeFromSchemaString(schema));
+		 System.out.print(res.getRepairedPredicate());
+		 System.out.println(res.getRepairedParams());
+		
 		res.setQuerySchema(schema);
 		res.setQuerySchemaHead(predicate);
-		// System.out.println("Schema head in setter " + res.getQuerySchemaHead()) ;
+		//System.out.println("Schema head in setter " + res.getQuerySchemaHead()) ;
 		
 		return res;
 	}
