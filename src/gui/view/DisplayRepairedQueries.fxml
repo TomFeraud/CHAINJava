@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayRepairedQueriesMapping">
+   <children>
+      <HBox layoutX="181.0" layoutY="127.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="285.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="176.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="26.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="350.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repaired queries (list):" />
+                                 </children>
+                              </FlowPane>
+                              <ListView fx:id="listRepairedQueries" editable="true" prefHeight="315.0" prefWidth="350.0" style="-fx-background-color: pink;" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <FlowPane alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="350.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="107.0" text="Go Back" />
+                     </children>
+                  </FlowPane>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="314.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="176.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox maxHeight="350.0" minHeight="20.0" prefHeight="50.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <FlowPane alignment="CENTER" maxHeight="40.0" minHeight="29.0" prefHeight="29.0" prefWidth="350.0" style="-fx-background-color: grey;" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Initial query:" />
+                                 </children>
+                              </FlowPane>
+                              <TextArea fx:id="initialQuery" editable="false" minWidth="150.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="175.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox maxHeight="350.0" prefHeight="200.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <FlowPane alignment="CENTER" maxHeight="40.0" minHeight="30.0" prefHeight="30.0" prefWidth="350.0" style="-fx-background-color: grey;" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Results:" />
+                                 </children>
+                              </FlowPane>
+                              <TextArea fx:id="results" editable="false" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <FlowPane alignment="CENTER" prefHeight="25.0" prefWidth="350.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="107.0" text="See Matches" />
+                     </children>
+                  </FlowPane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

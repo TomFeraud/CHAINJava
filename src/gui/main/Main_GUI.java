@@ -46,6 +46,7 @@ public class Main_GUI extends Application {
 
 		run_CHAIn = new Run_CHAIn();
 		projectModel = new Project();
+		this.run_CHAIn.setTestResults(null);
 	}
 
 	@Override
@@ -72,6 +73,8 @@ public class Main_GUI extends Application {
 			Scene scene = new Scene(mainContainair); // Defines a main scene for the container
 			mainStage.setScene(scene); // That is affected to the main stage
 			mainStage.show(); // To display it
+	        mainStage.setFullScreen(true);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

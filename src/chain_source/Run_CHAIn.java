@@ -46,11 +46,12 @@ public class Run_CHAIn {
 	///////////////////////// TOM
 	private Match_Struc current = new Match_Struc();
 	private int returnStatus = UNKNOWNSTATUS;
-	
-	private ResultSet testResults = null;
-	
 
-	
+	private ResultSet testResults = null; // no need for this variable, take "resultsFromARepairedQuery" directly
+	private ArrayList<Match_Struc> repairedQueriesList = null;
+
+	// there will be need to take "queryRunResults" too, which contains the results
+	// when the query runs successfully the first time
 
 	// main method for testing during implementation
 	public static void main(String[] args) {
@@ -74,7 +75,9 @@ public class Run_CHAIn {
 
 		// note if there are several schemas here they are separated with ';'
 		// -- Two target schemas
-		 //String targetSchemas="waterBodyPressures(dataSource, identifiedDate, affectsGroundwater, waterBodyId) ; waterBodyMeasures(dataSource, identifiedDate, affectsGroundwater, waterBodyId)";
+		// String targetSchemas="waterBodyPressures(dataSource, identifiedDate,
+		// affectsGroundwater, waterBodyId) ; waterBodyMeasures(dataSource,
+		// identifiedDate, affectsGroundwater, waterBodyId)";
 		// -- No target schemas
 		// String targetSchemas="";
 		// -- One target schema
@@ -84,7 +87,7 @@ public class Run_CHAIn {
 		// String targetSchemas="places(dataSource, identifiedDate, affectsGroundwater,
 		// waterBodyId)" ;
 		// -- Two targets, one narrowed target schema
-		
+
 		//
 		String targetSchemas = "places(dataSource, identifiedDate, affectsGroundwater, waterBodyId) ; waterBodyPressures(dataSource, identifiedDate, affectsGroundwater, waterBodyId)";
 
@@ -125,7 +128,6 @@ public class Run_CHAIn {
 		// first step is trying to run the initial query
 
 		// Match_Struc current = new Match_Struc();
-		
 
 		current.setQuery(query);
 		ResultSet queryRunResults = runQuery.runQuery(current, queryType, dataDir);
@@ -166,17 +168,21 @@ public class Run_CHAIn {
 			// Parse the query and store useful information about names, prefixes, literals
 			Query_Data queryData = new Query_Data(query);
 
-			ArrayList<Match_Struc> repairedQueries = createRepairedQueries(current, queryData, targetSchemas, queryType,
-					dataDir, ontologyPath, queryLim, simThresholdVal, resLimit);
+			// ArrayList<Match_Struc> repairedQueries = createRepairedQueries(current,
+			// queryData, targetSchemas, queryType,
+			// dataDir, ontologyPath, queryLim, simThresholdVal, resLimit);
 
-			if (repairedQueries == null) {
+			this.repairedQueriesList = createRepairedQueries(current, queryData, targetSchemas, queryType, dataDir,
+					ontologyPath, queryLim, simThresholdVal, resLimit);
+
+			if (repairedQueriesList == null) {
 				System.out.println("\nSPSM Failure. Terminating.");
 				if (fOut != null) {
 					fOut.write("\nSPSM Failure. Terminating.\n\n");
 				}
 				return SPSMFAILURE;
 
-			} else if (repairedQueries.size() == 0) {
+			} else if (repairedQueriesList.size() == 0) {
 				// no results returned from spsm
 				System.out.println("\nNo results from SPSM. Terminating.");
 				if (fOut != null) {
@@ -194,14 +200,14 @@ public class Run_CHAIn {
 				// Print all the match structures with their repaired queries
 				// Tom: Good example
 				System.out.println("\nStart of the display for the repaired queries !");
-				for (Match_Struc r : repairedQueries) {
+				for (Match_Struc r : repairedQueriesList) {
 					System.out.println("Match_Struc:" + r);
 				}
 				System.out.println("End of the display for the repaired queries !\n ");
 
-				for (int i = 0; i < repairedQueries.size(); i++) {
+				for (int i = 0; i < repairedQueriesList.size(); i++) {
 					// try running new queries
-					Match_Struc curr = repairedQueries.get(i);
+					Match_Struc curr = repairedQueriesList.get(i);
 					if (fOut != null) {
 						fOut.write("Target Schema, " + curr.getDatasetSchema()
 								+ ", has created the following query:\n\n" + curr.getQuery() + "\n\n");
@@ -233,7 +239,9 @@ public class Run_CHAIn {
 						//////////////
 						testResults = resultsFromARepairedQuery;
 						/////////////
-						
+						System.out.println("\n\n\n QUERY DATA:\n "+ queryData +"\n\n");
+						/////////////
+
 						if (fOut != null) {
 							fOut.write("This new query has run successfully.");
 						}
@@ -365,7 +373,16 @@ public class Run_CHAIn {
 		return testResults;
 	}
 
-	
-	
+	public void setTestResults(ResultSet testResults) {
+		this.testResults = testResults;
+	}
+
+	public ArrayList<Match_Struc> getRepairedQueries() {
+		return repairedQueriesList;
+	}
+
+	public void setRepairedQueries(ArrayList<Match_Struc> repairedQueries) {
+		this.repairedQueriesList = repairedQueries;
+	}
 
 }

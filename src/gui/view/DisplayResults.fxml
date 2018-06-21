@@ -1,33 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayResultsMapping">
    <children>
-      <BorderPane layoutX="255.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="307.0" layoutY="68.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="70.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text strokeLineCap="BUTT" strokeType="INSIDE" strokeWidth="0.0" text="WHAT'S UP SECOND VIEW" HBox.hgrow="ALWAYS">
-                     <fill>
-                        <LinearGradient endX="1.0" endY="0.798076923076923" startX="0.052884615384615384" startY="0.04807692307692307">
-                           <stops>
-                              <Stop color="#180957d7" />
-                              <Stop color="#570a31d6" offset="0.46703703703703703" />
-                              <Stop color="#090614d6" offset="0.8814814814814815" />
-                              <Stop color="WHITE" offset="1.0" />
-                           </stops>
-                        </LinearGradient>
-                     </fill>
-                  </Text>
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="45.0" prefWidth="700.0" style="-fx-background-color: red;" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." />
+                     </children>
+                  </FlowPane>
+                  <FlowPane alignment="CENTER" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: grey;" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                     </children>
+                  </FlowPane>
                </children>
-            </HBox>
+            </VBox>
          </top>
+         <bottom>
+            <VBox prefHeight="100.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+               <children>
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="65.0" prefWidth="700.0" style="-fx-background-color: red;">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="207.90283203125" />
+                        <Button mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired queries" />
+                     </children>
+                  </FlowPane>
+                  <FlowPane alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: grey;">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#back" text="Go Back" />
+                     </children>
+                  </FlowPane>
+               </children>
+            </VBox>
+         </bottom>
+         <center>
+            <TextArea fx:id="resultsArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

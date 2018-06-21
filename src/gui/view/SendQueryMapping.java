@@ -88,15 +88,12 @@ public class SendQueryMapping {
 
 	@FXML
 	public void launch() {
-		
-		
+
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setHeaderText("It will take some time to process. Please don't quit the interface."
-				+ "Click OK to continue");
+		alert.setHeaderText(
+				"It will take some time to process. Please don't quit the interface." + "\nClick OK to continue");
 		alert.showAndWait();
-		//bye.show();
-		
-		
+
 		// NEED TO ADD EXCEPTIONS ACCORDING TO THE ENTRIES
 
 		String qt = queryType.getText();
@@ -107,50 +104,39 @@ public class SendQueryMapping {
 		int maxQProduced = Integer.parseInt(maxNbrQueriesProduced.getText());
 		String q = query.getText();
 		String t = targets.getText();
-		
+
 		this.main.getProjectModel().setParameters(qt, minSimilarity, maxRes, q, ontPath, dataPath, maxQProduced, t);
 
-		//this.main.getRun_CHAIn().runCHAIn(q, qt, t, dataPath, ontPath, maxRes, minSimilarity, maxQProduced, null);
+		this.main.getRun_CHAIn().runCHAIn(q, qt, t, dataPath, ontPath, maxRes, minSimilarity, maxQProduced, null);
 
-		
-		//TESTTTTT change scene (working;) )
+		// Change scene
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayResults.fxml"));
 		try {
 			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
+			DisplayResultsMapping controllor = loader.getController();
+			controllor.setMainApp(this.main);
+			
+			//Need to create a copy because ResultSetFormatter is destructive
+			ResultSet copy = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getTestResults());
+			
+			controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getTestResults()));
+			//System.out.println(ResultSetFormatter.asText(this.main.getRun_CHAIn().getTestResults()));
 
-			//DisplayResultsMapping controllor = loader.getController();
-			//controllor.setMainApp(this.main);
+			//THIS MAY BE USEFUL TO HAVE A BETTER DISPLAY!
+			System.out.println(ResultSetFormatter.toList(copy).get(0));
+			//System.out.println(ResultSetFormatter.toModel(this.main.getRun_CHAIn().getTestResults()));
+			
+			
+			
+			
+		} catch (
 
-		} catch (IOException e) {
+		IOException e) {
 			e.printStackTrace();
 		}
-		
-		this.main.getRun_CHAIn().runCHAIn(q, qt, t, dataPath, ontPath, maxRes, minSimilarity, maxQProduced, null);
-
-		//System.out.println(main.getProjectModel());
-		
-		// this.main.testRun();
-		
-		System.out.println(this.main.getRun_CHAIn().getTestResults().toString());
-		
-		System.out.println("\nTest print stored Results:\n");
-		// execute and print results to console
-		// Use a factory so that its possible to keep and copy the results after
-		// printing them
-
-
-		if (this.main.getRun_CHAIn().getTestResults() == null) {
-			System.out.println("RESULTS NULL");
-		} else {
-			// Need to create a copy because ResultSetFormatter is destructive
-			ResultSetFormatter.out(System.out, ResultSetFactory.copyResults(this.main.getRun_CHAIn().getTestResults()));
-			//return this.main.getRun_CHAIn().getTestResults();
-		}
-		
-		
 
 	}
 
