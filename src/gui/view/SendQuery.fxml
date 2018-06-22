@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.SendQueryMapping">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.SendQueryController">
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
@@ -54,10 +54,10 @@
                         <FlowPane alignment="CENTER" prefHeight="94.0" prefWidth="145.0">
                            <children>
                               <Label prefHeight="15.0" prefWidth="101.0" text="Ontology path:" />
-                              <TextField fx:id="ontologyPath" prefHeight="25.0" prefWidth="71.0" promptText="Browse.." />
-                              <Rectangle arcHeight="5.0" fill="#1f93ff00" height="22.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+                              <TextField fx:id="ontologyPath" promptText="Browse.." />
+                              <Rectangle arcHeight="5.0" fill="#1f93ff00" height="22.0" stroke="TRANSPARENT" strokeType="INSIDE" width="17.0" />
                               <Label prefHeight="15.0" prefWidth="94.0" text="Dataset path:" />
-                              <TextField fx:id="datasetPath" prefHeight="25.0" prefWidth="71.0" promptText="Browse.." />
+                              <TextField fx:id="datasetPath" promptText="Browse.." />
                               <FlowPane alignment="CENTER" prefHeight="33.0" prefWidth="350.0" translateY="10.0">
                                  <children>
                                     <Label prefHeight="15.0" prefWidth="235.0" text="Max. number of queries produced:" />
@@ -87,7 +87,7 @@
          <top>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: blue;" BorderPane.alignment="CENTER">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="There will be some text here :)" HBox.hgrow="ALWAYS" />
+                  <Text boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="To send a query, you have to: frame it, define its type, ontology and dataset(s) paths. You can modify the default value of the other parameters if needed." wrappingWidth="588.43212890625" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </top>

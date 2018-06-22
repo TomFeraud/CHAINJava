@@ -10,7 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
-public class DisplayMatchesMapping {
+/**
+ * * The controller of the DisplayMatches view
+ * 
+ * @author Tom Feraud
+ *
+ */
+public class DisplayMatchesController {
 
 	@FXML
 	private TextArea repairedQuery;
@@ -26,23 +32,24 @@ public class DisplayMatchesMapping {
 
 	}
 
-	// Objet servant de référence à notre classe principale
-	// afin de pouvoir récupérer la liste de nos objets.
+	// Reference to the main class
 	private Main_GUI main;
 
-	// Un constructeur par défaut
-	public DisplayMatchesMapping() {
+	/**
+	 * Default constructor
+	 */
+	public DisplayMatchesController() {
 	}
 
-	// Méthode qui sera utilisée dans l'initialisation de l'IHM
-	// dans notre classe principale
+	/**
+	 * Use to link the controllor with the main class
+	 * 
+	 * @param mainApp
+	 */
 	public void setMainApp(Main_GUI mainApp) {
 		this.main = mainApp;
 	}
-	
-	
-	
-	
+
 	@FXML
 	public void back() {
 		FXMLLoader loader = new FXMLLoader();
@@ -51,9 +58,10 @@ public class DisplayMatchesMapping {
 			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			DisplayRepairedQueriesMapping controllor = loader.getController();
-			controllor.setInitialQuery(this.main.getProjectModel().getQuery().get());
-			controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getTestResults()));
+			DisplayRepairedQueriesController controllor = loader.getController();
+			controllor.setMainApp(this.main);	
+			controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
+			controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
 			controllor.setListQueries();
 
 		} catch (IOException e) {
@@ -61,15 +69,8 @@ public class DisplayMatchesMapping {
 		}
 		System.out.println("BACK !! :)");
 	}
-	
-	
-	
-	
-	
-	
 
 	////////
-
 	// These methods below may need to change/disappear ('cause at this step we
 	// suppose to have every information required /!\ expect which query from the
 	// list is selected)

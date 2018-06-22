@@ -47,9 +47,9 @@ public class Run_CHAIn {
 	private Match_Struc current = new Match_Struc();
 	private int returnStatus = UNKNOWNSTATUS;
 
-	private ResultSet testResults = null; // no need for this variable, take "resultsFromARepairedQuery" directly
+	private ResultSet resultsFromARepairedQuery = null;
+	private ResultSet resultsFromInitialQuery = null;
 	private ArrayList<Match_Struc> repairedQueriesList = null;
-
 	// there will be need to take "queryRunResults" too, which contains the results
 	// when the query runs successfully the first time
 
@@ -130,9 +130,9 @@ public class Run_CHAIn {
 		// Match_Struc current = new Match_Struc();
 
 		current.setQuery(query);
-		ResultSet queryRunResults = runQuery.runQuery(current, queryType, dataDir);
+		resultsFromInitialQuery = runQuery.runQuery(current, queryType, dataDir);
 
-		if ((queryRunResults != null) && (queryRunResults.hasNext())) {
+		if ((resultsFromInitialQuery != null) && (resultsFromInitialQuery.hasNext())) {
 			// query has run successfully!
 			// no need to repair
 			System.out.println("Query has run successfully first time. CHAIn has finished running.");
@@ -195,7 +195,7 @@ public class Run_CHAIn {
 					fOut.write("Now running the new queries that have been created...\n\n");
 				}
 
-				ResultSet resultsFromARepairedQuery;
+				// ResultSet resultsFromARepairedQuery;
 
 				// Print all the match structures with their repaired queries
 				// Tom: Good example
@@ -236,10 +236,9 @@ public class Run_CHAIn {
 
 					} else {
 						System.out.println("This new query has run successfully with results.");
-						//////////////
-						testResults = resultsFromARepairedQuery;
+
 						/////////////
-						System.out.println("\n\n\n QUERY DATA:\n "+ queryData +"\n\n");
+						System.out.println("\n\n\n QUERY DATA:\n " + queryData + "\n\n");
 						/////////////
 
 						if (fOut != null) {
@@ -369,20 +368,28 @@ public class Run_CHAIn {
 		this.returnStatus = returnStatus;
 	}
 
-	public ResultSet getTestResults() {
-		return testResults;
-	}
-
-	public void setTestResults(ResultSet testResults) {
-		this.testResults = testResults;
-	}
-
 	public ArrayList<Match_Struc> getRepairedQueries() {
 		return repairedQueriesList;
 	}
 
 	public void setRepairedQueries(ArrayList<Match_Struc> repairedQueries) {
 		this.repairedQueriesList = repairedQueries;
+	}
+
+	public ResultSet getResultsFromInitialQuery() {
+		return resultsFromInitialQuery;
+	}
+
+	public void setResultsFromInitialQuery(ResultSet resultsFromInitialQuery) {
+		this.resultsFromInitialQuery = resultsFromInitialQuery;
+	}
+
+	public ResultSet getResultsFromARepairedQuery() {
+		return resultsFromARepairedQuery;
+	}
+
+	public void setResultsFromARepairedQuery(ResultSet resultsFromARepairedQuery) {
+		this.resultsFromARepairedQuery = resultsFromARepairedQuery;
 	}
 
 }

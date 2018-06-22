@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayResultsMapping">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayResultsController">
    <children>
       <BorderPane layoutX="307.0" layoutY="68.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -15,7 +15,7 @@
                <children>
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="45.0" prefWidth="700.0" style="-fx-background-color: red;" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." />
+                        <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." />
                      </children>
                   </FlowPane>
                   <FlowPane alignment="CENTER" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: grey;" VBox.vgrow="ALWAYS">
@@ -31,7 +31,7 @@
                <children>
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="65.0" prefWidth="700.0" style="-fx-background-color: red;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="207.90283203125" />
+                        <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="400.0" />
                         <Button mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired queries" />
                      </children>
                   </FlowPane>

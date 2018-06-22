@@ -177,7 +177,7 @@ public class Create_Query {
 	 * @param ontologyFilePath	 
 	 * @return ontologies
 	 */
-	public static ArrayList<Ontology_Struc> make_ontologies(String ontologyFilePath) {
+	public static  ArrayList<Ontology_Struc> make_ontologies(String ontologyFilePath) {
 		ArrayList<Ontology_Struc> ontologies = new ArrayList<Ontology_Struc>();
 		try {
 			String jsonTxt = new String(Files.readAllBytes(Paths.get(ontologyFilePath)), StandardCharsets.UTF_8);
