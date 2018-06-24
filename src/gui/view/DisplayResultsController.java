@@ -9,7 +9,9 @@ import com.hp.hpl.jena.query.ResultSetFormatter;
 import gui.main.Main_GUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -47,7 +49,6 @@ public class DisplayResultsController {
 
 	@FXML
 	private void initialize() {
-
 	}
 
 	/**
@@ -61,49 +62,57 @@ public class DisplayResultsController {
 
 	@FXML
 	public void nextScene() {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayRepairedQueries.fxml"));
-		try {
-			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
-			this.main.getMainContainair().setCenter(content); // Then add it to our main container
+		if (this.main.getResult_status() == 0 || this.main.getResult_status() == 5 || this.main.getResult_status() == 6
+				|| this.main.getResult_status() == 7 || this.main.getResult_status() == 8) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setHeaderText("There is no repaired query");
+			alert.showAndWait();
+		} else {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayRepairedQueries.fxml"));
+			try {
+				AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
+				this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			DisplayRepairedQueriesController controllor = loader.getController();
-			controllor.setMainApp(this.main);
+				DisplayRepairedQueriesController controllor = loader.getController();
+				controllor.setMainApp(this.main);
 
-			controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
-			controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
-			controllor.setListQueries();
-			System.out.println("\n\n\nTEEEEEEST");
-			// System.out.println("Row number");
-			// This print the number of results, 10 in the example:)
-			// System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getRowNumber());
-			// System.out.println("Ressource model");
-			// Beaucoup trop de choses..
-			// System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getResourceModel());
-			System.out.println("Result Vars");
-			// Affiche les "titres" des colonnes: [id, dataSource, waterBodyId,
-			// identifiedDate, affectsGroundwater]
-			System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getResultVars());
-			System.out.println("\nFin du testEEEEEEST\n");
+				controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
+				controllor
+						.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
+				controllor.setListQueries();
+				System.out.println("\n\n\nTEEEEEEST");
+				// System.out.println("Row number");
+				// This print the number of results, 10 in the example:)
+				// System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getRowNumber());
+				// System.out.println("Ressource model");
+				// Beaucoup trop de choses..
+				// System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getResourceModel());
+				System.out.println("Result Vars");
+				// Affiche les "titres" des colonnes: [id, dataSource, waterBodyId,
+				// identifiedDate, affectsGroundwater]
+				System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getResultVars());
+				System.out.println("\nFin du testEEEEEEST\n");
 
-			System.out.println("\n\n\nTEEEEEEST LIST results");
-			for (int i = 0; i < listResults.size(); i++) {
-				System.out.println("i: " + this.listResults.get(i));
+				System.out.println("\n\n\nTEEEEEEST LIST results");
+				/*for (int i = 0; i < listResults.size(); i++) {
+					System.out.println("i: " + this.listResults.get(i));
+				} */
+
+				System.out.println("\nFin du testEEEEEEST\n");
+			} catch (
+
+			IOException e) {
+				e.printStackTrace();
 			}
 
-			System.out.println("\nFin du testEEEEEEST\n");
-		} catch (
+			// TEST
+			System.out.println("REPAIRED QUERIES:");
+			System.out.println(this.main.getRun_CHAIn().getRepairedQueries());
 
-		IOException e) {
-			e.printStackTrace();
+			// System.out.println(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
+
 		}
-
-		// TEST
-		System.out.println("REPAIRED QUERIES:");
-		System.out.println(this.main.getRun_CHAIn().getRepairedQueries());
-
-		// System.out.println(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
-
 	}
 
 	@FXML
@@ -116,6 +125,11 @@ public class DisplayResultsController {
 
 			SendQueryController controllor = loader.getController();
 			controllor.setMainApp(this.main);
+			
+			controllor.setQuery(this.main.getProjectModel().getInitialQuery().get());
+			controllor.setInitialized(true);
+			controllor.initialize();
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();

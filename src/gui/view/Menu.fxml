@@ -21,6 +21,9 @@
                   <MenuItem mnemonicParsing="false" onAction="#example1" text="Example1" />
                   <MenuItem mnemonicParsing="false" onAction="#example2" text="Example2" />
                   <MenuItem mnemonicParsing="false" onAction="#example3" text="Example3" />
+                  <MenuItem mnemonicParsing="false" onAction="#example4" text="Example4" />
+                  <MenuItem mnemonicParsing="false" onAction="#example5" text="Example5" />
+                  <MenuItem mnemonicParsing="false" onAction="#example6" text="Example6" />
                </items>
             </Menu>
         </menus>

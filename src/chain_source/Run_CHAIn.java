@@ -44,8 +44,7 @@ public class Run_CHAIn {
 	private Run_Query runQuery = new Run_Query();
 
 	///////////////////////// TOM
-	private Match_Struc current = new Match_Struc();
-	private int returnStatus = UNKNOWNSTATUS;
+	private Match_Struc current = null;
 
 	private ResultSet resultsFromARepairedQuery = null;
 	private ResultSet resultsFromInitialQuery = null;
@@ -124,6 +123,7 @@ public class Run_CHAIn {
 			int queryLim, double simThresholdVal, int resLimit, PrintWriter fOut) {
 
 		int result_status = UNKNOWNSTATUS;
+		current = new Match_Struc();
 
 		// first step is trying to run the initial query
 
@@ -245,8 +245,6 @@ public class Run_CHAIn {
 							fOut.write("This new query has run successfully.");
 						}
 						result_status = REPAIREDQUERYRESULTS;
-						// TOM
-						this.returnStatus = REPAIREDQUERYRESULTS;
 					}
 				}
 			}
@@ -272,7 +270,9 @@ public class Run_CHAIn {
 			String ontologyPath, PrintWriter fOut) {
 
 		System.out.println("Attempting data repair.");
-		fOut.write("Attempting data repair.\n\n\n");
+		if (fOut != null) {
+			fOut.write("Attempting data repair.\n\n\n");
+		}
 
 		ArrayList<Ontology_Struc> ontologies = createQuery.make_ontologies(ontologyPath);
 		// Make the new (open) query
@@ -360,13 +360,6 @@ public class Run_CHAIn {
 	}
 
 	///////////////////
-	public int getReturnStatus() {
-		return returnStatus;
-	}
-
-	public void setReturnStatus(int returnStatus) {
-		this.returnStatus = returnStatus;
-	}
 
 	public ArrayList<Match_Struc> getRepairedQueries() {
 		return repairedQueriesList;

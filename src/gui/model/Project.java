@@ -24,6 +24,8 @@ public class Project {
 	private StringProperty datasetPath = new SimpleStringProperty();
 	private IntegerProperty maxQueriesProduced = new SimpleIntegerProperty();
 	private StringProperty targets = new SimpleStringProperty();
+	
+	private boolean initialized = false;
 
 	public Project() {
 		this.queryType.set("");
@@ -122,6 +124,15 @@ public class Project {
 		this.datasetPath.set(datasetPath);
 		this.maxQueriesProduced.set(maxQueriesProduced);
 		this.targets.set(targets);
+	}
+	
+
+	public boolean isInitialized() {
+		return initialized;
+	}
+
+	public void setInitialized(boolean initialized) {
+		this.initialized = initialized;
 	}
 
 	public String toString() {

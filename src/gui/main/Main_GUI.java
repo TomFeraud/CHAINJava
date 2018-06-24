@@ -31,6 +31,7 @@ public class Main_GUI extends Application {
 	private BorderPane mainContainair;
 	private Run_CHAIn run_CHAIn;
 	private Project projectModel;
+	private int result_status;
 
 	// To access it from other controllers
 	private SendQueryController sendQueryController;
@@ -163,4 +164,14 @@ public class Main_GUI extends Application {
 		this.sendQueryController = sendQueryController;
 	}
 
+	public int getResult_status() {
+		return result_status;
+	}
+
+	public void setResult_status(int result_status) {
+		this.result_status = result_status;
+	}
+
+	
+	
 }

@@ -36,27 +36,68 @@ public class MenuController {
 	}
 
 	@FXML
-	//SEPA query, CHAIn generates 1 returned query with results
+	// Ref test8_0_1 in Run_CHAIn_Test_Cases
+	// SEPA query, CHAIn generates 1 returned query with results
+	//Return code 10: REPAIREDQUERYRESULTS
 	public void example1() {
+		this.main.contentInit();
 		String example1 = "Example1";
 		this.main.getSendQueryController().setExample(example1);
 		this.main.getSendQueryController().initialize();
 	}
 
 	@FXML
-	//DBPEDIA query, CHAIn generates 2 returned query with results
+	// Ref test8_1_4 in Run_CHAIn_Test_Cases
+	// DBPEDIA query, CHAIn generates 2 returned query with results
+	//Return code 10: REPAIREDQUERYRESULTS
 	public void example2() {
+		this.main.contentInit();
 		String example2 = "Example2";
 		this.main.getSendQueryController().setExample(example2);
 		this.main.getSendQueryController().initialize();
 	}
-	
+
 	@FXML
-	//Ref test8_0_3 in Run_CHAIn_Test_Cases
-	//SEPA query that returns no results, 0 query created
+	// Ref test8_0_3 in Run_CHAIn_Test_Cases
+	// SEPA query, no results from SPSM, 0 query created
+	//Return code 8: NOMATCHESFROMSPSM
 	public void example3() {
+		this.main.contentInit();
 		String example3 = "Example3";
 		this.main.getSendQueryController().setExample(example3);
+		this.main.getSendQueryController().initialize();
+	}
+
+	@FXML
+	// Ref test8_1_2 in Run_CHAIn_Test_Cases
+	// dbpedia query that  already runs successfully and does not require repair.
+	//Return code 5: INITIALQUERYSUCCESS
+	public void example4() {
+		this.main.contentInit();
+		String example4 = "Example4";
+		this.main.getSendQueryController().setExample(example4);
+		this.main.getSendQueryController().initialize();
+	}
+	
+	@FXML
+	// Ref test8_0_2 in Run_CHAIn_Test_Cases
+	// invalid sepa query
+	//Return code 6: INVALIDQUERY
+	public void example5() {
+		this.main.contentInit();
+		String example5 = "Example5";
+		this.main.getSendQueryController().setExample(example5);
+		this.main.getSendQueryController().initialize();
+	}
+	
+	@FXML
+	// Ref test8_0_6 in Run_CHAIn_Test_Cases
+	// Sepa query with non-matching data in it - requires data repair
+	//Return code 12: DATAREPAIREDWITHRESULTS
+	public void example6() {
+		this.main.contentInit();
+		String example6 = "Example6";
+		this.main.getSendQueryController().setExample(example6);
 		this.main.getSendQueryController().initialize();
 	}
 
