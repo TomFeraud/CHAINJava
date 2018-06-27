@@ -18,7 +18,7 @@
                      <children>
                         <VBox prefHeight="26.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="350.0">
+                              <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="350.0" style="-fx-background-color: grey;">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repaired queries (list):" />
                                  </children>
@@ -28,7 +28,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <FlowPane alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="350.0">
+                  <FlowPane alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="350.0" style="-fx-background-color: blue;">
                      <children>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="107.0" text="Go Back" />
                      </children>
@@ -65,7 +65,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <FlowPane alignment="CENTER" prefHeight="25.0" prefWidth="350.0">
+                  <FlowPane alignment="CENTER" prefHeight="25.0" prefWidth="350.0" style="-fx-background-color: blue;">
                      <children>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="107.0" text="See Matches" />
                      </children>

@@ -216,7 +216,7 @@ public class Run_CHAIn {
 					resultsFromARepairedQuery = runRepairedQueries(curr, queryType, dataDir);
 					if (resultsFromARepairedQuery == null) {
 						System.out.println("This new query has NOT run successfully.");
-						fOut.write("This new query has NOT run successfully.\n\n\n");
+						//fOut.write("This new query has NOT run successfully.\n\n\n");
 						return REPAIREDQUERYRUNERROR;
 					} else if (!resultsFromARepairedQuery.hasNext()) {
 						System.out.println("This new query has run with no results.");

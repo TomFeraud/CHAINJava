@@ -23,15 +23,15 @@ public class MenuController {
 		this.main.contentInit();
 	}
 
-	// Fermer l'application
+	// Exit application
 	@FXML
 	public void exit() {
-		// On affiche un message car on est poli.
+		// Display a polite message
 		Alert bye = new Alert(AlertType.INFORMATION);
 		bye.setHeaderText("Good bye!");
 		bye.showAndWait();
 
-		// Et on clos le stage principal, donc l'application
+		// Close the main stage (and so the application)
 		this.main.getMainStage().close();
 	}
 
@@ -98,6 +98,29 @@ public class MenuController {
 		this.main.contentInit();
 		String example6 = "Example6";
 		this.main.getSendQueryController().setExample(example6);
+		this.main.getSendQueryController().initialize();
+	}
+	
+	
+	@FXML
+	// Ref test13 in Run_Query_Test_Cases
+	// Query HAS run successfully but NO data has been returned.
+	//Return code 11: REPAIREDQUERYNORESULTS
+	public void example7() {
+		this.main.contentInit();
+		String example7 = "Example7";
+		this.main.getSendQueryController().setExample(example7);
+		this.main.getSendQueryController().initialize();
+	}
+	
+	@FXML
+	// Ref test12 in Run_Query_Test_Cases
+	// Query has NOT run successfully
+	//Return code 9: REPAIREDQUERYRUNERROR
+	public void example8() {
+		this.main.contentInit();
+		String example8 = "Example8";
+		this.main.getSendQueryController().setExample(example8);
 		this.main.getSendQueryController().initialize();
 	}
 

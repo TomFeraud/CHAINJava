@@ -13,7 +13,7 @@
          <top>
             <VBox alignment="CENTER" prefHeight="70.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="45.0" prefWidth="700.0" style="-fx-background-color: red;" VBox.vgrow="ALWAYS">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="45.0" prefWidth="700.0" style="-fx-background-color: blue;" VBox.vgrow="ALWAYS">
                      <children>
                         <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." />
                      </children>
@@ -29,13 +29,13 @@
          <bottom>
             <VBox prefHeight="100.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="65.0" prefWidth="700.0" style="-fx-background-color: red;">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="65.0" prefWidth="700.0" style="-fx-background-color: grey;">
                      <children>
                         <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="400.0" />
                         <Button mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired queries" />
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: grey;">
+                  <FlowPane alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: blue;">
                      <children>
                         <Button mnemonicParsing="false" onAction="#back" text="Go Back" />
                      </children>

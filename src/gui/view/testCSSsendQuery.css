@@ -1,0 +1,48 @@
+.text-area {
+	-fx-padding: 12px 12px;
+	-fx-box-sizing: border-box;
+	-fx-border-radius: 7px;
+	-fx-background-color: #f8f8f8;
+	-fx-resize: none;
+}
+
+.button:hover {
+	-fx-background-color: green;
+	-fx-text-fill: grey;
+	/*-fx-background-image: url("image.jpg");*/
+	-fx-background-radius: 15px;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: 50% 50%;
+}
+
+
+
+#topHbox {
+	/*  -fx-background-color: #43D1AF; */
+	/* -fx-background-color: #305CB8; */
+	-fx-background-color: #43D174;
+	-fx-padding: 20px 0;
+	-fx-font-size: 110%;
+	-fx-font-weight: 300;
+	-fx-text-align: center;
+	-fx-margin: -16px -16px 16px -16px;
+	-fx-padding: 20px 0;
+}
+
+#topText {
+	-fx-fill: #fff;
+}
+
+.label {
+	-fx-text-fill: #3A3A3A;
+	-fx-font-weight: bold;
+}
+
+/* .text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+}
+.text-field:focused {
+    -fx-background-color: -fx-focus-color, -fx-background ;
+}  */

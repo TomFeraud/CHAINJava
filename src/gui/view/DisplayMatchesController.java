@@ -62,7 +62,7 @@ public class DisplayMatchesController {
 			controllor.setMainApp(this.main);	
 			controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 			controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
-			controllor.setListQueries();
+			controllor.setListRepairedQueries();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -89,8 +89,8 @@ public class DisplayMatchesController {
 	 * 
 	 * @param results
 	 */
-	public void setMatches(String q) {
-		this.matchesArea.setText(q);
+	public void setMatches(String m) {
+		this.matchesArea.setText(m);
 	}
 
 	/**
@@ -98,8 +98,8 @@ public class DisplayMatchesController {
 	 * 
 	 * @param results
 	 */
-	public void setInitialQuery(String m) {
-		this.initialQuery.setText(m);
+	public void setInitialQuery(String q) {
+		this.initialQuery.setText(q);
 	}
 
 }

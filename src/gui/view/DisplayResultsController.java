@@ -27,14 +27,14 @@ public class DisplayResultsController {
 	private TextArea resultsArea;
 
 	// TEST
-	// This may need to be in the main or model
+	// This may need to be in the main
 	private List<QuerySolution> listResults;
 
-	// TEST
+
 	@FXML
 	private Text topText;
 
-	// TEST
+
 	@FXML
 	private Text bottomText;
 
@@ -78,9 +78,13 @@ public class DisplayResultsController {
 				controllor.setMainApp(this.main);
 
 				controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
-				controllor
-						.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
-				controllor.setListQueries();
+				//If the result status is different from REPAIREDQUERYRUNERROR
+				//Otherwise error when displaying repaired queries
+				if (this.main.getResult_status() != 9) {
+					controllor.setResults(
+							ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
+				}
+				controllor.setListRepairedQueries();
 				System.out.println("\n\n\nTEEEEEEST");
 				// System.out.println("Row number");
 				// This print the number of results, 10 in the example:)
@@ -93,13 +97,15 @@ public class DisplayResultsController {
 				// identifiedDate, affectsGroundwater]
 				System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getResultVars());
 				System.out.println("\nFin du testEEEEEEST\n");
-
-				System.out.println("\n\n\nTEEEEEEST LIST results");
-				/*for (int i = 0; i < listResults.size(); i++) {
-					System.out.println("i: " + this.listResults.get(i));
-				} */
-
-				System.out.println("\nFin du testEEEEEEST\n");
+				/*
+				 * System.out.println("\n\n\nTEEEEEEST LIST results"); for (int i = 0; i <
+				 * listResults.size(); i++) { System.out.println("i: " +
+				 * this.listResults.get(i)); }
+				 */
+				//System.out.println("\nFin du testEEEEEEST\n");
+				
+				
+				
 			} catch (
 
 			IOException e) {
@@ -125,11 +131,10 @@ public class DisplayResultsController {
 
 			SendQueryController controllor = loader.getController();
 			controllor.setMainApp(this.main);
-			
+
 			controllor.setQuery(this.main.getProjectModel().getInitialQuery().get());
 			controllor.setInitialized(true);
 			controllor.initialize();
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -156,9 +161,9 @@ public class DisplayResultsController {
 	public void setTopText(int nbrResults) {
 		String test = "";
 		if (nbrResults > 1) {
-			test = "There are " + nbrResults + " responses corresponding to your request";
+			test = nbrResults + " responses filtered according to your request";
 		} else if (nbrResults == 1) {
-			test = "There is " + nbrResults + " response corresponding to your request";
+			test = nbrResults + " response filtered corresponding to your request";
 		} else {
 			test = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
 		}
@@ -166,6 +171,7 @@ public class DisplayResultsController {
 		this.topText.setText(test);
 	}
 
+	//Need to add more detail explications (keep the return status displayed for testing)
 	public void setBottomTextAccordingToStatus(int result_status) {
 		String text = "";
 		switch (result_status) {

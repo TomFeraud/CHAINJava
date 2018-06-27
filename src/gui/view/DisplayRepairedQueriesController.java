@@ -53,21 +53,6 @@ public class DisplayRepairedQueriesController {
 		this.main = mainApp;
 	}
 
-
-	public void setListQueries() {
-		// From this example we can work out how a datasource org. member can select one
-		// or
-		// several queries to retun (by putting ".MULTIPLE")
-		this.listRepairedQueries.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-
-		for (int i = 0; i < this.main.getRun_CHAIn().getRepairedQueries().size(); i++) {
-			listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(i).getQuery());
-		}
-
-		// listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
-		// listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
-	}
-
 	@FXML
 	public void nextScene() {
 		FXMLLoader loader = new FXMLLoader();
@@ -87,7 +72,9 @@ public class DisplayRepairedQueriesController {
 			ArrayList<String[]> matchComponents = this.main.getRun_CHAIn().getRepairedQueries().get(0)
 					.getMatchComponents();
 			String matchesStr = new String();
+			String simScore = Double.toString(this.main.getRun_CHAIn().getRepairedQueries().get(0).getSimValue());
 			matchesStr = "";
+			matchesStr += "Similarity score: " + simScore + "\n\n";
 			for (String[] m : matchComponents) {
 				matchesStr += "(";
 				matchesStr += m[0];
@@ -149,9 +136,18 @@ public class DisplayRepairedQueriesController {
 		return listRepairedQueries;
 	}
 
-	public void setListRepairedQueries(ListView<String> listRepairedQueries) {
-		this.listRepairedQueries = listRepairedQueries;
+	public void setListRepairedQueries() {
+		// From this example we can work out how a datasource org. member can select one
+		// or
+		// several queries to retun (by putting ".MULTIPLE")
+		this.listRepairedQueries.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+		for (int i = 0; i < this.main.getRun_CHAIn().getRepairedQueries().size(); i++) {
+			listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(i).getQuery());
+		}
+
+		// listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
+		// listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
 	}
-	
-	
+
 }

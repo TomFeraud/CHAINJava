@@ -12,9 +12,40 @@
     </tokens>
     <children>
       <node id="n1" parent-id="n0" preprocessed="true">
-        <name>identifiedDate</name>
+        <name>dataSource</name>
         <label-formula>n1_0 &amp; n1_1</label-formula>
         <node-formula>(n1_0 &amp; n1_1) &amp; n0_0</node-formula>
+        <tokens>
+          <token id="0">
+            <text>datasource</text>
+            <lemma>datasource</lemma>
+            <senses>
+              <sense id="n#8479331"/>
+            </senses>
+          </token>
+          <token id="1">
+            <text>source</text>
+            <lemma>source</lemma>
+            <senses>
+              <sense id="n#8524579"/>
+              <sense id="n#6687867"/>
+              <sense id="n#5843082"/>
+              <sense id="n#4270724"/>
+              <sense id="n#10225604"/>
+              <sense id="n#10145714"/>
+              <sense id="n#13580156"/>
+              <sense id="n#9430745"/>
+              <sense id="n#7273332"/>
+              <sense id="v#2243318"/>
+              <sense id="v#668640"/>
+            </senses>
+          </token>
+        </tokens>
+      </node>
+      <node id="n2" parent-id="n0" preprocessed="true">
+        <name>identifiedDate</name>
+        <label-formula>n2_0 &amp; n2_1</label-formula>
+        <node-formula>(n2_0 &amp; n2_1) &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
             <text>identifieddate</text>
@@ -49,64 +80,27 @@
           </token>
         </tokens>
       </node>
-      <node id="n2" parent-id="n0" preprocessed="true">
+      <node id="n3" parent-id="n0" preprocessed="true">
+        <name>affectsGroundwater</name>
+        <label-formula>n3_0</label-formula>
+        <node-formula>n3_0 &amp; n0_0</node-formula>
+        <tokens>
+          <token id="0">
+            <text>affectsgroundwater</text>
+            <lemma>affectsgroundwater</lemma>
+            <senses/>
+          </token>
+        </tokens>
+      </node>
+      <node id="n4" parent-id="n0" preprocessed="true">
         <name>waterBodyId</name>
-        <label-formula>n2_0</label-formula>
-        <node-formula>n2_0 &amp; n0_0</node-formula>
+        <label-formula>n4_0</label-formula>
+        <node-formula>n4_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
             <text>waterbodyid</text>
             <lemma>waterbodyid</lemma>
             <senses/>
-          </token>
-        </tokens>
-      </node>
-      <node id="n3" parent-id="n0" preprocessed="true">
-        <name>assessmentCategory</name>
-        <label-formula>n3_0 &amp; n3_1</label-formula>
-        <node-formula>(n3_0 &amp; n3_1) &amp; n0_0</node-formula>
-        <tokens>
-          <token id="0">
-            <text>assessmentcategory</text>
-            <lemma>assessmentcategory</lemma>
-            <senses>
-              <sense id="n#5741528"/>
-              <sense id="n#13424319"/>
-              <sense id="n#5153302"/>
-              <sense id="n#875745"/>
-            </senses>
-          </token>
-          <token id="1">
-            <text>category</text>
-            <lemma>category</lemma>
-            <senses>
-              <sense id="n#8014145"/>
-              <sense id="n#5847274"/>
-            </senses>
-          </token>
-        </tokens>
-      </node>
-      <node id="n4" parent-id="n0" preprocessed="true">
-        <name>source</name>
-        <label-formula>n4_0</label-formula>
-        <node-formula>n4_0 &amp; n0_0</node-formula>
-        <tokens>
-          <token id="0">
-            <text>source</text>
-            <lemma>source</lemma>
-            <senses>
-              <sense id="n#8524579"/>
-              <sense id="n#6687867"/>
-              <sense id="n#5843082"/>
-              <sense id="n#4270724"/>
-              <sense id="n#10225604"/>
-              <sense id="n#10145714"/>
-              <sense id="n#13580156"/>
-              <sense id="n#9430745"/>
-              <sense id="n#7273332"/>
-              <sense id="v#2243318"/>
-              <sense id="v#668640"/>
-            </senses>
           </token>
         </tokens>
       </node>
