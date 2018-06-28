@@ -1,39 +1,29 @@
 package gui.view;
 
 import java.io.IOException;
-import java.util.List;
 
-import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 
 import gui.main.Main_GUI;
+import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
-/**
- * The controller of the DisplayResults view
- * 
- * @author Tom Feraud
- *
- */
 public class DisplayResultsController {
 
 	@FXML
-	private TextArea resultsArea;
-
-	// TEST
-	// This may need to be in the main
-	private List<QuerySolution> listResults;
-
+	private TableView<ObservableList<String>> resultsTable;
 
 	@FXML
 	private Text topText;
-
 
 	@FXML
 	private Text bottomText;
@@ -42,22 +32,36 @@ public class DisplayResultsController {
 	private Main_GUI main;
 
 	/**
-	 * Default constructor
-	 */
-	public DisplayResultsController() {
-	}
-
-	@FXML
-	private void initialize() {
-	}
-
-	/**
 	 * Use to link the controllor with the main class
 	 * 
 	 * @param mainApp
 	 */
 	public void setMainApp(Main_GUI mainApp) {
 		this.main = mainApp;
+	}
+
+	private ObservableList<ObservableList<String>> buildData(String[][] dataArray) {
+		ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+
+		for (String[] row : dataArray) {
+			data.add(FXCollections.observableArrayList(row));
+		}
+
+		return data;
+	}
+
+	private TableView<ObservableList<String>> createTableView(String[][] dataArray, String[] columnsArray) {
+		resultsTable.setItems(buildData(dataArray));
+
+		for (int i = 0; i < dataArray[0].length; i++) {
+			final int numColumn = i;
+			final TableColumn<ObservableList<String>, String> column = new TableColumn<>(columnsArray[i]);
+			column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(numColumn)));
+			resultsTable.getColumns().add(column);
+		}
+
+		// return resultsTable;
+		return resultsTable;
 	}
 
 	@FXML
@@ -78,8 +82,8 @@ public class DisplayResultsController {
 				controllor.setMainApp(this.main);
 
 				controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
-				//If the result status is different from REPAIREDQUERYRUNERROR
-				//Otherwise error when displaying repaired queries
+				// If the result status is different from REPAIREDQUERYRUNERROR
+				// Otherwise error when displaying repaired queries
 				if (this.main.getResult_status() != 9) {
 					controllor.setResults(
 							ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
@@ -102,13 +106,9 @@ public class DisplayResultsController {
 				 * listResults.size(); i++) { System.out.println("i: " +
 				 * this.listResults.get(i)); }
 				 */
-				//System.out.println("\nFin du testEEEEEEST\n");
-				
-				
-				
-			} catch (
+				// System.out.println("\nFin du testEEEEEEST\n");
 
-			IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
@@ -142,22 +142,10 @@ public class DisplayResultsController {
 		System.out.println("BACK !! :)");
 	}
 
-	/**
-	 * Pass the results computed by the SendQueryMapping controller to this
-	 * controller
-	 * 
-	 * @param results
-	 */
-	public void setResults(String results) {
-		this.resultsArea.setText(results);
+	public void setResultsView(String[][] dataArray, String[] columnsArray) {
+		TableView<ObservableList<String>> resultsTable = createTableView(dataArray, columnsArray);
 	}
 
-	/// TEST
-	public void setListResults(List<QuerySolution> results) {
-		this.listResults = results;
-	}
-
-	/// TEST
 	public void setTopText(int nbrResults) {
 		String test = "";
 		if (nbrResults > 1) {
@@ -171,7 +159,8 @@ public class DisplayResultsController {
 		this.topText.setText(test);
 	}
 
-	//Need to add more detail explications (keep the return status displayed for testing)
+	// Need to add more detail explications (keep the return status displayed for
+	// testing)
 	public void setBottomTextAccordingToStatus(int result_status) {
 		String text = "";
 		switch (result_status) {

@@ -44,7 +44,10 @@
             </VBox>
          </bottom>
          <center>
-            <TextArea fx:id="resultsArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <TableView fx:id="resultsTable" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy></TableView>
          </center>
       </BorderPane>
    </children>

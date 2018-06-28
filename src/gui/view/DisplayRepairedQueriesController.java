@@ -106,7 +106,9 @@ public class DisplayRepairedQueriesController {
 
 			DisplayResultsController controllor = loader.getController();
 			controllor.setMainApp(this.main);
-			controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
+			
+			//NEED TO DO
+			//controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
 
 		} catch (IOException e) {
 			e.printStackTrace();

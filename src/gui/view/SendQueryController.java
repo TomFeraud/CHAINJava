@@ -10,7 +10,6 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFactory;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 
-
 import gui.main.Main_GUI;
 import gui.model.Project;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-
 
 /**
  * The controller of the SendQuery view
@@ -292,7 +290,7 @@ public class SendQueryController {
 		alert.showAndWait();
 
 		// TEST
-		//Button button = this.getSendButton();
+		// Button button = this.getSendButton();
 		this.getSendButton().setText("CHARGING..");
 		// button.setBackground(value);
 
@@ -325,12 +323,61 @@ public class SendQueryController {
 			DisplayResultsController controllor = loader.getController();
 			controllor.setMainApp(this.main);
 
-			int nbrResponse = 0;
+			int nbrResponse = 666;
 
 			// Check if the initial query was successfuly run
 			if (initialQuerySuccess(this.main.getResult_status())) {
-				controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromInitialQuery()));
-				nbrResponse = this.main.getRun_CHAIn().getResultsFromInitialQuery().getRowNumber();
+				/// controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromInitialQuery()));
+				
+				ResultSet copy = ResultSetFactory
+						.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
+				ResultSet copy2 = ResultSetFactory
+						.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
+				ResultSet copy3 = ResultSetFactory
+						.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
+				
+				// use to know the number of columns
+				Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
+				// use to get the columns' name
+				Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
+				
+				List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
+				nbrResponse = listOfResults.size();
+				
+				int cptColumn = 0;
+
+				while (columnIterator.hasNext()) {
+					System.out.println(columnIterator.next());
+					cptColumn++;
+				}
+				
+				String[][] resultsArray = new String[nbrResponse][cptColumn];
+				String[] columnsArray = new String[cptColumn];
+
+				// Columns name array
+				for (int cptC = 0; cptC < cptColumn; cptC++) {
+					columnsArray[cptC] = columnItName.next();
+				}
+
+				/*
+				System.out.println("Column array");
+				for (int j = 0; j < columnsArray.length; j++) {
+					System.out.println(columnsArray[j]);
+				} */
+
+				// results array
+				for (int i = 0; i < nbrResponse; i++) {
+					for (int cptC = 0; cptC < cptColumn; cptC++) {
+						resultsArray[i][cptC] = testFillCell(resultsArray, i, cptC, listOfResults, columnsArray);
+					}
+				}
+
+				controllor.setResultsView(resultsArray, columnsArray);
+				
+				
+				
+				
+				
 			} else {
 				if (hasRepairedQueryResult(this.main.getResult_status())) {
 					// Need to create a copy because ResultSetFormatter is destructive
@@ -344,18 +391,6 @@ public class SendQueryController {
 					ResultSet copy3 = ResultSetFactory
 							.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
 
-					controllor.setResults(
-							ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
-					// System.out.println(ResultSetFormatter.asText(this.main.getRun_CHAIn().getTestResults()));
-
-					nbrResponse = this.main.getRun_CHAIn().getResultsFromARepairedQuery().getRowNumber();
-
-
-					/////////////////////////////////////////////////////
-					// TEST TABLEAU
-
-					System.out.println("Test display tab");
-
 					// use to know the number of columns
 					Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
 					// use to get the columns' name
@@ -368,35 +403,37 @@ public class SendQueryController {
 						cptColumn++;
 					}
 
-					String[][] array = new String[nbrResponse + 1][cptColumn];
-
-					// FILL THE FIRST ROW
-					for (int cptC = 0; cptC < cptColumn; cptC++) {
-						array[0][cptC] = columnItName.next();
-					}
-					System.out.println("\n\n");
 					List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy2);
-					for (int i = 0; i < listOfResults.size(); i++) {
-						for (int cptC = 0; cptC < cptColumn; cptC++) {
+					nbrResponse = listOfResults.size();
+					/*
+					 * System.out.println("TOM:\n" + listOfResults);
+					 * System.out.println("TOM cptColumn:\n" + cptColumn);
+					 * System.out.println("TOM lis size:\n" + listOfResults.size());
+					 * System.out.println("TOM nb respnse:\n" + nbrResponse);
+					 */
 
-							array[i + 1][cptC] = testFillCell(array, i, cptC, listOfResults);
-						}
-					}
+					String[][] resultsArray = new String[nbrResponse][cptColumn];
+					String[] columnsArray = new String[cptColumn];
 
+					// Columns name array
 					for (int cptC = 0; cptC < cptColumn; cptC++) {
-						array[0][cptC] += "      ";
+						columnsArray[cptC] = columnItName.next();
 					}
-
-					System.out.println(Arrays.deepToString(array).replace("], ", "]\n"));
-
-					System.out.println("FIN TEST display tab");
 
 					/*
-					for (int i = 0; i < listOfResults.size(); i++) {
-						for (int cptC = 0; cptC < cptColumn; cptC++) {
-							System.out.format("%15s   ", array[i][cptC]);
-						}
+					System.out.println("Column array");
+					for (int j = 0; j < columnsArray.length; j++) {
+						System.out.println(columnsArray[j]);
 					} */
+
+					// results array
+					for (int i = 0; i < nbrResponse; i++) {
+						for (int cptC = 0; cptC < cptColumn; cptC++) {
+							resultsArray[i][cptC] = testFillCell(resultsArray, i, cptC, listOfResults, columnsArray);
+						}
+					}
+
+					controllor.setResultsView(resultsArray, columnsArray);
 
 				}
 
@@ -536,9 +573,10 @@ public class SendQueryController {
 	}
 
 	// TEST WORKING
-	private String testFillCell(String[][] array, int cptRow, int cptCol, List<QuerySolution> testJena) {
+	private String testFillCell(String[][] array, int cptRow, int cptCol, List<QuerySolution> testJena,
+			String[] columnsArray) {
 		String s = "";
-		String columnName = array[0][cptCol];
+		String columnName = columnsArray[cptCol];
 		// System.out.println("Column name: " + columnName);
 		// System.out.println(testJena.get(cptRow).get(columnName).toString());
 		s = testJena.get(cptRow).get(columnName).toString();
