@@ -49,8 +49,9 @@ public class Run_CHAIn {
 	private ResultSet resultsFromARepairedQuery = null;
 	private ResultSet resultsFromInitialQuery = null;
 	private ArrayList<Match_Struc> repairedQueriesList = null;
-	// there will be need to take "queryRunResults" too, which contains the results
-	// when the query runs successfully the first time
+
+	// TEST
+	private ArrayList<ResultSet> listResultsFromRepairedQueries = new ArrayList<ResultSet>();
 
 	// main method for testing during implementation
 	public static void main(String[] args) {
@@ -216,7 +217,7 @@ public class Run_CHAIn {
 					resultsFromARepairedQuery = runRepairedQueries(curr, queryType, dataDir);
 					if (resultsFromARepairedQuery == null) {
 						System.out.println("This new query has NOT run successfully.");
-						//fOut.write("This new query has NOT run successfully.\n\n\n");
+						// fOut.write("This new query has NOT run successfully.\n\n\n");
 						return REPAIREDQUERYRUNERROR;
 					} else if (!resultsFromARepairedQuery.hasNext()) {
 						System.out.println("This new query has run with no results.");
@@ -246,6 +247,8 @@ public class Run_CHAIn {
 						}
 						result_status = REPAIREDQUERYRESULTS;
 					}
+					
+					listResultsFromRepairedQueries.add(resultsFromARepairedQuery);
 				}
 			}
 		}
@@ -361,11 +364,11 @@ public class Run_CHAIn {
 
 	///////////////////
 
-	public ArrayList<Match_Struc> getRepairedQueries() {
+	public ArrayList<Match_Struc> getRepairedQueriesList() {
 		return repairedQueriesList;
 	}
 
-	public void setRepairedQueries(ArrayList<Match_Struc> repairedQueries) {
+	public void setRepairedQueriesList(ArrayList<Match_Struc> repairedQueries) {
 		this.repairedQueriesList = repairedQueries;
 	}
 
@@ -383,6 +386,15 @@ public class Run_CHAIn {
 
 	public void setResultsFromARepairedQuery(ResultSet resultsFromARepairedQuery) {
 		this.resultsFromARepairedQuery = resultsFromARepairedQuery;
+	}
+
+	////// TEST
+	public ArrayList<ResultSet> getListResultsFromRepairedQuery() {
+		return listResultsFromRepairedQueries;
+	}
+
+	public void setListResultsFromRepairedQuery(ArrayList<ResultSet> listResultsFromRepairedQueries) {
+		this.listResultsFromRepairedQueries = listResultsFromRepairedQueries;
 	}
 
 }

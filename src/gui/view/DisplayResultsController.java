@@ -1,9 +1,16 @@
 package gui.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFactory;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 
+import chain_source.Match_Struc;
 import gui.main.Main_GUI;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -78,35 +85,20 @@ public class DisplayResultsController {
 				AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
 				this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-				DisplayRepairedQueriesController controllor = loader.getController();
-				controllor.setMainApp(this.main);
+				DisplayRepairedQueriesController controller = loader.getController();
+				controller.setMainApp(this.main);
 
-				controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
+				controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 				// If the result status is different from REPAIREDQUERYRUNERROR
 				// Otherwise error when displaying repaired queries
 				if (this.main.getResult_status() != 9) {
-					controllor.setResults(
-							ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
+					// controller.setResults(
+					// ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
 				}
-				controllor.setListRepairedQueries();
-				System.out.println("\n\n\nTEEEEEEST");
-				// System.out.println("Row number");
-				// This print the number of results, 10 in the example:)
-				// System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getRowNumber());
-				// System.out.println("Ressource model");
-				// Beaucoup trop de choses..
-				// System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getResourceModel());
-				System.out.println("Result Vars");
-				// Affiche les "titres" des colonnes: [id, dataSource, waterBodyId,
-				// identifiedDate, affectsGroundwater]
-				System.out.println(this.main.getRun_CHAIn().getResultsFromARepairedQuery().getResultVars());
-				System.out.println("\nFin du testEEEEEEST\n");
-				/*
-				 * System.out.println("\n\n\nTEEEEEEST LIST results"); for (int i = 0; i <
-				 * listResults.size(); i++) { System.out.println("i: " +
-				 * this.listResults.get(i)); }
-				 */
-				// System.out.println("\nFin du testEEEEEEST\n");
+				controller.setListRepairedQueries();
+
+				// TEST
+				// controller.TESTSetResults();
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -114,7 +106,7 @@ public class DisplayResultsController {
 
 			// TEST
 			System.out.println("REPAIRED QUERIES:");
-			System.out.println(this.main.getRun_CHAIn().getRepairedQueries());
+			System.out.println(this.main.getRun_CHAIn().getRepairedQueriesList());
 
 			// System.out.println(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
 
@@ -139,7 +131,7 @@ public class DisplayResultsController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("BACK !! :)");
+		// System.out.println("BACK !! :)");
 	}
 
 	public void setResultsView(String[][] dataArray, String[] columnsArray) {
@@ -198,6 +190,139 @@ public class DisplayResultsController {
 		}
 
 		this.bottomText.setText(text);
+	}
+
+	public int resultsFormatting() {
+
+		ResultSet copy = null;
+		ResultSet copy2 = null;
+		ResultSet copy3 = null;
+		int nbrResponse = 0;
+
+		if (initialQuerySuccess(this.main.getResult_status())) {
+			copy = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
+			copy2 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
+			copy3 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
+		}
+
+		else if (hasRepairedQueryResult(this.main.getResult_status())) {
+			copy = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
+			copy2 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
+			copy3 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
+		
+		
+		
+		////
+		//// NEED TO PUT THE CODED TESTED HERE!
+		////
+		////
+		
+		
+		
+		
+		
+		}
+
+		// use to know the number of columns
+		Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
+		// use to get the columns' name
+		Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
+
+		int cptColumn = 0;
+
+		while (columnIterator.hasNext()) {
+			System.out.println(columnIterator.next());
+			cptColumn++;
+		}
+
+		List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
+		nbrResponse = listOfResults.size();
+		/*
+		 * System.out.println("TOM:\n" + listOfResults);
+		 * System.out.println("TOM cptColumn:\n" + cptColumn);
+		 * System.out.println("TOM lis size:\n" + listOfResults.size());
+		 * System.out.println("TOM nb respnse:\n" + nbrResponse);
+		 */
+
+		String[][] resultsArray = new String[nbrResponse][cptColumn];
+		String[] columnsArray = new String[cptColumn];
+
+		// Columns name array
+		for (int cptC = 0; cptC < cptColumn; cptC++) {
+			columnsArray[cptC] = columnItName.next();
+		}
+
+		/*
+		 * System.out.println("Column array"); for (int j = 0; j < columnsArray.length;
+		 * j++) { System.out.println(columnsArray[j]); }
+		 */
+
+		// results array
+		for (int i = 0; i < nbrResponse; i++) {
+			for (int cptC = 0; cptC < cptColumn; cptC++) {
+				resultsArray[i][cptC] = fillCell(resultsArray, i, cptC, listOfResults, columnsArray);
+			}
+		}
+		this.setResultsView(resultsArray, columnsArray);
+/////////////////////////////////////////////
+		//ArrayList<Match_Struc> repairedQueriesList = this.main.getRun_CHAIn().getRepairedQueriesList();
+		//System.out.println("RQL 0: "+repairedQueriesList.get(0));
+		
+		ArrayList<ResultSet> resultsList = this.main.getRun_CHAIn().getListResultsFromRepairedQuery();
+		
+		System.out.println("TEEEEEEEEST RESULTS LIST:");
+		int nbrRepairedQueries = resultsList.size();
+		double[] similarityTab = new double[nbrRepairedQueries];
+		for(int cpt = 0 ; cpt<nbrRepairedQueries; cpt++) {
+			//System.out.println(ResultSetFormatter.toList(resultsList.get(cpt)));
+			System.out.println("Sim value: " +this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue());
+			similarityTab[cpt] = this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue();
+		}
+		double simMax = 0;
+		int index = 666;
+		for(int cpt = 0; cpt < similarityTab.length ; cpt ++) {
+			//NEED TO WORK OUT HOW TO DO IF EQUALS LIKE IN EXAMPLE2...
+			if(simMax<similarityTab[cpt]) {
+				simMax = similarityTab[cpt];
+				index = cpt;
+			}
+		}
+		
+		
+		//WORKING! implement it!
+		System.out.println("INDEX: " + index);
+		System.out.println("Result for query at index " + index +": " +ResultSetFormatter.toList(resultsList.get(index)));
+		
+		
+		
+/////////////////////////////////////////////////
+		return nbrResponse;
+	}
+
+	private String fillCell(String[][] array, int cptRow, int cptCol, List<QuerySolution> testJena,
+			String[] columnsArray) {
+		String s = "";
+		String columnName = columnsArray[cptCol];
+		// System.out.println("Column name: " + columnName);
+		// System.out.println(testJena.get(cptRow).get(columnName).toString());
+		s = testJena.get(cptRow).get(columnName).toString();
+		return s;
+	}
+
+	public boolean initialQuerySuccess(int result_status) {
+		if (result_status == 5) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean hasRepairedQueryResult(int result_status) {
+		if (result_status == 10 || result_status == 12) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

@@ -3,13 +3,21 @@ package gui.view;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 
 import gui.main.Main_GUI;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
@@ -29,19 +37,19 @@ public class DisplayRepairedQueriesController {
 
 	@FXML
 	private TextArea results;
+	
+	@FXML
+	private TableView<ObservableList<String>> resultsTable;
 
 	// Reference to the main class
 	private Main_GUI main;
+
+	protected int selectedIndex;
 
 	/**
 	 * Default constructor
 	 */
 	public DisplayRepairedQueriesController() {
-	}
-
-	@FXML
-	private void initialize() {
-
 	}
 
 	/**
@@ -52,6 +60,41 @@ public class DisplayRepairedQueriesController {
 	public void setMainApp(Main_GUI mainApp) {
 		this.main = mainApp;
 	}
+	
+	
+	
+	
+	private ObservableList<ObservableList<String>> buildData(String[][] dataArray) {
+		ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+
+		for (String[] row : dataArray) {
+			data.add(FXCollections.observableArrayList(row));
+		}
+
+		return data;
+	}
+
+	private TableView<ObservableList<String>> createTableView(String[][] dataArray, String[] columnsArray) {
+		resultsTable.setItems(buildData(dataArray));
+
+		for (int i = 0; i < dataArray[0].length; i++) {
+			final int numColumn = i;
+			final TableColumn<ObservableList<String>, String> column = new TableColumn<>(columnsArray[i]);
+			column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(numColumn)));
+			resultsTable.getColumns().add(column);
+		}
+
+		// return resultsTable;
+		return resultsTable;
+	}
+	
+	public void setResultsView(String[][] dataArray, String[] columnsArray) {
+		TableView<ObservableList<String>> resultsTable = createTableView(dataArray, columnsArray);
+	}
+	
+	
+	
+	
 
 	@FXML
 	public void nextScene() {
@@ -66,13 +109,15 @@ public class DisplayRepairedQueriesController {
 
 			controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 			// THIS WILL CHANGE
-			controllor.setRepairedQuery(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
+			controllor.setRepairedQuery(this.main.getRun_CHAIn().getRepairedQueriesList().get(0).getQuery());
 			//////
 			// THIS WILL CHANGE TOO
-			ArrayList<String[]> matchComponents = this.main.getRun_CHAIn().getRepairedQueries().get(0)
+			ArrayList<String[]> matchComponents = this.main.getRun_CHAIn().getRepairedQueriesList().get(0)
 					.getMatchComponents();
+			/////////////////////////////
 			String matchesStr = new String();
-			String simScore = Double.toString(this.main.getRun_CHAIn().getRepairedQueries().get(0).getSimValue());
+			String simScore = Double.toString(this.main.getRun_CHAIn().getRepairedQueriesList().get(0).getSimValue());
+			//////////////////////////////////////
 			matchesStr = "";
 			matchesStr += "Similarity score: " + simScore + "\n\n";
 			for (String[] m : matchComponents) {
@@ -104,11 +149,13 @@ public class DisplayRepairedQueriesController {
 			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			DisplayResultsController controllor = loader.getController();
-			controllor.setMainApp(this.main);
-			
-			//NEED TO DO
-			//controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
+			DisplayResultsController controller = loader.getController();
+			controller.setMainApp(this.main);
+
+			int nbrResponse = 0;
+			nbrResponse = controller.resultsFormatting();
+			controller.setTopText(nbrResponse);
+			controller.setBottomTextAccordingToStatus(this.main.getResult_status());
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -144,12 +191,30 @@ public class DisplayRepairedQueriesController {
 		// several queries to retun (by putting ".MULTIPLE")
 		this.listRepairedQueries.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-		for (int i = 0; i < this.main.getRun_CHAIn().getRepairedQueries().size(); i++) {
-			listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(i).getQuery());
+		for (int i = 0; i < this.main.getRun_CHAIn().getRepairedQueriesList().size(); i++) {
+			listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueriesList().get(i).getQuery());
 		}
 
-		// listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
-		// listRepairedQueries.getItems().add(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
+		this.listRepairedQueries.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				// change the label text value to the newly selected item
+				// results.setText("You Selected " + newValue);
+				 selectedIndex = listRepairedQueries.getSelectionModel().getSelectedIndex();
+				results.setText(Integer.toString(selectedIndex));
+				
+				
+				
+				DisplayRepairedQueriesController test = new DisplayRepairedQueriesController();
+				test.TESTSetResults(selectedIndex);
+			}
+		});
+		
+
+	}
+
+	public void TESTSetResults(int selectedIndex ) {
+		System.out.println("TEST SELECTED INDEX: " +selectedIndex);
 	}
 
 }

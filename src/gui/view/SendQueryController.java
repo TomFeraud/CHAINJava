@@ -295,7 +295,6 @@ public class SendQueryController {
 		// button.setBackground(value);
 
 		// NEED TO ADD EXCEPTIONS ACCORDING TO THE ENTRIES
-
 		String qt = queryType.getText();
 		double minSimilarity = Double.parseDouble(minSim.getText());
 		int maxRes = Integer.parseInt(maxNbrResultsWanted.getText());
@@ -320,133 +319,28 @@ public class SendQueryController {
 			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			DisplayResultsController controllor = loader.getController();
-			controllor.setMainApp(this.main);
+			DisplayResultsController controller = loader.getController();
+			controller.setMainApp(this.main);
 
 			int nbrResponse = 666;
+			int result_status = this.main.getResult_status();
 
-			// Check if the initial query was successfuly run
-			if (initialQuerySuccess(this.main.getResult_status())) {
-				/// controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromInitialQuery()));
-				
-				ResultSet copy = ResultSetFactory
-						.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
-				ResultSet copy2 = ResultSetFactory
-						.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
-				ResultSet copy3 = ResultSetFactory
-						.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
-				
-				// use to know the number of columns
-				Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
-				// use to get the columns' name
-				Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
-				
-				List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
-				nbrResponse = listOfResults.size();
-				
-				int cptColumn = 0;
-
-				while (columnIterator.hasNext()) {
-					System.out.println(columnIterator.next());
-					cptColumn++;
-				}
-				
-				String[][] resultsArray = new String[nbrResponse][cptColumn];
-				String[] columnsArray = new String[cptColumn];
-
-				// Columns name array
-				for (int cptC = 0; cptC < cptColumn; cptC++) {
-					columnsArray[cptC] = columnItName.next();
-				}
-
-				/*
-				System.out.println("Column array");
-				for (int j = 0; j < columnsArray.length; j++) {
-					System.out.println(columnsArray[j]);
-				} */
-
-				// results array
-				for (int i = 0; i < nbrResponse; i++) {
-					for (int cptC = 0; cptC < cptColumn; cptC++) {
-						resultsArray[i][cptC] = testFillCell(resultsArray, i, cptC, listOfResults, columnsArray);
-					}
-				}
-
-				controllor.setResultsView(resultsArray, columnsArray);
-				
-				
-				
-				
-				
-			} else {
-				if (hasRepairedQueryResult(this.main.getResult_status())) {
-					// Need to create a copy because ResultSetFormatter is destructive
-					ResultSet copy = ResultSetFactory
-							.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
-
-					// copy2 & copy3 are for the tests
-					ResultSet copy2 = ResultSetFactory
-							.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
-
-					ResultSet copy3 = ResultSetFactory
-							.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
-
-					// use to know the number of columns
-					Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
-					// use to get the columns' name
-					Iterator<String> columnItName = ResultSetFormatter.toList(copy3).get(0).varNames();
-
-					int cptColumn = 0;
-
-					while (columnIterator.hasNext()) {
-						System.out.println(columnIterator.next());
-						cptColumn++;
-					}
-
-					List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy2);
-					nbrResponse = listOfResults.size();
-					/*
-					 * System.out.println("TOM:\n" + listOfResults);
-					 * System.out.println("TOM cptColumn:\n" + cptColumn);
-					 * System.out.println("TOM lis size:\n" + listOfResults.size());
-					 * System.out.println("TOM nb respnse:\n" + nbrResponse);
-					 */
-
-					String[][] resultsArray = new String[nbrResponse][cptColumn];
-					String[] columnsArray = new String[cptColumn];
-
-					// Columns name array
-					for (int cptC = 0; cptC < cptColumn; cptC++) {
-						columnsArray[cptC] = columnItName.next();
-					}
-
-					/*
-					System.out.println("Column array");
-					for (int j = 0; j < columnsArray.length; j++) {
-						System.out.println(columnsArray[j]);
-					} */
-
-					// results array
-					for (int i = 0; i < nbrResponse; i++) {
-						for (int cptC = 0; cptC < cptColumn; cptC++) {
-							resultsArray[i][cptC] = testFillCell(resultsArray, i, cptC, listOfResults, columnsArray);
-						}
-					}
-
-					controllor.setResultsView(resultsArray, columnsArray);
-
-				}
-
+			// Check if the initial query has run with results
+			if (initialQuerySuccess(result_status) || hasRepairedQueryResult(result_status)) {
+				nbrResponse = controller.resultsFormatting();
 			}
+
 			if (hasNoResult(this.main.getResult_status())) {
-				controllor.setTopText(0);
+				controller.setTopText(0);
 			} else {
-				controllor.setTopText(nbrResponse);
+				controller.setTopText(nbrResponse);
 			}
-			controllor.setBottomTextAccordingToStatus(this.main.getResult_status());
+			controller.setBottomTextAccordingToStatus(result_status);
 
 			this.setInitialized(true);
-		} catch (IOException e) {
+		} catch (
+
+		IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -570,17 +464,6 @@ public class SendQueryController {
 
 	public void setSendButton(Button sendButton) {
 		this.sendButton = sendButton;
-	}
-
-	// TEST WORKING
-	private String testFillCell(String[][] array, int cptRow, int cptCol, List<QuerySolution> testJena,
-			String[] columnsArray) {
-		String s = "";
-		String columnName = columnsArray[cptCol];
-		// System.out.println("Column name: " + columnName);
-		// System.out.println(testJena.get(cptRow).get(columnName).toString());
-		s = testJena.get(cptRow).get(columnName).toString();
-		return s;
 	}
 
 }
