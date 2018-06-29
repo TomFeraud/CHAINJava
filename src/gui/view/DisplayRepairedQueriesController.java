@@ -44,15 +44,13 @@ public class DisplayRepairedQueriesController {
 
 	@FXML
 	private TableView<ObservableList<String>> resultsTable;
-	
-	protected int selectedIndex;
+
+	protected int selectedIndex = 0;
 
 	// Reference to the main class
 	private Main_GUI main;
 
-	
-	
-	//TEST
+	// TEST
 	private ArrayList<ResultSet> resultsList = new ArrayList<ResultSet>();
 
 	/**
@@ -60,13 +58,10 @@ public class DisplayRepairedQueriesController {
 	 */
 	public DisplayRepairedQueriesController() {
 	}
-	
+
 	@FXML
 	public void initialize() {
-		System.out.println("jdapofjpofk");
-
 	}
-	
 
 	/**
 	 * Use to link the controllor with the main class
@@ -90,11 +85,12 @@ public class DisplayRepairedQueriesController {
 	private TableView<ObservableList<String>> createTableView(String[][] dataArray, String[] columnsArray) {
 		resultsTable.setItems(buildData(dataArray));
 
+		resultsTable.getColumns().clear();// need to clear each time otherwise the new columns are added to the previous
+
 		for (int i = 0; i < dataArray[0].length; i++) {
 			final int numColumn = i;
 			final TableColumn<ObservableList<String>, String> column = new TableColumn<>(columnsArray[i]);
 			column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(numColumn)));
-			resultsTable.getColumns().clear();// need to clear each time otherwise the new columns are added to the previous
 			resultsTable.getColumns().add(column);
 		}
 
@@ -104,7 +100,7 @@ public class DisplayRepairedQueriesController {
 
 	public void setResultsView(String[][] dataArray, String[] columnsArray) {
 		TableView<ObservableList<String>> resultsTable = new TableView<ObservableList<String>>();
-				resultsTable =createTableView(dataArray, columnsArray);
+		resultsTable = createTableView(dataArray, columnsArray);
 	}
 
 	@FXML
@@ -120,14 +116,14 @@ public class DisplayRepairedQueriesController {
 
 			controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 			// THIS WILL CHANGE
-			controllor.setRepairedQuery(this.main.getRun_CHAIn().getRepairedQueriesList().get(0).getQuery());
+			controllor.setRepairedQuery(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getQuery());
 			//////
 			// THIS WILL CHANGE TOO
-			ArrayList<String[]> matchComponents = this.main.getRun_CHAIn().getRepairedQueriesList().get(0)
+			ArrayList<String[]> matchComponents = this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex)
 					.getMatchComponents();
 			/////////////////////////////
 			String matchesStr = new String();
-			String simScore = Double.toString(this.main.getRun_CHAIn().getRepairedQueriesList().get(0).getSimValue());
+			String simScore = Double.toString(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getSimValue());
 			//////////////////////////////////////
 			matchesStr = "";
 			matchesStr += "Similarity score: " + simScore + "\n\n";
@@ -164,7 +160,10 @@ public class DisplayRepairedQueriesController {
 			controller.setMainApp(this.main);
 
 			int nbrResponse = 0;
-			nbrResponse = controller.resultsFormatting();
+
+			if (!hasNoResult(this.main.getResult_status())) {
+				nbrResponse = controller.resultsFormatting();
+			}
 			controller.setTopText(nbrResponse);
 			controller.setBottomTextAccordingToStatus(this.main.getResult_status());
 
@@ -172,7 +171,7 @@ public class DisplayRepairedQueriesController {
 			e.printStackTrace();
 		}
 		System.out.println("BACK !! :)");
-		//System.out.println(this.main.getResultsList().get(0));
+		// System.out.println(this.main.getResultsList().get(0));
 
 	}
 
@@ -215,14 +214,13 @@ public class DisplayRepairedQueriesController {
 				// results.setText("You Selected " + newValue);
 				selectedIndex = listRepairedQueries.getSelectionModel().getSelectedIndex();
 				results.setText(Integer.toString(selectedIndex));
-				//WORKING!
-				
-				System.out.println("INDEX: " + selectedIndex);
-				System.out.println("Result for query at index " + selectedIndex + ": "
-						+ ResultSetFormatter.toList(resultsList.get(selectedIndex)));
-				
+				// WORKING!
+
+				// System.out.println("INDEX: " + selectedIndex);
+				// System.out.println("Result for query at index " + selectedIndex + ": "
+				// + ResultSetFormatter.toList(resultsList.get(selectedIndex)));
+
 				setTableResults(selectedIndex);
-				
 
 			}
 		});
@@ -232,67 +230,81 @@ public class DisplayRepairedQueriesController {
 	public void setTableResults(int selectedIndex) {
 		System.out.println("TEST SELECTED INDEX: " + selectedIndex);
 
-		ResultSet copy = null;
-		ResultSet copy2 = null;
-		ResultSet copy3 = null;
+		if (!hasNoResult(this.main.getResult_status())) {
 
-		System.out.println(this.resultsList.get(0));
-		copy = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
-		copy2 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
-		copy3 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+			ResultSet copy = null;
+			ResultSet copy2 = null;
+			ResultSet copy3 = null;
 
-		int nbrResponse = 0;
+			// System.out.println(this.resultsList.get(0));
+			copy = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+			copy2 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+			copy3 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
 
+			int nbrResponse = 0;
 
-		System.out.println("INDEX: " + selectedIndex);
-		System.out.println("Result for query at index " + selectedIndex + ": "
-				+ ResultSetFormatter.toList(resultsList.get(selectedIndex)));
+			System.out.println("INDEX: " + selectedIndex);
+			System.out.println("Result for query at index " + selectedIndex + ": "
+					+ ResultSetFormatter.toList(resultsList.get(selectedIndex)));
 
-		// use to know the number of columns
-		Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
-		// use to get the columns' name
-		Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
+			// use to know the number of columns
+			Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
+			// use to get the columns' name
+			Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
 
-		int cptColumn = 0;
+			int cptColumn = 0;
 
-		while (columnIterator.hasNext()) {
-			System.out.println(columnIterator.next());
-			cptColumn++;
-		}
-
-		List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
-		nbrResponse = listOfResults.size();
-
-		String[][] resultsArray = new String[nbrResponse][cptColumn];
-		String[] columnsArray = new String[cptColumn];
-
-		// Columns name array
-		for (int cptC = 0; cptC < cptColumn; cptC++) {
-			columnsArray[cptC] = columnItName.next();
-		}
-
-		// results array
-		for (int i = 0; i < nbrResponse; i++) {
-			for (int cptC = 0; cptC < cptColumn; cptC++) {
-				resultsArray[i][cptC] = fillCell(resultsArray, i, cptC, listOfResults, columnsArray);
+			while (columnIterator.hasNext()) {
+				System.out.println(columnIterator.next());
+				cptColumn++;
 			}
+
+			List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
+			nbrResponse = listOfResults.size();
+
+			String[][] resultsArray = new String[nbrResponse][cptColumn];
+			String[] columnsArray = new String[cptColumn];
+
+			// Columns name array
+			for (int cptC = 0; cptC < cptColumn; cptC++) {
+				columnsArray[cptC] = columnItName.next();
+			}
+
+			// results array
+			for (int i = 0; i < nbrResponse; i++) {
+				for (int cptC = 0; cptC < cptColumn; cptC++) {
+					resultsArray[i][cptC] = cellValue(i, cptC, listOfResults, columnsArray);
+				}
+			}
+			this.setResultsView(resultsArray, columnsArray);
 		}
-		this.setResultsView(resultsArray, columnsArray);
 
 	}
 
-	private String fillCell(String[][] array, int cptRow, int cptCol, List<QuerySolution> testJena,
-			String[] columnsArray) {
+	/**
+	 *  Compute the value of the according cell
+	 * 
+	 * @param cptRow
+	 *            The number of rows in the array
+	 * @param cptCol
+	 *            The number of columns in the array
+	 * @param testJena
+	 *            The list of results
+	 * 
+	 * @param columnsArray
+	 *            The array containing the colums name
+	 * 
+	 * @return s
+	 */
+	private String cellValue(int cptRow, int cptCol, List<QuerySolution> listOfResults, String[] columnsArray) {
 		String s = "";
 		String columnName = columnsArray[cptCol];
 		// System.out.println("Column name: " + columnName);
 		// System.out.println(testJena.get(cptRow).get(columnName).toString());
-		s = testJena.get(cptRow).get(columnName).toString();
+		s = listOfResults.get(cptRow).get(columnName).toString();
 		return s;
 	}
 
-	
-	//TEST
 	public ArrayList<ResultSet> getResultsList() {
 		return resultsList;
 	}
@@ -300,7 +312,14 @@ public class DisplayRepairedQueriesController {
 	public void setResultsList(ArrayList<ResultSet> resultsList) {
 		this.resultsList = resultsList;
 	}
-	
-	
+
+	public boolean hasNoResult(int result_status) {
+		if (result_status == 6 || result_status == 7 || result_status == 8 || result_status == 9
+				|| result_status == 11) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

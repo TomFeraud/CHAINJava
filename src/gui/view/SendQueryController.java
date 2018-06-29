@@ -59,12 +59,14 @@ public class SendQueryController {
 
 	// If the interface has already been used
 	private boolean initialized;
+	
+	//To handle the different example predefined in the interface
+	private String example = "";
 
 	// Reference to the main class
 	private Main_GUI main;
 
-	// Test
-	private String example = "";
+	
 
 	/**
 	 * Default constructor
@@ -123,8 +125,7 @@ public class SendQueryController {
 					+ "PREFIX  foaf: <http://xlmns.com/foaf/0.1/> \n"
 					+ "PREFIX yago: <hhtp://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
 					+ "WHERE { ?id rdf:type dbo:River ;\n"
-					+ "dbo:lengthTest \"99300.0\"^^<http://www.w3.org/2001/XMLSchema#double> ;\n" + ".}\n"
-					+ "LIMIT 10\n\n";
+					+ "dbo:lengthTest \"99300.0\"^^<http://www.w3.org/2001/XMLSchema#double> ;\n" + ".}\n";
 
 			targetInit = "River(length) ; River(size)";
 

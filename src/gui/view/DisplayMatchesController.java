@@ -58,11 +58,13 @@ public class DisplayMatchesController {
 			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			DisplayRepairedQueriesController controllor = loader.getController();
-			controllor.setMainApp(this.main);	
-			controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
-			controllor.setResults(ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
-			controllor.setListRepairedQueries();
+			DisplayRepairedQueriesController controller = loader.getController();
+			controller.setMainApp(this.main);
+			controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
+			controller.setResultsList(this.main.getResultsList());
+			controller.setListRepairedQueries();
+			controller.setTableResults(0); // To display the results according to the first repaired query
+
 
 		} catch (IOException e) {
 			e.printStackTrace();

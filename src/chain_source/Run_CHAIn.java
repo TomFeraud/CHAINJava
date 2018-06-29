@@ -49,8 +49,7 @@ public class Run_CHAIn {
 	private ResultSet resultsFromARepairedQuery = null;
 	private ResultSet resultsFromInitialQuery = null;
 	private ArrayList<Match_Struc> repairedQueriesList = null;
-
-	// TEST
+//List of the result(s) of the repaired query(ies)
 	private ArrayList<ResultSet> listResultsFromRepairedQueries = null;
 
 	// main method for testing during implementation
@@ -128,9 +127,10 @@ public class Run_CHAIn {
 
 		// first step is trying to run the initial query
 
-		// Match_Struc current = new Match_Struc();
-
+		
+		query += "\nLIMIT " +queryLim; //TOM: otherwise the user have to enter manually the limit when framing the query
 		current.setQuery(query);
+		
 		resultsFromInitialQuery = runQuery.runQuery(current, queryType, dataDir);
 
 		if ((resultsFromInitialQuery != null) && (resultsFromInitialQuery.hasNext())) {
@@ -389,7 +389,6 @@ public class Run_CHAIn {
 		this.resultsFromARepairedQuery = resultsFromARepairedQuery;
 	}
 
-	////// TEST
 	public ArrayList<ResultSet> getListResultsFromRepairedQuery() {
 		return listResultsFromRepairedQueries;
 	}

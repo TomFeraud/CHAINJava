@@ -34,8 +34,6 @@ public class DisplayResultsController {
 
 	@FXML
 	private Text bottomText;
-	
-	
 
 	// Reference to the main class
 	private Main_GUI main;
@@ -89,30 +87,18 @@ public class DisplayResultsController {
 
 				DisplayRepairedQueriesController controller = loader.getController();
 				controller.setMainApp(this.main);
-
 				controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
-				// If the result status is different from REPAIREDQUERYRUNERROR
-				// Otherwise error when displaying repaired queries
-				if (this.main.getResult_status() != 9) {
-					// controller.setResults(
-					// ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
-				}
-				
 				controller.setResultsList(this.main.getResultsList());
-				System.out.println("Main 0.... : " +this.main.getResultsList().get(0));
-
-
-				// TEST
-				// controller.TESTSetResults();
 				controller.setListRepairedQueries();
+				controller.setTableResults(0); // To display the results according to the first repaired query
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
 			// TEST
-			System.out.println("REPAIRED QUERIES:");
-			System.out.println(this.main.getRun_CHAIn().getRepairedQueriesList());
+			// System.out.println("REPAIRED QUERIES:");
+			// System.out.println(this.main.getRun_CHAIn().getRepairedQueriesList());
 
 			// System.out.println(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
 
@@ -205,66 +191,56 @@ public class DisplayResultsController {
 		ResultSet copy3 = null;
 		int nbrResponse = 0;
 
+		// If the query when successfully the first time (no need to handle several
+		// queries)
 		if (initialQuerySuccess(this.main.getResult_status())) {
 			copy = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
 			copy2 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
 			copy3 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
 		}
 
+		// If the repaired query(ies) return results
 		else if (hasRepairedQueryResult(this.main.getResult_status())) {
-			/*
-			copy = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
-			copy2 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
-			copy3 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
-		*/
-		/////////////////////////////
-		
+			// Store the list of results from the repaired queries
 			ArrayList<ResultSet> resultsList = this.main.getRun_CHAIn().getListResultsFromRepairedQuery();
-			
+			// Assign it to our Main class to use it elsewhere
 			this.main.setResultsList(resultsList);
-			
-			//this.main.getRun_CHAIn().setListResultsFromRepairedQuery(resultsList);
-			
-			
-			
-			System.out.println("WTFFFFFFFFFFFf : " +this.main.getRun_CHAIn().getListResultsFromRepairedQuery().get(0));
-			System.out.println("TEEEEEEEEST RESULTS LIST:");
+
 			int nbrRepairedQueries = resultsList.size();
+			// Array of double which will contain the similarity score of the repaired
+			// queries
 			double[] similarityTab = new double[nbrRepairedQueries];
-			System.out.println("nbrRepaired queries: " +nbrRepairedQueries );
-			for(int cpt = 0 ; cpt<nbrRepairedQueries; cpt++) {
-				//System.out.println(ResultSetFormatter.toList(resultsList.get(cpt)));
-				
-				System.out.println("Sim value: " +this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue());
+			System.out.println("nbrRepaired queries: " + nbrRepairedQueries);
+			for (int cpt = 0; cpt < nbrRepairedQueries; cpt++) {
+				// System.out.println(ResultSetFormatter.toList(resultsList.get(cpt)));
+
+				System.out.println(
+						"Sim value: " + this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue());
 				similarityTab[cpt] = this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue();
 			}
 			double simMax = 0;
 			int index = 666;
-			for(int cpt = 0; cpt < similarityTab.length ; cpt ++) {
-				//NEED TO WORK OUT HOW TO DO IF EQUALS LIKE IN EXAMPLE2...
-				if(simMax<similarityTab[cpt]) {
+			// The variable index is equal to the index of the greater similarity score so
+			// we can display the result according to its query
+			for (int cpt = 0; cpt < similarityTab.length; cpt++) {
+				// NEED TO WORK OUT HOW TO DO IF EQUALS LIKE IN EXAMPLE2...
+				if (simMax < similarityTab[cpt]) {
 					simMax = similarityTab[cpt];
 					index = cpt;
 				}
 			}
-			
-			//COPY THE RESULTS FOR THE REPAIRED QUERY WITH THE BEST MATCHING SCORE
-			//if equal, take the first one (< and no <=)
-			//To optimize!
+
+			// COPY THE RESULTS FOR THE REPAIRED QUERY WITH THE BEST MATCHING SCORE
+			// if equal, take the first one (< and no <=)
+			// To optimize!
 			copy = ResultSetFactory.copyResults(resultsList.get(index));
 			copy2 = ResultSetFactory.copyResults(resultsList.get(index));
 			copy3 = ResultSetFactory.copyResults(resultsList.get(index));
-			
-			//WORKING! implement it!
+
 			System.out.println("INDEX: " + index);
-			System.out.println("Result for query at index " + index +": " +ResultSetFormatter.toList(resultsList.get(index)));
-			
-			///////////////////////
-		
-		
-		
-		
-		
+			System.out.println(
+					"Result for query at index " + index + ": " + ResultSetFormatter.toList(resultsList.get(index)));
+
 		}
 
 		// use to know the number of columns
@@ -288,6 +264,8 @@ public class DisplayResultsController {
 		 * System.out.println("TOM nb respnse:\n" + nbrResponse);
 		 */
 
+		// resultsArray contains all the row (except the first one which is the column
+		// name contained in columnsArray)
 		String[][] resultsArray = new String[nbrResponse][cptColumn];
 		String[] columnsArray = new String[cptColumn];
 
@@ -304,22 +282,35 @@ public class DisplayResultsController {
 		// results array
 		for (int i = 0; i < nbrResponse; i++) {
 			for (int cptC = 0; cptC < cptColumn; cptC++) {
-				resultsArray[i][cptC] = fillCell(resultsArray, i, cptC, listOfResults, columnsArray);
+				resultsArray[i][cptC] = cellValue(i, cptC, listOfResults, columnsArray);
 			}
 		}
 		this.setResultsView(resultsArray, columnsArray);
 
-		
 		return nbrResponse;
 	}
 
-	private String fillCell(String[][] array, int cptRow, int cptCol, List<QuerySolution> testJena,
-			String[] columnsArray) {
+	/**
+	 *  Compute the value of the according cell
+	 * 
+	 * @param cptRow
+	 *            The number of rows in the array
+	 * @param cptCol
+	 *            The number of columns in the array
+	 * @param testJena
+	 *            The list of results
+	 * 
+	 * @param columnsArray
+	 *            The array containing the colums name
+	 * 
+	 * @return s
+	 */
+	private String cellValue(int cptRow, int cptCol, List<QuerySolution> listOfResults, String[] columnsArray) {
 		String s = "";
 		String columnName = columnsArray[cptCol];
 		// System.out.println("Column name: " + columnName);
 		// System.out.println(testJena.get(cptRow).get(columnName).toString());
-		s = testJena.get(cptRow).get(columnName).toString();
+		s = listOfResults.get(cptRow).get(columnName).toString();
 		return s;
 	}
 
