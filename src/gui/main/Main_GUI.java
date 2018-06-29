@@ -36,8 +36,11 @@ public class Main_GUI extends Application {
 	private Project projectModel;
 	private int result_status;
 	
-	//Test
+	
 	private ArrayList<ResultSet> resultsList;
+	
+	//Test
+	private int nbrRepairedQueries;
 
 	// To access it from other controllers
 	private SendQueryController sendQueryController;
@@ -185,9 +188,18 @@ public class Main_GUI extends Application {
 	public void setResultsList(ArrayList<ResultSet> resultsList) {
 		this.resultsList = resultsList;
 	}
-	
-	
 
+	
+	
+	//TEST
+	
+	public int getNbrRepairedQueries() {
+		return nbrRepairedQueries;
+	}
+
+	public void setNbrRepairedQueries(int nbrRepairedQueries) {
+		this.nbrRepairedQueries = nbrRepairedQueries;
+	}
 	
 	
 }

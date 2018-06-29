@@ -35,6 +35,8 @@ public class DisplayResultsController {
 	@FXML
 	private Text bottomText;
 
+	// private int nbrRepairedQueries = 0;
+
 	// Reference to the main class
 	private Main_GUI main;
 
@@ -132,14 +134,43 @@ public class DisplayResultsController {
 
 	public void setTopText(int nbrResults) {
 		String test = "";
-		if (nbrResults > 1) {
-			test = nbrResults + " responses filtered according to your request";
-		} else if (nbrResults == 1) {
-			test = nbrResults + " response filtered according to your request";
+		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
+		System.out.println("SETTOPTEXT NBRREPQUERIES: " + nbrRepairedQueries);
+		if (nbrRepairedQueries > 1) {
+			if (nbrResults > 1) {
+				test = nbrResults + " responses filtered according to your request";
+				test += "\n There are " + nbrRepairedQueries + " repaired queries ";
+				test += "\n The results according to the one with the highest similarity is displayed";
+				System.out.println(test);
+			} else if (nbrResults == 1) {
+				test = nbrResults + " response filtered according to your request";
+				test += "\n There are " + nbrRepairedQueries + " repaired queries ";
+				test += "\n The results according to the one with the highest similarity is displayed";
+			} else {
+				test = "Sorry, there is no response for your request";
+				test += "\n Try to look at the " + nbrRepairedQueries + " repaired queries generated ";
+			}
+		} else if (nbrRepairedQueries == 1) {
+			if (nbrResults > 1) {
+				test = nbrResults + " responses filtered according to your request";
+				test += "\nThere is " + nbrRepairedQueries + " repaired query ";
+				System.out.println(test);
+			} else if (nbrResults == 1) {
+				test = nbrResults + " response filtered according to your request";
+				test += "\n There is " + nbrRepairedQueries + " repaired query ";
+			} else {
+				test = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
+				test += "\n Try to look at the repaired query generated ";
+			}
 		} else {
-			test = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
+			if (nbrResults > 1) {
+				test = nbrResults + " responses filtered according to your request";
+			} else if (nbrResults == 1) {
+				test = nbrResults + " response filtered according to your request";
+			} else {
+				test = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
+			}
 		}
-
 		this.topText.setText(test);
 	}
 
@@ -153,7 +184,8 @@ public class DisplayResultsController {
 			text = "UNKNOWNSTATUS";
 			break;
 		case 5:
-			text = "INITIALQUERYSUCCESS";
+			text = "The query has run successfully";
+			text += "\nResult status: INITIALQUERYSUCCESS";
 			break;
 		case 6:
 			text = "INVALIDQUERY";
@@ -168,7 +200,8 @@ public class DisplayResultsController {
 			text = "REPAIREDQUERYRUNERROR";
 			break;
 		case 10:
-			text = "REPAIREDQUERYRESULTS";
+			text = "The query needed to be repaired in order to provide results. Click on Repaired Queries for more information";
+			text += "\nResult status:REPAIREDQUERYRESULTS";
 			break;
 		case 11:
 			text = "REPAIREDQUERYNORESULTS";
@@ -207,6 +240,7 @@ public class DisplayResultsController {
 			this.main.setResultsList(resultsList);
 
 			int nbrRepairedQueries = resultsList.size();
+			// this.main.setNbrRepairedQueries(nbrRepairedQueries);
 			// Array of double which will contain the similarity score of the repaired
 			// queries
 			double[] similarityTab = new double[nbrRepairedQueries];
@@ -291,7 +325,7 @@ public class DisplayResultsController {
 	}
 
 	/**
-	 *  Compute the value of the according cell
+	 * Compute the value of the according cell
 	 * 
 	 * @param cptRow
 	 *            The number of rows in the array

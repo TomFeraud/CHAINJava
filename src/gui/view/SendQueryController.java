@@ -1,6 +1,7 @@
 package gui.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -169,7 +170,7 @@ public class SendQueryController {
 					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
 					+ "PREFIX  foaf: <http://xlmns.com/foaf/0.1/> \n"
 					+ "PREFIX yago: <hhtp://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
-					+ "WHERE { ?id rdf:type dbo:River ;\n" + "dbo:length ?length ;\n" + ".}\n" + "LIMIT 10\n\n";
+					+ "WHERE { ?id rdf:type dbo:River ;\n" + "dbo:length ?length ;\n" + ".}\n \n";
 
 			targetInit = "River(length)";
 
@@ -330,6 +331,20 @@ public class SendQueryController {
 			if (initialQuerySuccess(result_status) || hasRepairedQueryResult(result_status)) {
 				nbrResponse = controller.resultsFormatting();
 			}
+			
+			
+			//TEST
+			 if (hasRepairedQueryResult(this.main.getResult_status())) {
+				// Store the list of results from the repaired queries
+				ArrayList<ResultSet> resultsList = this.main.getRun_CHAIn().getListResultsFromRepairedQuery();
+				// Assign it to our Main class to use it elsewhere
+				this.main.setResultsList(resultsList);
+				
+				int nbrRepairedQueries = resultsList.size();
+				this.main.setNbrRepairedQueries(nbrRepairedQueries);
+			}
+			
+			/////
 
 			if (hasNoResult(this.main.getResult_status())) {
 				controller.setTopText(0);
@@ -337,6 +352,11 @@ public class SendQueryController {
 				controller.setTopText(nbrResponse);
 			}
 			controller.setBottomTextAccordingToStatus(result_status);
+			
+
+			
+			
+			
 
 			this.setInitialized(true);
 		} catch (

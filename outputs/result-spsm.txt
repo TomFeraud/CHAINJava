@@ -1,6 +1,3 @@
-similarity(1.0).
-match([[water,geo],=,[water,geo]]).
-match([[water,timePeriod],=,[water,timePeriod]]).
-match([[water,measure],=,[water,measure]]).
-match([[water,resource],=,[water,resource]]).
-match([[water],=,[water]]).
+similarity(0.75).
+match([[River,lengthTest],<,[River,size]]).
+match([[River],=,[River]]).
