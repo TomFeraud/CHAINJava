@@ -51,7 +51,7 @@ public class Run_CHAIn {
 	private ArrayList<Match_Struc> repairedQueriesList = null;
 
 	// TEST
-	private ArrayList<ResultSet> listResultsFromRepairedQueries = new ArrayList<ResultSet>();
+	private ArrayList<ResultSet> listResultsFromRepairedQueries = null;
 
 	// main method for testing during implementation
 	public static void main(String[] args) {
@@ -205,7 +205,8 @@ public class Run_CHAIn {
 					System.out.println("Match_Struc:" + r);
 				}
 				System.out.println("End of the display for the repaired queries !\n ");
-
+				//Initialize our list to store the results in it
+				listResultsFromRepairedQueries = new ArrayList<ResultSet>();
 				for (int i = 0; i < repairedQueriesList.size(); i++) {
 					// try running new queries
 					Match_Struc curr = repairedQueriesList.get(i);
@@ -247,7 +248,7 @@ public class Run_CHAIn {
 						}
 						result_status = REPAIREDQUERYRESULTS;
 					}
-					
+					//Add to our list the result
 					listResultsFromRepairedQueries.add(resultsFromARepairedQuery);
 				}
 			}

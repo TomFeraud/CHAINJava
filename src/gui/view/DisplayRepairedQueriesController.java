@@ -2,8 +2,12 @@ package gui.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
+import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.query.ResultSetFactory;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 
 import gui.main.Main_GUI;
@@ -37,20 +41,32 @@ public class DisplayRepairedQueriesController {
 
 	@FXML
 	private TextArea results;
-	
+
 	@FXML
 	private TableView<ObservableList<String>> resultsTable;
+	
+	protected int selectedIndex;
 
 	// Reference to the main class
 	private Main_GUI main;
 
-	protected int selectedIndex;
+	
+	
+	//TEST
+	private ArrayList<ResultSet> resultsList = new ArrayList<ResultSet>();
 
 	/**
 	 * Default constructor
 	 */
 	public DisplayRepairedQueriesController() {
 	}
+	
+	@FXML
+	public void initialize() {
+		System.out.println("jdapofjpofk");
+
+	}
+	
 
 	/**
 	 * Use to link the controllor with the main class
@@ -60,10 +76,7 @@ public class DisplayRepairedQueriesController {
 	public void setMainApp(Main_GUI mainApp) {
 		this.main = mainApp;
 	}
-	
-	
-	
-	
+
 	private ObservableList<ObservableList<String>> buildData(String[][] dataArray) {
 		ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
@@ -81,20 +94,18 @@ public class DisplayRepairedQueriesController {
 			final int numColumn = i;
 			final TableColumn<ObservableList<String>, String> column = new TableColumn<>(columnsArray[i]);
 			column.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(numColumn)));
+			resultsTable.getColumns().clear();// need to clear each time otherwise the new columns are added to the previous
 			resultsTable.getColumns().add(column);
 		}
 
 		// return resultsTable;
 		return resultsTable;
 	}
-	
+
 	public void setResultsView(String[][] dataArray, String[] columnsArray) {
-		TableView<ObservableList<String>> resultsTable = createTableView(dataArray, columnsArray);
+		TableView<ObservableList<String>> resultsTable = new TableView<ObservableList<String>>();
+				resultsTable =createTableView(dataArray, columnsArray);
 	}
-	
-	
-	
-	
 
 	@FXML
 	public void nextScene() {
@@ -161,6 +172,8 @@ public class DisplayRepairedQueriesController {
 			e.printStackTrace();
 		}
 		System.out.println("BACK !! :)");
+		//System.out.println(this.main.getResultsList().get(0));
+
 	}
 
 	/**
@@ -200,21 +213,94 @@ public class DisplayRepairedQueriesController {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				// change the label text value to the newly selected item
 				// results.setText("You Selected " + newValue);
-				 selectedIndex = listRepairedQueries.getSelectionModel().getSelectedIndex();
+				selectedIndex = listRepairedQueries.getSelectionModel().getSelectedIndex();
 				results.setText(Integer.toString(selectedIndex));
+				//WORKING!
 				
+				System.out.println("INDEX: " + selectedIndex);
+				System.out.println("Result for query at index " + selectedIndex + ": "
+						+ ResultSetFormatter.toList(resultsList.get(selectedIndex)));
 				
+				setTableResults(selectedIndex);
 				
-				DisplayRepairedQueriesController test = new DisplayRepairedQueriesController();
-				test.TESTSetResults(selectedIndex);
+
 			}
 		});
-		
 
 	}
 
-	public void TESTSetResults(int selectedIndex ) {
-		System.out.println("TEST SELECTED INDEX: " +selectedIndex);
+	public void setTableResults(int selectedIndex) {
+		System.out.println("TEST SELECTED INDEX: " + selectedIndex);
+
+		ResultSet copy = null;
+		ResultSet copy2 = null;
+		ResultSet copy3 = null;
+
+		System.out.println(this.resultsList.get(0));
+		copy = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+		copy2 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+		copy3 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+
+		int nbrResponse = 0;
+
+
+		System.out.println("INDEX: " + selectedIndex);
+		System.out.println("Result for query at index " + selectedIndex + ": "
+				+ ResultSetFormatter.toList(resultsList.get(selectedIndex)));
+
+		// use to know the number of columns
+		Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
+		// use to get the columns' name
+		Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
+
+		int cptColumn = 0;
+
+		while (columnIterator.hasNext()) {
+			System.out.println(columnIterator.next());
+			cptColumn++;
+		}
+
+		List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
+		nbrResponse = listOfResults.size();
+
+		String[][] resultsArray = new String[nbrResponse][cptColumn];
+		String[] columnsArray = new String[cptColumn];
+
+		// Columns name array
+		for (int cptC = 0; cptC < cptColumn; cptC++) {
+			columnsArray[cptC] = columnItName.next();
+		}
+
+		// results array
+		for (int i = 0; i < nbrResponse; i++) {
+			for (int cptC = 0; cptC < cptColumn; cptC++) {
+				resultsArray[i][cptC] = fillCell(resultsArray, i, cptC, listOfResults, columnsArray);
+			}
+		}
+		this.setResultsView(resultsArray, columnsArray);
+
 	}
+
+	private String fillCell(String[][] array, int cptRow, int cptCol, List<QuerySolution> testJena,
+			String[] columnsArray) {
+		String s = "";
+		String columnName = columnsArray[cptCol];
+		// System.out.println("Column name: " + columnName);
+		// System.out.println(testJena.get(cptRow).get(columnName).toString());
+		s = testJena.get(cptRow).get(columnName).toString();
+		return s;
+	}
+
+	
+	//TEST
+	public ArrayList<ResultSet> getResultsList() {
+		return resultsList;
+	}
+
+	public void setResultsList(ArrayList<ResultSet> resultsList) {
+		this.resultsList = resultsList;
+	}
+	
+	
 
 }

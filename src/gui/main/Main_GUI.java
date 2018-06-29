@@ -1,6 +1,9 @@
 package gui.main;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.hp.hpl.jena.query.ResultSet;
 
 import chain_source.Run_CHAIn;
 import gui.model.Project;
@@ -32,6 +35,9 @@ public class Main_GUI extends Application {
 	private Run_CHAIn run_CHAIn;
 	private Project projectModel;
 	private int result_status;
+	
+	//Test
+	private ArrayList<ResultSet> resultsList;
 
 	// To access it from other controllers
 	private SendQueryController sendQueryController;
@@ -171,6 +177,16 @@ public class Main_GUI extends Application {
 	public void setResult_status(int result_status) {
 		this.result_status = result_status;
 	}
+
+	public ArrayList<ResultSet> getResultsList() {
+		return resultsList;
+	}
+
+	public void setResultsList(ArrayList<ResultSet> resultsList) {
+		this.resultsList = resultsList;
+	}
+	
+	
 
 	
 	

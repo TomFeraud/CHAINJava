@@ -34,6 +34,8 @@ public class DisplayResultsController {
 
 	@FXML
 	private Text bottomText;
+	
+	
 
 	// Reference to the main class
 	private Main_GUI main;
@@ -95,10 +97,14 @@ public class DisplayResultsController {
 					// controller.setResults(
 					// ResultSetFormatter.asText(this.main.getRun_CHAIn().getResultsFromARepairedQuery()));
 				}
-				controller.setListRepairedQueries();
+				
+				controller.setResultsList(this.main.getResultsList());
+				System.out.println("Main 0.... : " +this.main.getResultsList().get(0));
+
 
 				// TEST
 				// controller.TESTSetResults();
+				controller.setListRepairedQueries();
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -143,7 +149,7 @@ public class DisplayResultsController {
 		if (nbrResults > 1) {
 			test = nbrResults + " responses filtered according to your request";
 		} else if (nbrResults == 1) {
-			test = nbrResults + " response filtered corresponding to your request";
+			test = nbrResults + " response filtered according to your request";
 		} else {
 			test = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
 		}
@@ -206,16 +212,54 @@ public class DisplayResultsController {
 		}
 
 		else if (hasRepairedQueryResult(this.main.getResult_status())) {
+			/*
 			copy = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
 			copy2 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
 			copy3 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromARepairedQuery());
+		*/
+		/////////////////////////////
 		
-		
-		
-		////
-		//// NEED TO PUT THE CODED TESTED HERE!
-		////
-		////
+			ArrayList<ResultSet> resultsList = this.main.getRun_CHAIn().getListResultsFromRepairedQuery();
+			
+			this.main.setResultsList(resultsList);
+			
+			//this.main.getRun_CHAIn().setListResultsFromRepairedQuery(resultsList);
+			
+			
+			
+			System.out.println("WTFFFFFFFFFFFf : " +this.main.getRun_CHAIn().getListResultsFromRepairedQuery().get(0));
+			System.out.println("TEEEEEEEEST RESULTS LIST:");
+			int nbrRepairedQueries = resultsList.size();
+			double[] similarityTab = new double[nbrRepairedQueries];
+			System.out.println("nbrRepaired queries: " +nbrRepairedQueries );
+			for(int cpt = 0 ; cpt<nbrRepairedQueries; cpt++) {
+				//System.out.println(ResultSetFormatter.toList(resultsList.get(cpt)));
+				
+				System.out.println("Sim value: " +this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue());
+				similarityTab[cpt] = this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue();
+			}
+			double simMax = 0;
+			int index = 666;
+			for(int cpt = 0; cpt < similarityTab.length ; cpt ++) {
+				//NEED TO WORK OUT HOW TO DO IF EQUALS LIKE IN EXAMPLE2...
+				if(simMax<similarityTab[cpt]) {
+					simMax = similarityTab[cpt];
+					index = cpt;
+				}
+			}
+			
+			//COPY THE RESULTS FOR THE REPAIRED QUERY WITH THE BEST MATCHING SCORE
+			//if equal, take the first one (< and no <=)
+			//To optimize!
+			copy = ResultSetFactory.copyResults(resultsList.get(index));
+			copy2 = ResultSetFactory.copyResults(resultsList.get(index));
+			copy3 = ResultSetFactory.copyResults(resultsList.get(index));
+			
+			//WORKING! implement it!
+			System.out.println("INDEX: " + index);
+			System.out.println("Result for query at index " + index +": " +ResultSetFormatter.toList(resultsList.get(index)));
+			
+			///////////////////////
 		
 		
 		
@@ -264,38 +308,8 @@ public class DisplayResultsController {
 			}
 		}
 		this.setResultsView(resultsArray, columnsArray);
-/////////////////////////////////////////////
-		//ArrayList<Match_Struc> repairedQueriesList = this.main.getRun_CHAIn().getRepairedQueriesList();
-		//System.out.println("RQL 0: "+repairedQueriesList.get(0));
+
 		
-		ArrayList<ResultSet> resultsList = this.main.getRun_CHAIn().getListResultsFromRepairedQuery();
-		
-		System.out.println("TEEEEEEEEST RESULTS LIST:");
-		int nbrRepairedQueries = resultsList.size();
-		double[] similarityTab = new double[nbrRepairedQueries];
-		for(int cpt = 0 ; cpt<nbrRepairedQueries; cpt++) {
-			//System.out.println(ResultSetFormatter.toList(resultsList.get(cpt)));
-			System.out.println("Sim value: " +this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue());
-			similarityTab[cpt] = this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue();
-		}
-		double simMax = 0;
-		int index = 666;
-		for(int cpt = 0; cpt < similarityTab.length ; cpt ++) {
-			//NEED TO WORK OUT HOW TO DO IF EQUALS LIKE IN EXAMPLE2...
-			if(simMax<similarityTab[cpt]) {
-				simMax = similarityTab[cpt];
-				index = cpt;
-			}
-		}
-		
-		
-		//WORKING! implement it!
-		System.out.println("INDEX: " + index);
-		System.out.println("Result for query at index " + index +": " +ResultSetFormatter.toList(resultsList.get(index)));
-		
-		
-		
-/////////////////////////////////////////////////
 		return nbrResponse;
 	}
 
