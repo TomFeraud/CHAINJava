@@ -32,7 +32,7 @@
                   <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="65.0" prefWidth="700.0" style="-fx-background-color: grey;">
                      <children>
                         <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="400.0" />
-                        <Button mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired queries" />
+                        <Button fx:id="repairedQueriesButton" mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired Queries" />
                      </children>
                   </FlowPane>
                   <FlowPane alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: blue;">

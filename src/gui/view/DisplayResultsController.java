@@ -35,7 +35,9 @@ public class DisplayResultsController {
 	@FXML
 	private Text bottomText;
 
-	// private int nbrRepairedQueries = 0;
+	// TEST
+	@FXML
+	private Button repairedQueriesButton;
 
 	// Reference to the main class
 	private Main_GUI main;
@@ -98,12 +100,6 @@ public class DisplayResultsController {
 				e.printStackTrace();
 			}
 
-			// TEST
-			// System.out.println("REPAIRED QUERIES:");
-			// System.out.println(this.main.getRun_CHAIn().getRepairedQueriesList());
-
-			// System.out.println(this.main.getRun_CHAIn().getRepairedQueries().get(0).getQuery());
-
 		}
 	}
 
@@ -139,16 +135,16 @@ public class DisplayResultsController {
 		if (nbrRepairedQueries > 1) {
 			if (nbrResults > 1) {
 				test = nbrResults + " responses filtered according to your request";
-				test += "\n There are " + nbrRepairedQueries + " repaired queries ";
-				test += "\n The results according to the one with the highest similarity is displayed";
+				test += "\nThere are " + nbrRepairedQueries + " repaired queries ";
+				test += "\nThe results according to the one with the highest similarity is displayed";
 				System.out.println(test);
 			} else if (nbrResults == 1) {
 				test = nbrResults + " response filtered according to your request";
-				test += "\n There are " + nbrRepairedQueries + " repaired queries ";
-				test += "\n The results according to the one with the highest similarity is displayed";
+				test += "\nThere are " + nbrRepairedQueries + " repaired queries ";
+				test += "\nThe results according to the one with the highest similarity is displayed";
 			} else {
 				test = "Sorry, there is no response for your request";
-				test += "\n Try to look at the " + nbrRepairedQueries + " repaired queries generated ";
+				test += "\nTry to look at the " + nbrRepairedQueries + " repaired queries generated ";
 			}
 		} else if (nbrRepairedQueries == 1) {
 			if (nbrResults > 1) {
@@ -157,10 +153,10 @@ public class DisplayResultsController {
 				System.out.println(test);
 			} else if (nbrResults == 1) {
 				test = nbrResults + " response filtered according to your request";
-				test += "\n There is " + nbrRepairedQueries + " repaired query ";
+				test += "\nThere is " + nbrRepairedQueries + " repaired query ";
 			} else {
 				test = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
-				test += "\n Try to look at the repaired query generated ";
+				test += "\nTry to look at the repaired query generated ";
 			}
 		} else {
 			if (nbrResults > 1) {
@@ -168,7 +164,7 @@ public class DisplayResultsController {
 			} else if (nbrResults == 1) {
 				test = nbrResults + " response filtered according to your request";
 			} else {
-				test = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
+				test = "Sorry, there is no response for your request. Try to modify the parameters or type again your query ";
 			}
 		}
 		this.topText.setText(test);
@@ -177,7 +173,10 @@ public class DisplayResultsController {
 	// Need to add more detail explications (keep the return status displayed for
 	// testing)
 	public void setBottomTextAccordingToStatus(int result_status) {
+		boolean TEST = true; // if true, display the result status
 		String text = "";
+		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
+
 		switch (result_status) {
 
 		case 0:
@@ -185,29 +184,62 @@ public class DisplayResultsController {
 			break;
 		case 5:
 			text = "The query has run successfully";
-			text += "\nResult status: INITIALQUERYSUCCESS";
+			if (TEST) {
+				text += "\nResult status: INITIALQUERYSUCCESS";
+			}
 			break;
 		case 6:
-			text = "INVALIDQUERY";
+			text = "You entered an invalid SPARQL query";
+			if (TEST) {
+				text += "\nResult status: INVALIDQUERY";
+			}
 			break;
 		case 7:
-			text = "SPSMFAILURE";
+			text = "SPSM failure (this should not happen)";
+			if (TEST) {
+				text += "\nResult status: SPSMFAILURE";
+			}
 			break;
-		case 8:
-			text = "NOMATCHESFROMSPSM";
+		case 8:// May need to get rid of the words "SPSM" ? and just say no result?
+			text = "There have been 0 matches returned from SPSM";
+			if (TEST) {
+				text += "\nResult status: NOMATCHESFROMSPSM";
+			}
 			break;
 		case 9:
-			text = "REPAIREDQUERYRUNERROR";
+			nbrRepairedQueries =1; //otherwise don't work..
+			if (nbrRepairedQueries == 1) {
+				text = "The repaired query has not run successfully. Click on Repaired Query for more information";
+			} else if (nbrRepairedQueries > 1) {
+				text = "The repaired query has not run successfully. Click on Repaired Queries for more information";
+
+			}
+			if (TEST) {
+				text += "\nResult status: REPAIREDQUERYRUNERROR";
+			}
 			break;
 		case 10:
-			text = "The query needed to be repaired in order to provide results. Click on Repaired Queries for more information";
-			text += "\nResult status:REPAIREDQUERYRESULTS";
+			if (nbrRepairedQueries == 1) {
+				text = "The query needed to be repaired in order to provide results. Click on Repaired Query for more information";
+			} else if (nbrRepairedQueries > 1) {
+				text = "The query needed to be repaired in order to provide results. Click on Repaired Queries for more information";
+
+			}
+			if (TEST) {
+				text += "\nResult status: REPAIREDQUERYRESULTS";
+			}
 			break;
 		case 11:
-			text = "REPAIREDQUERYNORESULTS";
+			text = "TO DO";
+			if (TEST) {
+				text += "\nResult status: REPAIREDQUERYNORESULTS";
+			}
 			break;
 		case 12:
-			text = "DATAREPAIREDWITHRESULTS";
+			text = "TO DO";
+			if (TEST) {
+				text += "\nResult status: DATAREPAIREDWITHRESULTS";
+			}
 			break;
 		default:
 			text = "Invalid result_status returned by CHAIn";
@@ -215,6 +247,26 @@ public class DisplayResultsController {
 		}
 
 		this.bottomText.setText(text);
+	}
+
+	public void setTextButtonRepairedQueries() {
+		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
+		//Otherwise don't work...
+		if(this.main.getResult_status() == 9) {
+			nbrRepairedQueries = 1;
+		}
+		
+		if (nbrRepairedQueries == 0) {
+			this.repairedQueriesButton.setText("No Repaired Query");
+			this.repairedQueriesButton.setVisible(false);
+		} else if (nbrRepairedQueries == 1) {
+			this.repairedQueriesButton.setText("Repaired Query");
+		} else if (nbrRepairedQueries > 1) {
+			this.repairedQueriesButton.setText("Repaired Queries");
+		} else {// FAILURE
+			this.repairedQueriesButton.setText("XXXX");
+		}
+
 	}
 
 	public int resultsFormatting() {

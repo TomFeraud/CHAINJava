@@ -60,14 +60,12 @@ public class SendQueryController {
 
 	// If the interface has already been used
 	private boolean initialized;
-	
-	//To handle the different example predefined in the interface
+
+	// To handle the different example predefined in the interface
 	private String example = "";
 
 	// Reference to the main class
 	private Main_GUI main;
-
-	
 
 	/**
 	 * Default constructor
@@ -331,32 +329,31 @@ public class SendQueryController {
 			if (initialQuerySuccess(result_status) || hasRepairedQueryResult(result_status)) {
 				nbrResponse = controller.resultsFormatting();
 			}
-			
-			
-			//TEST
-			 if (hasRepairedQueryResult(this.main.getResult_status())) {
+
+			// Store the list of results from the repaired queries
+			if (!hasNoRepairedQueries(result_status)) {
 				// Store the list of results from the repaired queries
 				ArrayList<ResultSet> resultsList = this.main.getRun_CHAIn().getListResultsFromRepairedQuery();
 				// Assign it to our Main class to use it elsewhere
 				this.main.setResultsList(resultsList);
-				
-				int nbrRepairedQueries = resultsList.size();
-				this.main.setNbrRepairedQueries(nbrRepairedQueries);
-			}
-			
-			/////
 
-			if (hasNoResult(this.main.getResult_status())) {
+				int nbrRepairedQueries = resultsList.size();
+
+				this.main.setNbrRepairedQueries(nbrRepairedQueries);
+			} else {// no repaired query in the other case so we set the number to 0
+
+				this.main.setNbrRepairedQueries(0);
+
+			}
+
+			if (hasNoResult(result_status)) {
 				controller.setTopText(0);
 			} else {
 				controller.setTopText(nbrResponse);
 			}
-			controller.setBottomTextAccordingToStatus(result_status);
-			
 
-			
-			
-			
+			controller.setBottomTextAccordingToStatus(result_status);
+			controller.setTextButtonRepairedQueries();
 
 			this.setInitialized(true);
 		} catch (
@@ -385,6 +382,14 @@ public class SendQueryController {
 	public boolean hasNoResult(int result_status) {
 		if (result_status == 6 || result_status == 7 || result_status == 8 || result_status == 9
 				|| result_status == 11) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean hasNoRepairedQueries(int result_status) {
+		if (result_status == 5 || result_status == 6 || result_status == 7 || result_status == 8) {
 			return true;
 		} else {
 			return false;
