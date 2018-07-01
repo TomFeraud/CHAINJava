@@ -173,7 +173,7 @@ public class DisplayResultsController {
 	// Need to add more detail explications (keep the return status displayed for
 	// testing)
 	public void setBottomTextAccordingToStatus(int result_status) {
-		boolean TEST = true; // if true, display the result status
+		boolean TEST = false; // if true, display the result status
 		String text = "";
 		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
 

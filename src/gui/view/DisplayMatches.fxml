@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayMatchesController">
+<AnchorPane stylesheets="@view_css/displayMatches.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayMatchesController">
    <children>
       <VBox layoutX="157.0" layoutY="42.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: grey;" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="200.0" prefWidth="350.0" style="-: grey;" HBox.hgrow="ALWAYS">
                      <children>
                         <FlowPane alignment="CENTER" maxHeight="45.0" prefHeight="50.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -30,7 +30,7 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="68.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: grey;" HBox.hgrow="ALWAYS">
+                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
                      <children>
                         <FlowPane alignment="CENTER" maxHeight="45.0" prefHeight="50.0" VBox.vgrow="ALWAYS">
                            <children>
@@ -55,14 +55,36 @@
                      <children>
                         <FlowPane alignment="CENTER" maxHeight="45.0" prefHeight="40.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matches" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matches                                " />
                            </children>
                         </FlowPane>
-                        <HBox maxHeight="290.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" maxHeight="290.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" HBox.hgrow="ALWAYS" />
-                              <TextArea fx:id="matchesArea" editable="false" prefHeight="133.0" prefWidth="270.0" HBox.hgrow="ALWAYS" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" HBox.hgrow="ALWAYS" />
+                              <TextArea fx:id="matchesArea" editable="false" prefHeight="138.0" prefWidth="508.0" HBox.hgrow="ALWAYS" />
+                              <GridPane alignment="CENTER">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Symbol" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meaning" GridPane.columnIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="=" GridPane.rowIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="equivalent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" GridPane.rowIndex="2" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="less general" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" GridPane.rowIndex="3" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="more general" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                 </children>
+                              </GridPane>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" />
                            </children>
                         </HBox>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" stroke="TRANSPARENT" strokeType="INSIDE" width="68.0" VBox.vgrow="ALWAYS" />
@@ -70,7 +92,7 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" style="-fx-background-color: blue;" VBox.vgrow="ALWAYS">
+            <HBox fx:id="bottomHbox" alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" style="-: ;" VBox.vgrow="ALWAYS">
                <children>
                   <Button mnemonicParsing="false" onAction="#back" text="Go Back" HBox.hgrow="ALWAYS" />
                </children>

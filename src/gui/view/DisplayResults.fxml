@@ -7,35 +7,35 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayResultsController">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" stylesheets="@view_css/displayResults.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayResultsController">
    <children>
       <BorderPane layoutX="307.0" layoutY="68.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <VBox alignment="CENTER" prefHeight="70.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="topVbox" alignment="CENTER" maxHeight="76.0" minWidth="30.0" prefHeight="0.0" prefWidth="700.0" BorderPane.alignment="TOP_CENTER">
                <children>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="45.0" prefWidth="700.0" style="-fx-background-color: blue;" VBox.vgrow="ALWAYS">
+                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" minWidth="10.0" prefHeight="118.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." />
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="CENTER" prefHeight="25.0" prefWidth="700.0" style="-fx-background-color: grey;" VBox.vgrow="ALWAYS">
+                  <FlowPane alignment="BOTTOM_CENTER" maxHeight="80.0" minWidth="10.0" prefHeight="16.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Response(s):" wrappingWidth="95.27698516845703" />
                      </children>
                   </FlowPane>
                </children>
             </VBox>
          </top>
          <bottom>
-            <VBox prefHeight="100.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="bottomVbox" maxHeight="60.0" prefHeight="38.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="65.0" prefWidth="700.0" style="-fx-background-color: grey;">
+                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="0.0" prefWidth="700.0">
                      <children>
                         <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="400.0" />
                         <Button fx:id="repairedQueriesButton" mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired Queries" />
                      </children>
                   </FlowPane>
-                  <FlowPane alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" prefWidth="700.0" style="-fx-background-color: blue;">
+                  <FlowPane alignment="CENTER_LEFT" maxHeight="84.0" prefHeight="84.0" prefWidth="700.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#back" text="Go Back" />
                      </children>
@@ -44,7 +44,7 @@
             </VBox>
          </bottom>
          <center>
-            <TableView fx:id="resultsTable" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
+            <TableView fx:id="resultsTable" prefHeight="85.0" prefWidth="700.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>
