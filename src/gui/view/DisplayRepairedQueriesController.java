@@ -18,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
@@ -115,15 +116,17 @@ public class DisplayRepairedQueriesController {
 			controllor.setMainApp(this.main);
 
 			controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
-			// THIS WILL CHANGE
-			controllor.setRepairedQuery(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getQuery());
+			// THIS WILL CHANGE ?
+			controllor
+					.setRepairedQuery(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getQuery());
 			//////
 			// THIS WILL CHANGE TOO
 			ArrayList<String[]> matchComponents = this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex)
 					.getMatchComponents();
 			/////////////////////////////
 			String matchesStr = new String();
-			String simScore = Double.toString(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getSimValue());
+			String simScore = Double
+					.toString(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getSimValue());
 			//////////////////////////////////////
 			matchesStr = "";
 			matchesStr += "Similarity score: " + simScore + "\n\n";
@@ -230,59 +233,66 @@ public class DisplayRepairedQueriesController {
 	public void setTableResults(int selectedIndex) {
 		System.out.println("TEST SELECTED INDEX: " + selectedIndex);
 
-		if (!hasNoResult(this.main.getResult_status())) {
+		if (selectedIndex == -1) {
+			resultsTable.setPlaceholder(new Label("Please select a repaired query to display the results"));
+		} else {
 
-			ResultSet copy = null;
-			ResultSet copy2 = null;
-			ResultSet copy3 = null;
+			if (!hasNoResult(this.main.getResult_status())) {
 
-			// System.out.println(this.resultsList.get(0));
-			copy = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
-			copy2 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
-			copy3 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+				ResultSet copy = null;
+				ResultSet copy2 = null;
+				ResultSet copy3 = null;
 
-			int nbrResponse = 0;
+				// System.out.println(this.resultsList.get(0));
+				copy = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+				copy2 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
+				copy3 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
 
-			System.out.println("INDEX: " + selectedIndex);
-			System.out.println("Result for query at index " + selectedIndex + ": "
-					+ ResultSetFormatter.toList(resultsList.get(selectedIndex)));
+				int nbrResponse = 0;
 
-			// use to know the number of columns
-			Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
-			// use to get the columns' name
-			Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
+				System.out.println("INDEX: " + selectedIndex);
+				System.out.println("Result for query at index " + selectedIndex + ": "
+						+ ResultSetFormatter.toList(resultsList.get(selectedIndex)));
 
-			int cptColumn = 0;
+				// use to know the number of columns
+				Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
+				// use to get the columns' name
+				Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
 
-			while (columnIterator.hasNext()) {
-				System.out.println(columnIterator.next());
-				cptColumn++;
-			}
+				int cptColumn = 0;
 
-			List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
-			nbrResponse = listOfResults.size();
-
-			String[][] resultsArray = new String[nbrResponse][cptColumn];
-			String[] columnsArray = new String[cptColumn];
-
-			// Columns name array
-			for (int cptC = 0; cptC < cptColumn; cptC++) {
-				columnsArray[cptC] = columnItName.next();
-			}
-
-			// results array
-			for (int i = 0; i < nbrResponse; i++) {
-				for (int cptC = 0; cptC < cptColumn; cptC++) {
-					resultsArray[i][cptC] = cellValue(i, cptC, listOfResults, columnsArray);
+				while (columnIterator.hasNext()) {
+					System.out.println(columnIterator.next());
+					cptColumn++;
 				}
-			}
-			this.setResultsView(resultsArray, columnsArray);
-		}
 
+				List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
+				nbrResponse = listOfResults.size();
+
+				String[][] resultsArray = new String[nbrResponse][cptColumn];
+				String[] columnsArray = new String[cptColumn];
+
+				// Columns name array
+				for (int cptC = 0; cptC < cptColumn; cptC++) {
+					columnsArray[cptC] = columnItName.next();
+				}
+
+				// results array
+				for (int i = 0; i < nbrResponse; i++) {
+					for (int cptC = 0; cptC < cptColumn; cptC++) {
+						resultsArray[i][cptC] = cellValue(i, cptC, listOfResults, columnsArray);
+					}
+				}
+				this.setResultsView(resultsArray, columnsArray);
+			} else {
+				resultsTable.setPlaceholder(new Label(":("));
+
+			}
+		}
 	}
 
 	/**
-	 *  Compute the value of the according cell
+	 * Compute the value of the according cell
 	 * 
 	 * @param cptRow
 	 *            The number of rows in the array

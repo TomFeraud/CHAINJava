@@ -94,7 +94,7 @@ public class DisplayResultsController {
 				controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 				controller.setResultsList(this.main.getResultsList());
 				controller.setListRepairedQueries();
-				controller.setTableResults(0); // To display the results according to the first repaired query
+				controller.setTableResults(-1); // To display the results according to the first repaired query
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -173,7 +173,7 @@ public class DisplayResultsController {
 	// Need to add more detail explications (keep the return status displayed for
 	// testing)
 	public void setBottomTextAccordingToStatus(int result_status) {
-		boolean TEST = false; // if true, display the result status
+		boolean TEST = true; // if true, display the result status
 		String text = "";
 		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
 

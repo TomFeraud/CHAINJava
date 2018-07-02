@@ -1,1 +1,1 @@
-River(lengthTest)
+waterBodyMeasures(timePeriod,geo,measure,resource)

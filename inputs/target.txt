@@ -1,1 +1,1 @@
-River(size)
+waterBodyMeasures(timePeriod, geo, measure, resource)
