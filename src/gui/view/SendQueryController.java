@@ -2,15 +2,7 @@ package gui.view;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFactory;
-import com.hp.hpl.jena.query.ResultSetFormatter;
-
 import gui.main.Main_GUI;
 import gui.model.Project;
 import javafx.fxml.FXML;
@@ -20,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -76,6 +69,28 @@ public class SendQueryController {
 	// EASIER TO TEST WITH THIS (fill all the parameters' fields)
 	@FXML
 	public void initialize() {
+
+		//Set tooltips for the input fields
+		Tooltip tooltipType = new Tooltip("\"sepa\" or \"dbpedia\"");
+		queryType.setTooltip(tooltipType);
+		
+		Tooltip tooltipSim = new Tooltip("Between 0 and 1, e.g. 0.5");
+		minSim.setTooltip(tooltipSim);
+		
+		Tooltip tooltipMaxRes = new Tooltip("Enter 0 to get all the responses");
+		maxNbrResultsWanted.setTooltip(tooltipMaxRes);
+		
+		Tooltip tooltipMaxQProd = new Tooltip("Enter 0 for no limitations");
+		maxNbrQueriesProduced.setTooltip(tooltipMaxQProd);
+		
+		Tooltip tooltipQuery = new Tooltip("Enter your query here");
+		query.setTooltip(tooltipQuery);
+		
+		Tooltip tooltipTarget = new Tooltip("Enter your target(s) here. If more than one, separate them by a \";\"");
+		targets.setTooltip(tooltipTarget);
+		
+		
+
 		// If initialized then we get the latest values associated to our Project object
 		// (so the SendQuery view is already fill)
 		if (this.isInitialized()) {
@@ -88,7 +103,6 @@ public class SendQueryController {
 			maxNbrQueriesProduced.setText(Integer.toString(p.getMaxQueriesProduced().get()));
 			query.setText(p.getInitialQuery().get());
 			targets.setText(p.getTargets().get());
-
 		}
 
 		String queryInit = "";

@@ -88,7 +88,7 @@
          <top>
             <HBox fx:id="topHbox" alignment="CENTER" prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Text fx:id="topText" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="To send a query, you have to: frame it, define its type, ontology and dataset(s) paths. You can modify the default value of the other parameters if needed." wrappingWidth="588.43212890625" HBox.hgrow="ALWAYS" />
+                  <Text fx:id="topText" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="To send a query, you have to: frame it, define its type, ontology and dataset(s) paths. You can modify the default value of the other parameters if needed." textAlignment="CENTER" wrappingWidth="646.6895143985748" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </top>

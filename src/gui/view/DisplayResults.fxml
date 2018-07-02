@@ -9,37 +9,21 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="700.0" stylesheets="@view_css/displayResults.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayResultsController">
    <children>
-      <BorderPane layoutX="307.0" layoutY="68.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <top>
-            <VBox fx:id="topVbox" alignment="CENTER" maxHeight="76.0" minWidth="30.0" prefHeight="0.0" prefWidth="700.0" BorderPane.alignment="TOP_CENTER">
-               <children>
-                  <FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" minWidth="10.0" prefHeight="118.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." />
-                     </children>
-                  </FlowPane>
-                  <FlowPane alignment="BOTTOM_CENTER" maxHeight="80.0" minWidth="10.0" prefHeight="16.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Response(s):" wrappingWidth="95.27698516845703" />
-                     </children>
-                  </FlowPane>
-               </children>
-            </VBox>
-         </top>
+      <BorderPane fx:id="topVbox" layoutX="307.0" layoutY="68.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <VBox fx:id="bottomVbox" maxHeight="60.0" prefHeight="38.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="bottomVbox" maxHeight="77.0" prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="0.0" prefWidth="700.0">
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="400.0" />
-                        <Button fx:id="repairedQueriesButton" mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired Queries" />
+                        <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="456.0" />
+                        <Button fx:id="repairedQueriesButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired Queries" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                      </children>
-                  </FlowPane>
-                  <FlowPane alignment="CENTER_LEFT" maxHeight="84.0" prefHeight="84.0" prefWidth="700.0">
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#back" text="Go Back" />
+                        <Button mnemonicParsing="false" onAction="#back" prefHeight="29.0" prefWidth="87.0" text="Go Back" />
                      </children>
-                  </FlowPane>
+                  </HBox>
                </children>
             </VBox>
          </bottom>
@@ -49,6 +33,22 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy></TableView>
          </center>
+         <top>
+            <VBox prefHeight="78.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <HBox fx:id="topHbox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="29.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Responses:" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>
