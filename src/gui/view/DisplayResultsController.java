@@ -94,7 +94,7 @@ public class DisplayResultsController {
 				controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 				controller.setResultsList(this.main.getResultsList());
 				controller.setListRepairedQueries();
-				controller.setTableResults(-1); // To display the results according to the first repaired query
+				controller.setTableResults(-1); // -1 to initialize the display
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -207,7 +207,7 @@ public class DisplayResultsController {
 			}
 			break;
 		case 9:
-			nbrRepairedQueries =1; //otherwise don't work..
+			nbrRepairedQueries = 1; // otherwise don't work..
 			if (nbrRepairedQueries == 1) {
 				text = "The repaired query has not run successfully. Click on Repaired Query for more information";
 			} else if (nbrRepairedQueries > 1) {
@@ -251,11 +251,11 @@ public class DisplayResultsController {
 
 	public void setTextButtonRepairedQueries() {
 		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
-		//Otherwise don't work...
-		if(this.main.getResult_status() == 9) {
+		// Otherwise don't work...
+		if (this.main.getResult_status() == 9) {
 			nbrRepairedQueries = 1;
 		}
-		
+
 		if (nbrRepairedQueries == 0) {
 			this.repairedQueriesButton.setText("No Repaired Query");
 			this.repairedQueriesButton.setVisible(false);
@@ -276,16 +276,19 @@ public class DisplayResultsController {
 		ResultSet copy3 = null;
 		int nbrResponse = 0;
 
+		int result_status = this.main.getResult_status();
+
 		// If the query when successfully the first time (no need to handle several
 		// queries)
-		if (initialQuerySuccess(this.main.getResult_status())) {
+		if (initialQuerySuccess(result_status)) {
 			copy = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
 			copy2 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
 			copy3 = ResultSetFactory.copyResults(this.main.getRun_CHAIn().getResultsFromInitialQuery());
 		}
 
 		// If the repaired query(ies) return results
-		else if (hasRepairedQueryResult(this.main.getResult_status())) {
+		else if (hasRepairedQueryResult(result_status)) {
+
 			// Store the list of results from the repaired queries
 			ArrayList<ResultSet> resultsList = this.main.getRun_CHAIn().getListResultsFromRepairedQuery();
 			// Assign it to our Main class to use it elsewhere
@@ -415,5 +418,15 @@ public class DisplayResultsController {
 			return false;
 		}
 	}
+
+	public TableView<ObservableList<String>> getResultsTable() {
+		return resultsTable;
+	}
+
+	public void setResultsTable(TableView<ObservableList<String>> resultsTable) {
+		this.resultsTable = resultsTable;
+	}
+
+
 
 }

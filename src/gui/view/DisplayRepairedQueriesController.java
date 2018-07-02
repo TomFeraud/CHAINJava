@@ -233,7 +233,7 @@ public class DisplayRepairedQueriesController {
 	public void setTableResults(int selectedIndex) {
 		System.out.println("TEST SELECTED INDEX: " + selectedIndex);
 
-		if (selectedIndex == -1) {
+		if (selectedIndex == -1) { // to initialize the display
 			resultsTable.setPlaceholder(new Label("Please select a repaired query to display the results"));
 		} else {
 
@@ -284,8 +284,8 @@ public class DisplayRepairedQueriesController {
 					}
 				}
 				this.setResultsView(resultsArray, columnsArray);
-			} else {
-				resultsTable.setPlaceholder(new Label(":("));
+			} else {//No results 
+				resultsTable.setPlaceholder(new Label("There is no result according to this repaired query"));
 
 			}
 		}

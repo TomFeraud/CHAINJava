@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -362,6 +363,8 @@ public class SendQueryController {
 
 			if (hasNoResult(result_status)) {
 				controller.setTopText(0);
+				controller.getResultsTable().setPlaceholder(new Label("No results were found for your request"));
+
 			} else {
 				controller.setTopText(nbrResponse);
 			}
