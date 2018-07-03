@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -86,7 +87,7 @@ public class DisplayResultsController {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayRepairedQueries.fxml"));
 			try {
-				AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
+				BorderPane content = (BorderPane) loader.load(); // Gets the container wich contains the data
 				this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
 				DisplayRepairedQueriesController controller = loader.getController();

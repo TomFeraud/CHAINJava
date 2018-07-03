@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 /**
  * * The controller of the DisplayMatches view
@@ -55,7 +56,7 @@ public class DisplayMatchesController {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayRepairedQueries.fxml"));
 		try {
-			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
+			BorderPane content = (BorderPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
 			DisplayRepairedQueriesController controller = loader.getController();
@@ -63,7 +64,7 @@ public class DisplayMatchesController {
 			controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 			controller.setResultsList(this.main.getResultsList());
 			controller.setListRepairedQueries();
-			controller.setTableResults(0); // To display the results according to the first repaired query
+			controller.setTableResults(-1); // -1 to initialize the display
 
 
 		} catch (IOException e) {
