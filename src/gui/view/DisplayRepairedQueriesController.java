@@ -25,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 /**
  * * The controller of the DisplayRepairedQueries view
@@ -35,24 +36,24 @@ import javafx.scene.layout.AnchorPane;
 public class DisplayRepairedQueriesController {
 
 	@FXML
+	private Text topText;
+
+	@FXML
 	private ListView<String> listRepairedQueries;
 
 	@FXML
 	private TextArea initialQuery;
 
-	@FXML
-	private TextArea results;
 
 	@FXML
 	private TableView<ObservableList<String>> resultsTable;
+
+	private ArrayList<ResultSet> resultsList = new ArrayList<ResultSet>();
 
 	protected int selectedIndex = 0;
 
 	// Reference to the main class
 	private Main_GUI main;
-
-	// TEST
-	private ArrayList<ResultSet> resultsList = new ArrayList<ResultSet>();
 
 	/**
 	 * Default constructor
@@ -178,14 +179,6 @@ public class DisplayRepairedQueriesController {
 
 	}
 
-	/**
-	 * Pass the results to the controller so the new scene can be initialized
-	 * 
-	 * @param results
-	 */
-	public void setResults(String results) {
-		this.results.setText(results);
-	}
 
 	/**
 	 * Pass the query to the controller so the new scene can be initialized
@@ -216,7 +209,6 @@ public class DisplayRepairedQueriesController {
 				// change the label text value to the newly selected item
 				// results.setText("You Selected " + newValue);
 				selectedIndex = listRepairedQueries.getSelectionModel().getSelectedIndex();
-				results.setText(Integer.toString(selectedIndex));
 				// WORKING!
 
 				// System.out.println("INDEX: " + selectedIndex);
@@ -284,7 +276,7 @@ public class DisplayRepairedQueriesController {
 					}
 				}
 				this.setResultsView(resultsArray, columnsArray);
-			} else {//No results 
+			} else {// No results
 				resultsTable.setPlaceholder(new Label("There is no result according to this repaired query"));
 
 			}
@@ -330,6 +322,23 @@ public class DisplayRepairedQueriesController {
 		} else {
 			return false;
 		}
+	}
+
+	public void setTopText() {
+		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
+
+		String text = "";
+		if (nbrRepairedQueries == 1) {
+			text = "The list of repaired queries contains " + nbrRepairedQueries + " item";
+			text += "\nSelect it to display its results and matches";
+
+
+		} else {
+			text = "The list of repaired queries contains " + nbrRepairedQueries + " items";
+			text += "\nSelect one to display its results and matches";
+		}
+
+		this.topText.setText(text);
 	}
 
 }

@@ -94,6 +94,7 @@ public class DisplayResultsController {
 				controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 				controller.setResultsList(this.main.getResultsList());
 				controller.setListRepairedQueries();
+				controller.setTopText();
 				controller.setTableResults(-1); // -1 to initialize the display
 
 			} catch (IOException e) {

@@ -15,7 +15,7 @@
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="456.0" />
+                        <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="456.0" HBox.hgrow="ALWAYS" />
                         <Button fx:id="repairedQueriesButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired Queries" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>

@@ -2,7 +2,6 @@
 	-fx-padding: 12px 12px;
 	-fx-border-radius: 7px;
 	-fx-background-color: #FAFAFA;
-	/*-fx-border-color: grey ; */
 }
 
 .button {
@@ -20,7 +19,7 @@
 }
 
 
-#topHbox {
+#topHbox, #bottomHbox {
 	/*  -fx-background-color: #43D1AF; */
 	/* -fx-background-color: #305CB8; */
 	-fx-background-color: #F0F0F0;
@@ -31,7 +30,7 @@
 
 
 
-#topText {
+#topText, #bottomText {
 	-fx-fill: #fff;
 }
 
