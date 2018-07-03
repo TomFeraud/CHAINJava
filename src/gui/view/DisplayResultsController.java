@@ -173,7 +173,7 @@ public class DisplayResultsController {
 	// Need to add more detail explications (keep the return status displayed for
 	// testing)
 	public void setBottomTextAccordingToStatus(int result_status) {
-		boolean TEST = true; // if true, display the result status
+		boolean TEST = false; // if true, display the result status
 		String text = "";
 		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
 
@@ -200,8 +200,8 @@ public class DisplayResultsController {
 				text += "\nResult status: SPSMFAILURE";
 			}
 			break;
-		case 8:// May need to get rid of the words "SPSM" ? and just say no result?
-			text = "There have been 0 matches returned from SPSM";
+		case 8:// 0 matches returned from SPSM
+			text = "The query has not run successfully and no matches were found ";
 			if (TEST) {
 				text += "\nResult status: NOMATCHESFROMSPSM";
 			}
@@ -209,9 +209,9 @@ public class DisplayResultsController {
 		case 9:
 			nbrRepairedQueries = 1; // otherwise don't work..
 			if (nbrRepairedQueries == 1) {
-				text = "The repaired query has not run successfully. Click on Repaired Query for more information";
+				text = "The repaired query has not run successfully Click on Repaired Query for more information";
 			} else if (nbrRepairedQueries > 1) {
-				text = "The repaired query has not run successfully. Click on Repaired Queries for more information";
+				text = "The repaired queries has not run successfully Click on Repaired Queries for more information";
 
 			}
 			if (TEST) {
@@ -220,9 +220,9 @@ public class DisplayResultsController {
 			break;
 		case 10:
 			if (nbrRepairedQueries == 1) {
-				text = "The query needed to be repaired in order to provide results. Click on Repaired Query for more information";
+				text = "The query needed to be repaired in order to provide results Click on Repaired Query for more information";
 			} else if (nbrRepairedQueries > 1) {
-				text = "The query needed to be repaired in order to provide results. Click on Repaired Queries for more information";
+				text = "The query needed to be repaired in order to provide results Click on Repaired Queries for more information";
 
 			}
 			if (TEST) {
@@ -230,13 +230,19 @@ public class DisplayResultsController {
 			}
 			break;
 		case 11:
-			text = "TO DO";
+			text = "There was an attempt to run the repaired query but no results were found";
 			if (TEST) {
 				text += "\nResult status: REPAIREDQUERYNORESULTS";
 			}
 			break;
 		case 12:
-			text = "TO DO";
+			text = "";
+			if (nbrRepairedQueries == 1) {
+				text = "The query needed to be repaired in order to provide results Click on Repaired Query for more information";
+			} else if (nbrRepairedQueries > 1) {
+				text = "The query needed to be repaired in order to provide results Click on Repaired Queries for more information";
+
+			}
 			if (TEST) {
 				text += "\nResult status: DATAREPAIREDWITHRESULTS";
 			}
@@ -426,7 +432,5 @@ public class DisplayResultsController {
 	public void setResultsTable(TableView<ObservableList<String>> resultsTable) {
 		this.resultsTable = resultsTable;
 	}
-
-
 
 }
