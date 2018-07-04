@@ -34,11 +34,12 @@ public class MenuController {
 		// Close the main stage (and so the application)
 		this.main.getMainStage().close();
 	}
-
+	
+	
 	@FXML
-	// Ref test8_0_1 in Run_CHAIn_Test_Cases
-	// SEPA query, CHAIn generates 1 returned query with results
-	//Return code 10: REPAIREDQUERYRESULTS
+	// Ref test8_1_2 in Run_CHAIn_Test_Cases
+	// dbpedia query that  already runs successfully and does not require repair.
+	//Return code 5: INITIALQUERYSUCCESS
 	public void example1() {
 		this.main.contentInit();
 		String example1 = "Example1";
@@ -47,8 +48,8 @@ public class MenuController {
 	}
 
 	@FXML
-	// Ref test8_1_4 in Run_CHAIn_Test_Cases
-	// DBPEDIA query, CHAIn generates 2 returned query with results
+	// Ref test8_0_1 in Run_CHAIn_Test_Cases
+	// SEPA query, CHAIn generates 1 returned query with results
 	//Return code 10: REPAIREDQUERYRESULTS
 	public void example2() {
 		this.main.contentInit();
@@ -58,9 +59,9 @@ public class MenuController {
 	}
 
 	@FXML
-	// Ref test8_0_3 in Run_CHAIn_Test_Cases
-	// SEPA query, no results from SPSM, 0 query created
-	//Return code 8: NOMATCHESFROMSPSM
+	// Ref test8_1_4 in Run_CHAIn_Test_Cases
+	// DBPEDIA query, CHAIn generates 2 returned query with results
+	//Return code 10: REPAIREDQUERYRESULTS
 	public void example3() {
 		this.main.contentInit();
 		String example3 = "Example3";
@@ -69,15 +70,16 @@ public class MenuController {
 	}
 
 	@FXML
-	// Ref test8_1_2 in Run_CHAIn_Test_Cases
-	// dbpedia query that  already runs successfully and does not require repair.
-	//Return code 5: INITIALQUERYSUCCESS
+	// Ref test8_0_3 in Run_CHAIn_Test_Cases
+	// SEPA query, no results from SPSM, 0 query created
+	//Return code 8: NOMATCHESFROMSPSM
 	public void example4() {
 		this.main.contentInit();
 		String example4 = "Example4";
 		this.main.getSendQueryController().setExample(example4);
 		this.main.getSendQueryController().initialize();
 	}
+
 	
 	@FXML
 	// Ref test8_0_2 in Run_CHAIn_Test_Cases
@@ -91,9 +93,9 @@ public class MenuController {
 	}
 	
 	@FXML
-	// Ref test8_0_6 in Run_CHAIn_Test_Cases
-	// Sepa query with non-matching data in it - requires data repair
-	//Return code 12: DATAREPAIREDWITHRESULTS
+	// Ref test13 in Run_Query_Test_Cases
+	// Query HAS run successfully but NO data has been returned.
+	//Return code 11: REPAIREDQUERYNORESULTS
 	public void example6() {
 		this.main.contentInit();
 		String example6 = "Example6";
@@ -103,15 +105,18 @@ public class MenuController {
 	
 	
 	@FXML
-	// Ref test13 in Run_Query_Test_Cases
-	// Query HAS run successfully but NO data has been returned.
-	//Return code 11: REPAIREDQUERYNORESULTS
+	// Ref test8_0_6 in Run_CHAIn_Test_Cases
+	// Sepa query with non-matching data in it - requires data repair
+	//Return code 12: DATAREPAIREDWITHRESULTS
 	public void example7() {
 		this.main.contentInit();
 		String example7 = "Example7";
 		this.main.getSendQueryController().setExample(example7);
 		this.main.getSendQueryController().initialize();
 	}
+	
+	
+	
 	
 	@FXML
 	// Ref test12 in Run_Query_Test_Cases

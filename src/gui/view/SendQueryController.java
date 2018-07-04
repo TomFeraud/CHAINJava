@@ -71,26 +71,24 @@ public class SendQueryController {
 	@FXML
 	public void initialize() {
 
-		//Set tooltips for the input fields
+		// Set tooltips for the input fields
 		Tooltip tooltipType = new Tooltip("\"sepa\" or \"dbpedia\"");
 		queryType.setTooltip(tooltipType);
-		
+
 		Tooltip tooltipSim = new Tooltip("Between 0 and 1, e.g. 0.5");
 		minSim.setTooltip(tooltipSim);
-		
+
 		Tooltip tooltipMaxRes = new Tooltip("Enter 0 to get all the responses");
 		maxNbrResultsWanted.setTooltip(tooltipMaxRes);
-		
+
 		Tooltip tooltipMaxQProd = new Tooltip("Enter 0 for no limitations");
 		maxNbrQueriesProduced.setTooltip(tooltipMaxQProd);
-		
+
 		Tooltip tooltipQuery = new Tooltip("Enter your query here");
 		query.setTooltip(tooltipQuery);
-		
+
 		Tooltip tooltipTarget = new Tooltip("Enter your target(s) here. If more than one, separate them by a \";\"");
 		targets.setTooltip(tooltipTarget);
-		
-		
 
 		// If initialized then we get the latest values associated to our Project object
 		// (so the SendQuery view is already fill)
@@ -110,6 +108,28 @@ public class SendQueryController {
 		String targetInit = "";
 
 		if (example.equalsIgnoreCase("Example1")) {
+			System.out.println("\nRef test 8.1.2\n");
+
+			queryInit = "PREFIX  dbo:  <http://dbpedia.org/ontology/> \n"
+					+ "PREFIX  dbp: <http://dbpedia.org/property/>   \n"
+					+ "PREFIX  res: <http://dbpedia.org/resource/> \n"
+					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+					+ "PREFIX  foaf: <http://xlmns.com/foaf/0.1/> \n"
+					+ "PREFIX yago: <hhtp://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
+					+ "WHERE { ?id rdf:type dbo:River ;\n" + "dbo:length ?length ;\n" + ".}\n \n";
+
+			targetInit = "River(length)";
+
+			queryType.setText("dbpedia");
+			minSim.setText("0.5");
+			maxNbrResultsWanted.setText("20");
+			ontologyPath.setText("queryData/dbpedia/dbpedia_ontology.json");
+			maxNbrQueriesProduced.setText("5");
+			query.setText(queryInit);
+			targets.setText(targetInit);
+		}
+
+		else if (example.equalsIgnoreCase("Example2")) {
 			System.out.println("\nRef test 8.0.1\n");
 			queryInit = "PREFIX  geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#> \n"
 					+ "PREFIX  sepaidw: <http://data.sepa.org.uk/id/Water/>   \n"
@@ -130,7 +150,7 @@ public class SendQueryController {
 			maxNbrQueriesProduced.setText("5");
 			query.setText(queryInit);
 			targets.setText(targetInit);
-		} else if (example.equalsIgnoreCase("Example2")) {
+		} else if (example.equalsIgnoreCase("Example3")) {
 			System.out.println("\nRef test 8.1.4\n");
 			queryInit = "PREFIX  dbo:  <http://dbpedia.org/ontology/> \n"
 					+ "PREFIX  dbp: <http://dbpedia.org/property/>   \n"
@@ -151,7 +171,7 @@ public class SendQueryController {
 			maxNbrQueriesProduced.setText("5");
 			query.setText(queryInit);
 			targets.setText(targetInit);
-		} else if (example.equalsIgnoreCase("Example3")) {
+		} else if (example.equalsIgnoreCase("Example4")) {
 			System.out.println("\nRef test 8.0.3\n");
 
 			queryInit = "PREFIX  geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#> \n"
@@ -174,26 +194,6 @@ public class SendQueryController {
 			query.setText(queryInit);
 			targets.setText(targetInit);
 
-		} else if (example.equalsIgnoreCase("Example4")) {
-			System.out.println("\nRef test 8.1.2\n");
-
-			queryInit = "PREFIX  dbo:  <http://dbpedia.org/ontology/> \n"
-					+ "PREFIX  dbp: <http://dbpedia.org/property/>   \n"
-					+ "PREFIX  res: <http://dbpedia.org/resource/> \n"
-					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-					+ "PREFIX  foaf: <http://xlmns.com/foaf/0.1/> \n"
-					+ "PREFIX yago: <hhtp://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
-					+ "WHERE { ?id rdf:type dbo:River ;\n" + "dbo:length ?length ;\n" + ".}\n \n";
-
-			targetInit = "River(length)";
-
-			queryType.setText("dbpedia");
-			minSim.setText("0.5");
-			maxNbrResultsWanted.setText("20");
-			ontologyPath.setText("queryData/dbpedia/dbpedia_ontology.json");
-			maxNbrQueriesProduced.setText("5");
-			query.setText(queryInit);
-			targets.setText(targetInit);
 		} else if (example.equalsIgnoreCase("Example5")) {
 			System.out.println("\nRef test 8.0.2\n");
 
@@ -217,6 +217,28 @@ public class SendQueryController {
 			query.setText(queryInit);
 			targets.setText(targetInit);
 		} else if (example.equalsIgnoreCase("Example6")) {
+			System.out.println("\nRef test13 in Run_Query_Test_Cases\n");
+
+			queryInit = "PREFIX  geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#> \n"
+					+ "PREFIX  sepaidw: <http://data.sepa.org.uk/id/Water/>   \n"
+					+ "PREFIX  sepaidloc: <http://data.sepa.org.uk/id/Location/> \n"
+					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "SELECT *  \n"
+					+ "FROM <queryData/sepa/sepa_datafiles/waterBodyMeasures.n3>\n"
+					+ "WHERE { ?id sepaw:timePeriod ?timePeriod;\n" + "geo:geo ?geo  ;\n" + "sepaw:measure ?measure ;\n"
+					+ "sepaw:resource ?resource .}";
+
+			targetInit = "waterBodyMeasures(timePeriod, geo, measure, resource)";
+
+			queryType.setText("sepa");
+			minSim.setText("0.5");
+			maxNbrResultsWanted.setText("10");
+			ontologyPath.setText("queryData/sepa/sepa_ontology.json");
+			datasetPath.setText("queryData/sepa/sepa_datafiles/");
+			maxNbrQueriesProduced.setText("5");
+			query.setText(queryInit);
+			targets.setText(targetInit);
+		} else if (example.equalsIgnoreCase("Example7")) {
 			System.out.println("\nRef test 8.0.6\n");
 
 			queryInit = "PREFIX  geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#> \n"
@@ -230,28 +252,6 @@ public class SendQueryController {
 					+ "sepaw:assessmentCategory ?assessmentCategory ;\n" + "sepaw:source \"Lake\" .}";
 
 			targetInit = "waterBodyPressures(identifiedDate,waterBodyId,assessmentCategory,source)";
-
-			queryType.setText("sepa");
-			minSim.setText("0.5");
-			maxNbrResultsWanted.setText("10");
-			ontologyPath.setText("queryData/sepa/sepa_ontology.json");
-			datasetPath.setText("queryData/sepa/sepa_datafiles/");
-			maxNbrQueriesProduced.setText("5");
-			query.setText(queryInit);
-			targets.setText(targetInit);
-		} else if (example.equalsIgnoreCase("Example7")) {
-			System.out.println("\nRef test13 in Run_Query_Test_Cases\n");
-
-			queryInit = "PREFIX  geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#> \n"
-					+ "PREFIX  sepaidw: <http://data.sepa.org.uk/id/Water/>   \n"
-					+ "PREFIX  sepaidloc: <http://data.sepa.org.uk/id/Location/> \n"
-					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "SELECT *  \n"
-					+ "FROM <queryData/sepa/sepa_datafiles/waterBodyMeasures.n3>\n"
-					+ "WHERE { ?id sepaw:timePeriod ?timePeriod;\n" + "geo:geo ?geo  ;\n" + "sepaw:measure ?measure ;\n"
-					+ "sepaw:resource ?resource .}";
-
-			targetInit = "waterBodyMeasures(timePeriod, geo, measure, resource)";
 
 			queryType.setText("sepa");
 			minSim.setText("0.5");
