@@ -25,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 /**
@@ -50,7 +51,7 @@ public class DisplayRepairedQueriesController {
 
 	private ArrayList<ResultSet> resultsList = new ArrayList<ResultSet>();
 
-	protected int selectedIndex = 0;
+	protected int selectedIndex;
 
 	// Reference to the main class
 	private Main_GUI main;
@@ -110,15 +111,15 @@ public class DisplayRepairedQueriesController {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayMatches.fxml"));
 		try {
-			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
+			BorderPane content = (BorderPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			DisplayMatchesController controllor = loader.getController();
-			controllor.setMainApp(this.main);
+			DisplayMatchesController controller = loader.getController();
+			controller.setMainApp(this.main);
 
-			controllor.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
+			controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 			// THIS WILL CHANGE ?
-			controllor
+			controller
 					.setRepairedQuery(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getQuery());
 			//////
 			// THIS WILL CHANGE TOO
@@ -141,7 +142,9 @@ public class DisplayRepairedQueriesController {
 				matchesStr += ")";
 				matchesStr += "\n";
 			}
-			controllor.setMatches(matchesStr);
+			controller.setMatches(matchesStr);
+			
+			controller.setSelectedIndex(selectedIndex);
 			////////
 
 		} catch (
@@ -341,4 +344,15 @@ public class DisplayRepairedQueriesController {
 		this.topText.setText(text);
 	}
 
+	public int getSelectedIndex() {
+		return selectedIndex;
+	}
+
+	public void setSelectedIndex(int selectedIndex) {
+		this.selectedIndex = selectedIndex;
+	}
+
+	
+	
+	
 }

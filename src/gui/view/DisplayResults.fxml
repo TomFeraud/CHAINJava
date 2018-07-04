@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
@@ -9,24 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="700.0" stylesheets="@view_css/displayResults.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayResultsController">
    <children>
-      <BorderPane fx:id="topVbox" layoutX="307.0" layoutY="68.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <bottom>
-            <VBox fx:id="bottomVbox" maxHeight="77.0" prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="456.0" HBox.hgrow="ALWAYS" />
-                        <Button fx:id="repairedQueriesButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#nextScene" prefHeight="25.0" prefWidth="147.0" text="Repaired Queries" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#back" prefHeight="29.0" prefWidth="87.0" text="Go Back" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </bottom>
+      <BorderPane layoutX="307.0" layoutY="68.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <TableView fx:id="resultsTable" prefHeight="85.0" prefWidth="700.0" tableMenuButtonVisible="true" BorderPane.alignment="CENTER">
                <columnResizePolicy>
@@ -34,14 +19,14 @@
                </columnResizePolicy></TableView>
          </center>
          <top>
-            <VBox prefHeight="78.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="topVbox" prefHeight="85.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+                  <HBox fx:id="topHbox" alignment="CENTER" minHeight="-Infinity" prefHeight="60.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox fx:id="topHbox" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="29.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+                  <HBox fx:id="topHbox2" alignment="CENTER" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" prefHeight="25.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Responses:" />
                      </children>
@@ -49,6 +34,22 @@
                </children>
             </VBox>
          </top>
+         <bottom>
+            <HBox fx:id="bottomHbox" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" />
+                  <Button mnemonicParsing="false" onAction="#back" prefHeight="29.0" prefWidth="73.0" text="Home" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="394.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="450.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="682.0" layoutY="23.0" stroke="TRANSPARENT" strokeType="INSIDE" width="15.0" />
+                  <Button fx:id="repairedQueriesButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#nextScene" prefHeight="29.0" prefWidth="161.0" text="Repaired Queries" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="534.0" layoutY="23.0" stroke="TRANSPARENT" strokeType="INSIDE" width="61.0" />
+               </children>
+            </HBox>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>

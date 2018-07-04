@@ -12,7 +12,7 @@
    <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <bottom>
-            <HBox fx:id="bottomHbox" alignment="CENTER" prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="bottomHbox" alignment="CENTER" minHeight="-Infinity" prefHeight="55.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="sendButton" mnemonicParsing="false" onAction="#launch" text="Send query" HBox.hgrow="ALWAYS" />
                </children>
@@ -86,7 +86,7 @@
             </GridPane>
          </center>
          <top>
-            <HBox fx:id="topHbox" alignment="CENTER" prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="topHbox" alignment="CENTER" minHeight="-Infinity" prefHeight="60.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
                   <Text fx:id="topText" boundsType="VISUAL" strokeType="OUTSIDE" strokeWidth="0.0" text="To send a query, you have to: frame it, define its type, ontology and dataset(s) paths. You can modify the default value of the other parameters if needed." textAlignment="CENTER" wrappingWidth="646.6895143985748" HBox.hgrow="ALWAYS" />
                </children>

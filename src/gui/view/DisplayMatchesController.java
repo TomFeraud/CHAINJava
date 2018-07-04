@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 
 /**
  * * The controller of the DisplayMatches view
@@ -29,9 +30,11 @@ public class DisplayMatchesController {
 	private TextArea matchesArea;
 
 	@FXML
-	private void initialize() {
+	private void initicontrolleralize() {
 
 	}
+	
+	protected int selectedIndex;
 
 	// Reference to the main class
 	private Main_GUI main;
@@ -64,8 +67,12 @@ public class DisplayMatchesController {
 			controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
 			controller.setResultsList(this.main.getResultsList());
 			controller.setListRepairedQueries();
+			controller.setTopText();
 			controller.setTableResults(-1); // -1 to initialize the display
-
+			
+			//so when we go back the repaired query is selected
+			controller.setTableResults(selectedIndex);
+			controller.getListRepairedQueries().getSelectionModel().select(selectedIndex);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -104,5 +111,17 @@ public class DisplayMatchesController {
 	public void setInitialQuery(String q) {
 		this.initialQuery.setText(q);
 	}
+
+	
+	public int getSelectedIndex() {
+		return selectedIndex;
+	}
+
+	public void setSelectedIndex(int selectedIndex) {
+		this.selectedIndex = selectedIndex;
+	}
+	
+	
+	
 
 }

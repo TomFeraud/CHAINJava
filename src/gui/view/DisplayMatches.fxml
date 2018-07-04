@@ -7,72 +7,72 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane stylesheets="@view_css/displayMatches.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayMatchesController">
-   <children>
-      <VBox layoutX="157.0" layoutY="42.0" prefHeight="400.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane prefHeight="400.0" prefWidth="700.0" stylesheets="@view_css/displayMatches.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.DisplayMatchesController">
+   <top>
+      <HBox fx:id="topHbox" alignment="CENTER" minHeight="-Infinity" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="The Matches section represents the matches performed by the process" HBox.hgrow="ALWAYS" />
+         </children></HBox>
+   </top>
+   <bottom>
+      <HBox fx:id="bottomHbox" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="55.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" />
+            <Button mnemonicParsing="false" onAction="#back" text="Go Back" />
+         </children></HBox>
+   </bottom>
+   <center>
+      <SplitPane dividerPositions="0.6" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="350.0" style="-: grey;" HBox.hgrow="ALWAYS">
+                  <VBox layoutX="228.0" layoutY="-30.0" prefHeight="139.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <FlowPane alignment="CENTER" maxHeight="45.0" prefHeight="50.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="40.0" prefWidth="700.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repaired query:" />
-                           </children>
-                        </FlowPane>
-                        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" HBox.hgrow="ALWAYS" />
-                              <TextArea fx:id="repairedQuery" editable="false" prefHeight="133.0" prefWidth="270.0" HBox.hgrow="ALWAYS" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" HBox.hgrow="ALWAYS" />
+                              <FlowPane alignment="CENTER" prefHeight="40.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Repaired query:" />
+                                 </children>
+                              </FlowPane>
+                              <FlowPane alignment="CENTER" prefHeight="40.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Initial query:" />
+                                 </children>
+                              </FlowPane>
                            </children>
                         </HBox>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="68.0" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="350.0" HBox.hgrow="ALWAYS">
-                     <children>
-                        <FlowPane alignment="CENTER" maxHeight="45.0" prefHeight="50.0" VBox.vgrow="ALWAYS">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Initial query:" />
-                           </children>
-                        </FlowPane>
                         <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" HBox.hgrow="ALWAYS" />
-                              <TextArea fx:id="initialQuery" editable="false" prefHeight="133.0" prefWidth="270.0" HBox.hgrow="ALWAYS" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" HBox.hgrow="ALWAYS" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" HBox.hgrow="ALWAYS" />
+                              <TextArea fx:id="repairedQuery" prefHeight="100.0" prefWidth="305.0" HBox.hgrow="ALWAYS" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="10.0" layoutY="10.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" HBox.hgrow="ALWAYS" />
+                              <TextArea fx:id="initialQuery" layoutX="25.0" layoutY="10.0" prefHeight="100.0" prefWidth="305.0" HBox.hgrow="ALWAYS" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="310.0" layoutY="10.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="68.0" VBox.vgrow="ALWAYS" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="20.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="698.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="350.0" style="-fx-background-color: grey;" HBox.hgrow="ALWAYS">
+                  <VBox layoutX="206.0" layoutY="-42.0" prefHeight="115.0" prefWidth="698.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <FlowPane alignment="CENTER" maxHeight="45.0" prefHeight="40.0" VBox.vgrow="ALWAYS">
+                        <HBox prefHeight="40.0" prefWidth="350.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matches                                " />
+                              <FlowPane alignment="CENTER" prefHeight="40.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matches:" />
+                                 </children>
+                              </FlowPane>
                            </children>
-                        </FlowPane>
-                        <HBox alignment="CENTER" maxHeight="290.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        </HBox>
+                        <HBox prefHeight="65.0" prefWidth="698.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" HBox.hgrow="ALWAYS" />
-                              <TextArea fx:id="matchesArea" editable="false" prefHeight="138.0" prefWidth="508.0" HBox.hgrow="ALWAYS" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="20.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" HBox.hgrow="ALWAYS" />
                               <GridPane alignment="CENTER">
-                                <columnConstraints>
-                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
-                                </rowConstraints>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Symbol" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meaning" GridPane.columnIndex="1" />
@@ -83,21 +83,27 @@
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" GridPane.rowIndex="3" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="more general" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                  </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                 </rowConstraints>
                               </GridPane>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="8.0" stroke="TRANSPARENT" strokeType="INSIDE" width="40.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" HBox.hgrow="ALWAYS" />
+                              <TextArea fx:id="matchesArea" prefHeight="58.0" prefWidth="333.0" HBox.hgrow="ALWAYS" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="196.0" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" stroke="TRANSPARENT" strokeType="INSIDE" width="68.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
-            </HBox>
-            <HBox fx:id="bottomHbox" alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" style="-: ;" VBox.vgrow="ALWAYS">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#back" text="Go Back" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
-</AnchorPane>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </center>
+</BorderPane>
