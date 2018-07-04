@@ -35,18 +35,21 @@
             </VBox>
          </top>
          <bottom>
-            <HBox fx:id="bottomHbox" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="bottomHbox" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="55.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" />
-                  <Button mnemonicParsing="false" onAction="#back" prefHeight="29.0" prefWidth="73.0" text="Home" HBox.hgrow="ALWAYS" />
-                  <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="394.0" HBox.hgrow="ALWAYS">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="16.0" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="107.0" text="Go Back" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER_RIGHT" maxWidth="550.0" prefHeight="13.0" prefWidth="486.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Text fx:id="bottomText" strokeType="OUTSIDE" strokeWidth="0.0" text="There wil be some info here.." wrappingWidth="450.0" HBox.hgrow="ALWAYS" />
+                        <Text fx:id="bottomText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There will be some text here.." wrappingWidth="450.0" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="682.0" layoutY="23.0" stroke="TRANSPARENT" strokeType="INSIDE" width="15.0" />
-                  <Button fx:id="repairedQueriesButton" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#nextScene" prefHeight="29.0" prefWidth="161.0" text="Repaired Queries" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" layoutX="534.0" layoutY="23.0" stroke="TRANSPARENT" strokeType="INSIDE" width="61.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="16.0" />
+                  <Button fx:id="repairedQueriesButton" alignment="CENTER" mnemonicParsing="false" onAction="#nextScene" prefHeight="29.0" prefWidth="171.0" text="Repaired Queries" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
          </bottom>
