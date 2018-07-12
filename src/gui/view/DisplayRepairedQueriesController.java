@@ -10,6 +10,7 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFactory;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 
+import chain_source.Match_Struc;
 import gui.main.Main_GUI;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
@@ -24,6 +25,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -44,7 +47,6 @@ public class DisplayRepairedQueriesController {
 
 	@FXML
 	private TextArea initialQuery;
-
 
 	@FXML
 	private TableView<ObservableList<String>> resultsTable;
@@ -109,12 +111,12 @@ public class DisplayRepairedQueriesController {
 	@FXML
 	public void nextScene() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayMatches.fxml"));
+		loader.setLocation(Main_GUI.class.getResource("/gui/view/TESTDisplayMatches.fxml"));
 		try {
 			BorderPane content = (BorderPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			DisplayMatchesController controller = loader.getController();
+			TESTDisplayMatchesController controller = loader.getController();
 			controller.setMainApp(this.main);
 
 			controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
@@ -142,10 +144,74 @@ public class DisplayRepairedQueriesController {
 				matchesStr += ")";
 				matchesStr += "\n";
 			}
-			controller.setMatches(matchesStr);
-			
+			/// controller.setMatches(matchesStr);
+
 			controller.setSelectedIndex(selectedIndex);
-			////////
+			/////////////////////////////////////////////
+			// TEST
+
+			String initialValues = "";
+			String repairedValues = "";
+			String semanticRelations = "";
+
+			for (String[] m : matchComponents) {
+				initialValues += m[0] + ";";
+				semanticRelations += m[1] + ";";
+				repairedValues += m[2] + ";";
+
+			}
+			String[] initialSchema = initialValues.split(";");
+			String [] relations = semanticRelations.split(";");
+			String[] repairedSchema = repairedValues.split(";");
+
+			System.out.println("TEST INITIAL QUERY:\n" + initialValues);
+			System.out.println("TEST REPAIRED QUERY:\n" + repairedValues);
+
+			String[] testInitialSchemaHead = initialSchema[0].split(",");
+			String initialSchemaHead = testInitialSchemaHead[0];
+			String[] testRepairedSchemaHead = repairedSchema[0].split(",");
+			String repairedSchemaHead = testRepairedSchemaHead[0];
+			System.out.println("InitialSchemaHead: " + initialSchemaHead);
+			System.out.println("RepairedSchemaHead: " + repairedSchemaHead);
+
+			String[] initialSchemaValues = new String[initialSchema.length];
+			String[] repairedSchemaValues = new String[repairedSchema.length];
+			for (int cpt = 0; cpt < initialSchema.length; cpt++) {
+				String[] testSplit = initialSchema[cpt].split(",");
+				if (testSplit.length > 1) {// length equal 0 when there is only the head
+					initialSchemaValues[cpt] = testSplit[1];
+				}
+				if (initialSchemaValues[cpt] != null) {
+					System.out.println("initialSchemaValues" + cpt + " " + initialSchemaValues[cpt]);
+				}
+			}
+			for (int c = 0; c < repairedSchema.length; c++) {
+				String[] repairedSplit = repairedSchema[c].split(",");
+
+				if (repairedSplit.length > 1) {// length equal 0 when there is only the head
+					repairedSchemaValues[c] = repairedSplit[1];
+
+				}
+				if (repairedSchemaValues[c] != null) {
+					System.out.println("repairedSchemaValues" + c + ":" + repairedSchemaValues[c]);
+				}
+			}
+			
+			for(int cpt = 0; cpt < relations.length; cpt++) {
+				System.out.println("RELATIONS: " +relations[cpt]);
+			}
+			
+			
+			
+
+			/*
+			 * TreeView<String> testTree = new TreeView<String>(); TreeItem<String> root =
+			 * new TreeItem<>(initialSchemaHead); TreeItem<String> nodeA = new
+			 * TreeItem<>(testSchema[0]); root.getChildren().addAll(nodeA);
+			 * testTree.setRoot(root); controller.setTreeView(testTree);
+			 */
+
+			///////////////////////////////////////
 
 		} catch (
 
@@ -181,7 +247,6 @@ public class DisplayRepairedQueriesController {
 		// System.out.println(this.main.getResultsList().get(0));
 
 	}
-
 
 	/**
 	 * Pass the query to the controller so the new scene can be initialized
@@ -335,7 +400,6 @@ public class DisplayRepairedQueriesController {
 			text = "The list of repaired queries contains " + nbrRepairedQueries + " item";
 			text += "\nSelect it to display its results and matches";
 
-
 		} else {
 			text = "The list of repaired queries contains " + nbrRepairedQueries + " items";
 			text += "\nSelect one to display its results and matches";
@@ -352,7 +416,4 @@ public class DisplayRepairedQueriesController {
 		this.selectedIndex = selectedIndex;
 	}
 
-	
-	
-	
 }

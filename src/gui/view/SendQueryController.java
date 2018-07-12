@@ -301,7 +301,7 @@ public class SendQueryController {
 		// Information message to warn the user about the delay
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setHeaderText(
-				"It will take some time to process. Please don't quit the interface." + "\nClick OK to continue");
+				"It will take some time to process. Please don't leave the interface." + "\nClick OK to continue");
 		alert.showAndWait();
 
 		// TEST

@@ -317,6 +317,7 @@ public class Run_CHAIn {
 		// start off by calling SPSM with schema created from query
 		// and target schemas passed in originally
 		ArrayList<Match_Struc> matches = new ArrayList<Match_Struc>();
+
 		matches = spsm.callSPSM(matches, current.getQuerySchema(), targetSchemas);
 
 		if (matches == null) {
