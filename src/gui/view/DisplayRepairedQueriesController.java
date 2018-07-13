@@ -111,12 +111,12 @@ public class DisplayRepairedQueriesController {
 	@FXML
 	public void nextScene() {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main_GUI.class.getResource("/gui/view/TESTDisplayMatches.fxml"));
+		loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayMatches.fxml"));
 		try {
 			BorderPane content = (BorderPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			TESTDisplayMatchesController controller = loader.getController();
+			DisplayMatchesController controller = loader.getController();
 			controller.setMainApp(this.main);
 
 			controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
@@ -150,7 +150,7 @@ public class DisplayRepairedQueriesController {
 			/////////////////////////////////////////////
 			// TEST
 			
-			controller.treeTableViewFormatting(matchComponents);
+			controller.treeTableViewFormatting(matchComponents, simScore);
 				 
 
 			/*
