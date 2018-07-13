@@ -1,3 +1,6 @@
-similarity(0.75).
-match([[River,lengthTest],<,[River,size]]).
-match([[River],=,[River]]).
+similarity(0.9).
+match([[waterBodyPressurestest,dataSource],=,[waterBodyPressures,dataSource]]).
+match([[waterBodyPressurestest,waterBodyId],=,[waterBodyPressures,waterBodyId]]).
+match([[waterBodyPressurestest,time],>,[waterBodyPressures,identifiedDate]]).
+match([[waterBodyPressurestest],=,[waterBodyPressures]]).
+match([[waterBodyPressurestest,affectsGroundwater],=,[waterBodyPressures,affectsGroundwater]]).

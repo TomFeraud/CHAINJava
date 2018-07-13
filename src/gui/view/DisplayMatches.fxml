@@ -56,11 +56,16 @@
                      <children>
                         <HBox prefHeight="40.0" prefWidth="350.0">
                            <children>
-                              <FlowPane alignment="CENTER" prefHeight="40.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
+                              <FlowPane alignment="CENTER" maxHeight="30.0" prefHeight="40.0" prefWidth="700.0" HBox.hgrow="ALWAYS">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Matches:" />
                                  </children>
                               </FlowPane>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" maxHeight="30.0" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Text fx:id="simScore" strokeType="OUTSIDE" strokeWidth="0.0" text="There will be the similarity score here.." HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="65.0" prefWidth="698.0" VBox.vgrow="ALWAYS">

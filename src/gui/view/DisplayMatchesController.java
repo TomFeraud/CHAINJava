@@ -46,6 +46,9 @@ public class DisplayMatchesController {
 	@FXML
 	private TreeTableColumn<Matches, String> repairedColumn;
 
+	@FXML
+	private Text simScore;
+
 	protected int selectedIndex;
 
 	// Reference to the main class
@@ -157,7 +160,13 @@ public class DisplayMatchesController {
 		this.repairedColumn = repairedColumn;
 	}
 
-	/// TEST
+	public Text getSimScore() {
+		return simScore;
+	}
+
+	public void setSimScore(Text simScore) {
+		this.simScore = simScore;
+	}
 
 	public void treeTableViewFormatting(ArrayList<String[]> matchComponents, String simScore) {
 		String initialValues = "";
@@ -237,7 +246,8 @@ public class DisplayMatchesController {
 
 		test.getChildren().add(matchHead);
 
-		treeTableView.setRoot(test);
+		this.simScore.setText("Similarity score: " +simScore);
+		treeTableView.setRoot(matchHead);
 
 	}
 
