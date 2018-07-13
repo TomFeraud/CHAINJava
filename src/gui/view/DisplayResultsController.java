@@ -72,7 +72,6 @@ public class DisplayResultsController {
 			resultsTable.getColumns().add(column);
 		}
 
-		// return resultsTable;
 		return resultsTable;
 	}
 

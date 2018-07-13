@@ -51,7 +51,11 @@ public class TEST extends Application {
 		treeTable.getColumns().add(repaired);
 		
 		
-		treeTable.setRoot(match);
+		TreeItem<Matches> test = new TreeItem<>(new Matches("Click here to display matches", "", ""));
+
+		test.getChildren().add(match);
+		
+		treeTable.setRoot(test);
 		
 
 
@@ -63,7 +67,7 @@ public class TEST extends Application {
 		// Add the Scene to the Stage
 		stage.setScene(scene);
 		// Set the Title
-		stage.setTitle("TEST TableView");
+		stage.setTitle("TEST TreeTableView");
 		// Display the Stage
 		stage.show();
 

@@ -149,60 +149,9 @@ public class DisplayRepairedQueriesController {
 			controller.setSelectedIndex(selectedIndex);
 			/////////////////////////////////////////////
 			// TEST
-
-			String initialValues = "";
-			String repairedValues = "";
-			String semanticRelations = "";
-
-			for (String[] m : matchComponents) {
-				initialValues += m[0] + ";";
-				semanticRelations += m[1] + ";";
-				repairedValues += m[2] + ";";
-
-			}
-			String[] initialSchema = initialValues.split(";");
-			String [] relations = semanticRelations.split(";");
-			String[] repairedSchema = repairedValues.split(";");
-
-			System.out.println("TEST INITIAL QUERY:\n" + initialValues);
-			System.out.println("TEST REPAIRED QUERY:\n" + repairedValues);
-
-			String[] testInitialSchemaHead = initialSchema[0].split(",");
-			String initialSchemaHead = testInitialSchemaHead[0];
-			String[] testRepairedSchemaHead = repairedSchema[0].split(",");
-			String repairedSchemaHead = testRepairedSchemaHead[0];
-			System.out.println("InitialSchemaHead: " + initialSchemaHead);
-			System.out.println("RepairedSchemaHead: " + repairedSchemaHead);
-
-			String[] initialSchemaValues = new String[initialSchema.length];
-			String[] repairedSchemaValues = new String[repairedSchema.length];
-			for (int cpt = 0; cpt < initialSchema.length; cpt++) {
-				String[] testSplit = initialSchema[cpt].split(",");
-				if (testSplit.length > 1) {// length equal 0 when there is only the head
-					initialSchemaValues[cpt] = testSplit[1];
-				}
-				if (initialSchemaValues[cpt] != null) {
-					System.out.println("initialSchemaValues" + cpt + " " + initialSchemaValues[cpt]);
-				}
-			}
-			for (int c = 0; c < repairedSchema.length; c++) {
-				String[] repairedSplit = repairedSchema[c].split(",");
-
-				if (repairedSplit.length > 1) {// length equal 0 when there is only the head
-					repairedSchemaValues[c] = repairedSplit[1];
-
-				}
-				if (repairedSchemaValues[c] != null) {
-					System.out.println("repairedSchemaValues" + c + ":" + repairedSchemaValues[c]);
-				}
-			}
 			
-			for(int cpt = 0; cpt < relations.length; cpt++) {
-				System.out.println("RELATIONS: " +relations[cpt]);
-			}
-			
-			
-			
+			controller.treeTableViewFormatting(matchComponents);
+				 
 
 			/*
 			 * TreeView<String> testTree = new TreeView<String>(); TreeItem<String> root =

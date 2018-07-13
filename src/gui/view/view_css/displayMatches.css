@@ -26,14 +26,22 @@ FlowPane {
 #topText {
 	-fx-fill: #fff;
 }
-
+	
 .label {
 	-fx-text-fill: #393939;
 	-fx-font-weight: bold;
 }
 
-#matchesArea *.text {
-    -fx-text-alignment: center;
+TreeTableColumn .table-cell{
+    -fx-alignment: CENTER-RIGHT;
+}
+
+TreeTableView .table-cell {
+    -fx-alignment: CENTER-RIGHT;
+}
+
+.tree-table-column {
+  -fx-alignment: CENTER_RIGHT;
 }
 
  .text-field {

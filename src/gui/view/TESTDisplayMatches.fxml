@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.TESTDisplayMatchesController">
+<BorderPane prefHeight="400.0" prefWidth="700.0" stylesheets="@view_css/displayMatches.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.view.TESTDisplayMatchesController">
    <top>
-      <HBox fx:id="topHbox" alignment="CENTER" minHeight="-Infinity" prefHeight="60.0" prefWidth="200.0" stylesheets="@view_css/displayMatches.css" BorderPane.alignment="CENTER">
+      <HBox fx:id="topHbox" alignment="CENTER" minHeight="-Infinity" prefHeight="60.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="The Matches section represents the matches performed by the process" HBox.hgrow="ALWAYS" />
          </children>
@@ -65,9 +65,44 @@
                         </HBox>
                         <HBox alignment="CENTER" prefHeight="65.0" prefWidth="698.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TreeView fx:id="treeView" prefHeight="91.0" prefWidth="327.0" HBox.hgrow="ALWAYS" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="20.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+                              <GridPane alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Symbol" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meaning" GridPane.columnIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="=" GridPane.rowIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="equivalent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" GridPane.rowIndex="2" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="less general" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" GridPane.rowIndex="3" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="more general" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                 </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" />
+                              <TreeTableView fx:id="treeTableView" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                <columns>
+                                  <TreeTableColumn fx:id="initialColumn" prefWidth="75.0" text="Initial" />
+                                  <TreeTableColumn fx:id="relationColumn" maxWidth="1800.0" prefWidth="75.0" text="Relation" />
+                                    <TreeTableColumn fx:id="repairedColumn" prefWidth="75.0" text="Repaired" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TreeTableView>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="210.0" />
                            </children>
                         </HBox>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="18.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>
@@ -75,4 +110,12 @@
          </items>
       </SplitPane>
    </center>
+   <bottom>
+      <HBox fx:id="bottomHbox" alignment="CENTER_LEFT" minHeight="-Infinity" prefHeight="55.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="34.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" />
+            <Button mnemonicParsing="false" onAction="#back" text="Go Back" />
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>
