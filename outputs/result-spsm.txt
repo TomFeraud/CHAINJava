@@ -1,6 +1,3 @@
-similarity(0.9).
-match([[waterBodyPressurestest,dataSource],=,[waterBodyPressures,dataSource]]).
-match([[waterBodyPressurestest,waterBodyId],=,[waterBodyPressures,waterBodyId]]).
-match([[waterBodyPressurestest,time],>,[waterBodyPressures,identifiedDate]]).
-match([[waterBodyPressurestest],=,[waterBodyPressures]]).
-match([[waterBodyPressurestest,affectsGroundwater],=,[waterBodyPressures,affectsGroundwater]]).
+similarity(1.0).
+match([[Mountain],=,[Mountain]]).
+match([[Mountain,elevation],=,[Mountain,elevation]]).

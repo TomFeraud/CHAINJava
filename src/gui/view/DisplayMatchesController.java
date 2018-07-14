@@ -10,15 +10,19 @@ import gui.model.Matches;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.TreeTableRow;
 import javafx.scene.control.TreeTableView;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 /**
  * * The controller of the DisplayMatches view
@@ -173,7 +177,7 @@ public class DisplayMatchesController {
 		String repairedValues = "";
 		String semanticRelations = "";
 
-		TreeItem<Matches> matchHead = new TreeItem<>(new Matches("zdzad", "dazd", "qfgb"));
+		TreeItem<Matches> matchHead = new TreeItem<>(new Matches("Head", "Is", "Empty____FAILURE"));
 		TreeItem<Matches> node;
 		matchHead.setExpanded(true);
 
@@ -224,6 +228,10 @@ public class DisplayMatchesController {
 			if (repairedSplit.length > 1) {// length equal 0 when there is only the head
 				repairedSchemaValues[i] = repairedSplit[1];
 			}
+
+			// The above work only in the current case (one "child branch", need to optimize
+			// in case of several)
+
 			if (initialSchemaValues[i] != null && repairedSchemaValues[i] != null) {
 				node = new TreeItem<>(new Matches(initialSchemaValues[i], relations[i], repairedSchemaValues[i]));
 				matchHead.getChildren().add(node);
@@ -241,98 +249,45 @@ public class DisplayMatchesController {
 		repairedColumn.setCellValueFactory(
 				(TreeTableColumn.CellDataFeatures<Matches, String> param) -> param.getValue().getValue().getRepaired());
 
-		TreeItem<Matches> test = new TreeItem<>(
-				new Matches("Similarity score: " + simScore + "\n" + "Click here to display matches", "", ""));
-
-		test.getChildren().add(matchHead);
-
-		this.simScore.setText("Similarity score: " +simScore);
+		
+		
+		relationColumn.setCellFactory((TreeTableColumn<Matches, String> param) -> {
+            TreeTableCell<Matches,String> cell = new TreeTableCell<Matches, String>(){
+                @Override
+                //by using Number we don't have to parse a String
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    TreeTableRow<Matches> ttr = getTreeTableRow();
+                    System.out.println("ITEM:" +item);
+                    if (item == null || empty){
+                        setText(null);
+                        ttr.setStyle("");
+                        //setStyle("-fx-background-color:black");
+                    } 
+                    else if(item.equalsIgnoreCase("<") || item.equalsIgnoreCase(">")) {
+                    	setText(item);
+                    	setStyle("-fx-background-color:#FFB740");
+                    	}
+                    else if(item.equalsIgnoreCase("=")) {
+                    	setText(item);
+                    	setStyle("-fx-background-color:#40C16D");
+                    }
+                    
+                else {
+                	setStyle("-fx-background-color:red");}
+                }
+                
+            };
+            return cell;
+        });		
+		
+		
+		this.simScore.setText("Similarity score: " + simScore);
 		treeTableView.setRoot(matchHead);
+		
+		
 
-	}
-
-	public void setTreeTableView(int nbrMatchComponents, String initialSchemaHead, String repairedSchemaHead,
-			String[] initialSchemaValues, String[] relations, String[] repairedSchemaValues, String simScore) {
-
-		// The match between the initial and repaired schemas' heads
-		TreeItem<Matches> matchHead = new TreeItem<>(new Matches(initialSchemaHead, relations[0], repairedSchemaHead));
-		TreeItem<Matches> node;
-		matchHead.setExpanded(true);
-
-		for (int i = 0; i < nbrMatchComponents; i++) {
-			if (initialSchemaValues[i] != null && repairedSchemaValues[i] != null) {
-				node = new TreeItem<>(new Matches(initialSchemaValues[i], relations[i], repairedSchemaValues[i]));
-				matchHead.getChildren().add(node);
-			}
-		}
-
-		initialColumn.setCellValueFactory(
-				(TreeTableColumn.CellDataFeatures<Matches, String> param) -> param.getValue().getValue().getInitial());
-		relationColumn.setCellValueFactory(
-				(TreeTableColumn.CellDataFeatures<Matches, String> param) -> param.getValue().getValue().getRelation());
-		repairedColumn.setCellValueFactory(
-				(TreeTableColumn.CellDataFeatures<Matches, String> param) -> param.getValue().getValue().getRepaired());
-
-		initialColumn.setCellFactory(col -> {
-			TreeTableCell<Matches, String> cell = new TreeTableCell<Matches, String>() {
-				@Override
-				public void updateItem(String item, boolean empty) {
-					super.updateItem(item, empty);
-					if (empty) {
-						setText(null);
-					} else {
-						setText(item.toString());
-					}
-				}
-			};
-
-			// cell.setAlignment(Pos.CENTER);
-
-			return cell;
-		});
-
-		relationColumn.setCellFactory(col -> {
-			TreeTableCell<Matches, String> cell = new TreeTableCell<Matches, String>() {
-				@Override
-				public void updateItem(String item, boolean empty) {
-					super.updateItem(item, empty);
-					if (empty) {
-						setText(null);
-					} else {
-						setText(item.toString());
-					}
-				}
-			};
-
-			cell.setAlignment(Pos.CENTER);
-
-			return cell;
-		});
-
-		repairedColumn.setCellFactory(col -> {
-			TreeTableCell<Matches, String> cell = new TreeTableCell<Matches, String>() {
-				@Override
-				public void updateItem(String item, boolean empty) {
-					super.updateItem(item, empty);
-					if (empty) {
-						setText(null);
-					} else {
-						setText(item.toString());
-					}
-				}
-			};
-
-			// cell.setAlignment(Pos.CENTER);
-
-			return cell;
-		});
-
-		TreeItem<Matches> test = new TreeItem<>(
-				new Matches("Similarity score: " + simScore + "\n" + "Click here to display matches", "", ""));
-
-		test.getChildren().add(matchHead);
-
-		treeTableView.setRoot(test);
+	
 
 	}
 
