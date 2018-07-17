@@ -51,6 +51,7 @@ public class Run_CHAIn {
 	private ArrayList<Match_Struc> repairedQueriesList = null;
 //List of the result(s) of the repaired query(ies)
 	private ArrayList<ResultSet> listResultsFromRepairedQueries = null;
+	private String initialQuerySchema = "";
 
 	// main method for testing during implementation
 	public static void main(String[] args) {
@@ -154,6 +155,12 @@ public class Run_CHAIn {
 			}
 
 			current = getSchema.getSchemaFromQuery(query, queryType);
+
+			//TOM
+			//Because the schema and schema head dissapeard during the CHAIn process....
+			initialQuerySchema = current.getQuerySchema();
+			
+
 
 			if (current == null) {
 				// then we have an invalid query
@@ -398,4 +405,16 @@ public class Run_CHAIn {
 		this.listResultsFromRepairedQueries = listResultsFromRepairedQueries;
 	}
 
+	//TEST
+	public String getInitialQuerySchema() {
+		return initialQuerySchema;
+	}
+
+	public void setInitialQuerySchema(String initialQuerySchema) {
+		this.initialQuerySchema = initialQuerySchema;
+	}
+
+	
+	
+	
 }

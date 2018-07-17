@@ -35,12 +35,14 @@ public class Main_GUI extends Application {
 	private Run_CHAIn run_CHAIn;
 	private Project projectModel;
 	private int result_status;
+	private int nbrRepairedQueries;
 	
 	
 	private ArrayList<ResultSet> resultsList;
 	
 	//Test
-	private int nbrRepairedQueries;
+	private String initialQuerySchema;
+	
 
 	// To access it from other controllers
 	private SendQueryController sendQueryController;
@@ -189,10 +191,6 @@ public class Main_GUI extends Application {
 		this.resultsList = resultsList;
 	}
 
-	
-	
-	//TEST
-	
 	public int getNbrRepairedQueries() {
 		return nbrRepairedQueries;
 	}
@@ -200,6 +198,17 @@ public class Main_GUI extends Application {
 	public void setNbrRepairedQueries(int nbrRepairedQueries) {
 		this.nbrRepairedQueries = nbrRepairedQueries;
 	}
+
+	//TEST
+	public String getInitialQuerySchema() {
+		return initialQuerySchema;
+	}
+
+	public void setInitialQuerySchema(String initialQuerySchema) {
+		this.initialQuerySchema = initialQuerySchema;
+	}
+	
+	
 	
 	
 }

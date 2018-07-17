@@ -1,3 +1,2 @@
-similarity(1.0).
-match([[Mountain],=,[Mountain]]).
-match([[Mountain,elevation],=,[Mountain,elevation]]).
+similarity(0.5).
+match([[River],=,[River]]).

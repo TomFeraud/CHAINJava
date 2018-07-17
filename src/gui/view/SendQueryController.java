@@ -159,7 +159,7 @@ public class SendQueryController {
 					+ "PREFIX  foaf: <http://xlmns.com/foaf/0.1/> \n"
 					+ "PREFIX yago: <hhtp://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
 					+ "WHERE { ?id rdf:type dbo:River ;\n"
-					+ "dbo:lengthTest \"99300.0\"^^<http://www.w3.org/2001/XMLSchema#double> ;\n" + ".}\n";
+					+ "dbo:duration \"99300.0\"^^<http://www.w3.org/2001/XMLSchema#double> ;\n" + ".}\n";
 
 			targetInit = "River(length) ; River(size)";
 
@@ -327,6 +327,8 @@ public class SendQueryController {
 		// result_status variable of our main class
 		this.main.setResult_status(this.main.getRun_CHAIn().runCHAIn(q, qt, t, dataPath, ontPath, maxRes, minSimilarity,
 				maxQProduced, null));
+		this.main.setInitialQuerySchema(this.main.getRun_CHAIn().getInitialQuerySchema());
+
 		// Change scene
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayResults.fxml"));
