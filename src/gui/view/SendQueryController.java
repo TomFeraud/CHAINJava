@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -48,7 +49,6 @@ public class SendQueryController {
 	@FXML
 	private TextArea targets;
 
-	// TEST
 	@FXML
 	private Button sendButton;
 
@@ -57,6 +57,10 @@ public class SendQueryController {
 
 	// To handle the different example predefined in the interface
 	private String example = "";
+
+	// To handle the size of split pane divider (otherwise not fluid)
+	@FXML
+	private SplitPane splitPane;
 
 	// Reference to the main class
 	private Main_GUI main;
@@ -338,6 +342,9 @@ public class SendQueryController {
 
 			DisplayResultsController controller = loader.getController();
 			controller.setMainApp(this.main);
+			
+			double [] pos = this.getSplitPane().getDividerPositions();
+			this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 
 			int nbrResponse = 666;
 			int result_status = this.main.getResult_status();
@@ -509,6 +516,14 @@ public class SendQueryController {
 
 	public void setSendButton(Button sendButton) {
 		this.sendButton = sendButton;
+	}
+
+	public SplitPane getSplitPane() {
+		return splitPane;
+	}
+
+	public void setSplitPane(SplitPane splitPane) {
+		this.splitPane = splitPane;
 	}
 
 }

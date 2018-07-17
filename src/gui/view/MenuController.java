@@ -20,7 +20,10 @@ public class MenuController {
 
 	@FXML
 	public void home() {
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
+
 	}
 
 	// Exit application
@@ -40,11 +43,15 @@ public class MenuController {
 	// Ref test8_1_2 in Run_CHAIn_Test_Cases
 	// dbpedia query that  already runs successfully and does not require repair.
 	//Return code 5: INITIALQUERYSUCCESS
-	public void example1() {
+	public void example1() {		
+		//The position of split spane divider before updating scene
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		String example1 = "Example1";
-		this.main.getSendQueryController().setExample(example1);
+		this.main.getSendQueryController().setExample(example1);		
 		this.main.getSendQueryController().initialize();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
+
 	}
 
 	@FXML
@@ -52,10 +59,12 @@ public class MenuController {
 	// SEPA query, CHAIn generates 1 returned query with results
 	//Return code 10: REPAIREDQUERYRESULTS
 	public void example2() {
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		String example2 = "Example2";
 		this.main.getSendQueryController().setExample(example2);
 		this.main.getSendQueryController().initialize();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 	}
 
 	@FXML
@@ -63,10 +72,12 @@ public class MenuController {
 	// DBPEDIA query, CHAIn generates 2 returned query with results
 	//Return code 10: REPAIREDQUERYRESULTS
 	public void example3() {
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		String example3 = "Example3";
 		this.main.getSendQueryController().setExample(example3);
 		this.main.getSendQueryController().initialize();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 	}
 
 	@FXML
@@ -74,10 +85,12 @@ public class MenuController {
 	// SEPA query, no results from SPSM, 0 query created
 	//Return code 8: NOMATCHESFROMSPSM
 	public void example4() {
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		String example4 = "Example4";
 		this.main.getSendQueryController().setExample(example4);
 		this.main.getSendQueryController().initialize();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 	}
 
 	
@@ -86,10 +99,12 @@ public class MenuController {
 	// invalid sepa query
 	//Return code 6: INVALIDQUERY
 	public void example5() {
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		String example5 = "Example5";
 		this.main.getSendQueryController().setExample(example5);
 		this.main.getSendQueryController().initialize();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 	}
 	
 	@FXML
@@ -97,10 +112,12 @@ public class MenuController {
 	// Query HAS run successfully but NO data has been returned.
 	//Return code 11: REPAIREDQUERYNORESULTS
 	public void example6() {
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		String example6 = "Example6";
 		this.main.getSendQueryController().setExample(example6);
 		this.main.getSendQueryController().initialize();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 	}
 	
 	
@@ -109,10 +126,12 @@ public class MenuController {
 	// Sepa query with non-matching data in it - requires data repair
 	//Return code 12: DATAREPAIREDWITHRESULTS
 	public void example7() {
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		String example7 = "Example7";
 		this.main.getSendQueryController().setExample(example7);
 		this.main.getSendQueryController().initialize();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 	}
 	
 	
@@ -123,10 +142,12 @@ public class MenuController {
 	// Query has NOT run successfully
 	//Return code 9: REPAIREDQUERYRUNERROR
 	public void example8() {
+		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		String example8 = "Example8";
 		this.main.getSendQueryController().setExample(example8);
 		this.main.getSendQueryController().initialize();
+		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 	}
 
 }

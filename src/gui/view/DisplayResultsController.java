@@ -112,12 +112,14 @@ public class DisplayResultsController {
 			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
 			this.main.getMainContainair().setCenter(content); // Then add it to our main container
 
-			SendQueryController controllor = loader.getController();
-			controllor.setMainApp(this.main);
+			SendQueryController controller = loader.getController();
+			controller.setMainApp(this.main);
+			double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
+			controller.setQuery(this.main.getProjectModel().getInitialQuery().get());
+			controller.setInitialized(true);
+			controller.initialize();
+			controller.getSplitPane().setDividerPositions(pos[0]);
 
-			controllor.setQuery(this.main.getProjectModel().getInitialQuery().get());
-			controllor.setInitialized(true);
-			controllor.initialize();
 
 		} catch (IOException e) {
 			e.printStackTrace();
