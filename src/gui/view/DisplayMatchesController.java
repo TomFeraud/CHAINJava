@@ -176,8 +176,8 @@ public class DisplayMatchesController {
 		String initialValues = "";
 		String repairedValues = "";
 		String semanticRelations = "";
-		
-		System.out.println("TEST IN display matches : \n" +this.main.getInitialQuerySchema() + "\n");
+
+		System.out.println("TEST IN display matches : \n" + this.main.getInitialQuerySchema() + "\n");
 
 		TreeItem<Matches> matchHead = new TreeItem<>(new Matches("Head", "Is", "Empty____FAILURE"));
 		TreeItem<Matches> node;
@@ -196,7 +196,7 @@ public class DisplayMatchesController {
 		System.out.println("TEST REPAIRED VALUES:\n" + repairedValues);
 
 		// Split then store in array
-		String[] initialSchema = initialValues.split(";"); //after the narrowing down
+		String[] initialSchema = initialValues.split(";"); // after the narrowing down
 		String[] relations = semanticRelations.split(";");
 		String[] repairedSchema = repairedValues.split(";");
 
@@ -235,7 +235,8 @@ public class DisplayMatchesController {
 			// in case of several)
 
 			if (initialSchemaValues[i] != null && repairedSchemaValues[i] != null) {
-				node = new TreeItem<>(new Matches(initialSchemaValues[i], relations[i], "       "+repairedSchemaValues[i]));
+				node = new TreeItem<>(
+						new Matches(initialSchemaValues[i], relations[i], "       " + repairedSchemaValues[i]));
 				matchHead.getChildren().add(node);
 			} else {
 				Matches test = new Matches(initialSplit[0], relations[i], repairedSplit[0]);
@@ -243,18 +244,18 @@ public class DisplayMatchesController {
 			}
 
 		}
-		
-		System.out.println("NBR MATCH COMPONENTS: " +nbrMatchComponents);	
-		String[] fullInitialSchema = fullInitialSchema(); 
-		if(fullInitialSchema.length > nbrMatchComponents) {
-			String[] missingMatch;
+
+		System.out.println("NBR MATCH COMPONENTS: " + nbrMatchComponents);
+		String[] fullInitialSchema = fullInitialSchema();
+		if (fullInitialSchema.length > nbrMatchComponents) {
+			ArrayList<String> missingMatch = new ArrayList<String>();
 			missingMatch = findTermsWithoutMatch(fullInitialSchema, initialSchema);
-			node = new TreeItem<>(new Matches("MISSING", "!",""));
-			matchHead.getChildren().add(node);
+			for (String s : missingMatch) {
+				node = new TreeItem<>(new Matches(s, "!", ""));
+				matchHead.getChildren().add(node);
+			}
+
 		}
-		
-		
-		
 
 		initialColumn.setCellValueFactory(
 				(TreeTableColumn.CellDataFeatures<Matches, String> param) -> param.getValue().getValue().getInitial());
@@ -263,73 +264,73 @@ public class DisplayMatchesController {
 		repairedColumn.setCellValueFactory(
 				(TreeTableColumn.CellDataFeatures<Matches, String> param) -> param.getValue().getValue().getRepaired());
 
-		
-		
-		
-		
+		/*
+		 * relationColumn.setCellFactory((TreeTableColumn<Matches, String> param) -> {
+		 * TreeTableCell<Matches,String> cell = new TreeTableCell<Matches, String>(){
+		 * 
+		 * @Override //by using Number we don't have to parse a String protected void
+		 * updateItem(String item, boolean empty) { super.updateItem(item, empty);
+		 * TreeTableRow<Matches> ttr = getTreeTableRow(); System.out.println("ITEM:"
+		 * +item); if (item == null || empty){ setText(null); ttr.setStyle("");
+		 * //setStyle("-fx-background-color:black"); } else
+		 * if(item.equalsIgnoreCase("<") || item.equalsIgnoreCase(">")) { setText(item);
+		 * setStyle("-fx-text-fill:#FFB740"); } else if(item.equalsIgnoreCase("=")) {
+		 * setText(item); setStyle("-fx-text-fill:#40C16D"); }
+		 * 
+		 * else { setStyle("-fx-text-fill:red");} }
+		 * 
+		 * }; return cell; });
+		 */
 
-		
-		/* relationColumn.setCellFactory((TreeTableColumn<Matches, String> param) -> {
-            TreeTableCell<Matches,String> cell = new TreeTableCell<Matches, String>(){
-                @Override
-                //by using Number we don't have to parse a String
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    TreeTableRow<Matches> ttr = getTreeTableRow();
-                    System.out.println("ITEM:" +item);
-                    if (item == null || empty){
-                        setText(null);
-                        ttr.setStyle("");
-                        //setStyle("-fx-background-color:black");
-                    } 
-                    else if(item.equalsIgnoreCase("<") || item.equalsIgnoreCase(">")) {
-                    	setText(item);
-                    	setStyle("-fx-text-fill:#FFB740");
-                    	}
-                    else if(item.equalsIgnoreCase("=")) {
-                    	setText(item);
-                    	setStyle("-fx-text-fill:#40C16D");
-                    }
-                    
-                else {
-                	setStyle("-fx-text-fill:red");}
-                }
-                
-            };
-            return cell;
-        });		*/
-		
-		
 		this.simScore.setText("Similarity score: " + simScore);
 		treeTableView.setRoot(matchHead);
 
 	}
-	
+
 	public String[] fullInitialSchema() {
 		String schema = this.main.getInitialQuerySchema();
 		int size = 0;
-		String[] schemaSplit = schema.split("[,\\(\\)]"); //(,|\(|\))
+		String[] schemaSplit = schema.split("[,\\(\\)]"); // (,|\(|\))
 
 		size = schemaSplit.length;
 		System.out.println("Size of initial schema: " + size);
 
 		return schemaSplit;
 	}
-	
-	public String[] findTermsWithoutMatch(String[] fullInitialSchema, String[] initialSchema) {
-		String[] test = null;
-		
-		for(int i = 0; i < initialSchema.length; i++) {
-			System.out.println("Initial schema value: " +initialSchema[i]);
+
+	public ArrayList<String> findTermsWithoutMatch(String[] fullInitialSchema, String[] initialSchema) {
+		ArrayList<String> terms = new ArrayList<String>();
+
+		ArrayList<String> listFullInitialSchema = new ArrayList<String>();
+		ArrayList<String> listInitialSchema = new ArrayList<String>();
+
+		for (int i = 0; i < initialSchema.length; i++) {
+			// System.out.println("Initial schema value: " +initialSchema[i]);
+			listInitialSchema.add(fullInitialSchema[i]);
 		}
-		for(int i = 0; i < fullInitialSchema.length; i++) {
-			System.out.println("FULL Initial schema value: " +fullInitialSchema[i]);
+		for (int i = 0; i < fullInitialSchema.length; i++) {
+			// System.out.println("FULL Initial schema value: " +fullInitialSchema[i]);
+			listFullInitialSchema.add(fullInitialSchema[i]);
 		}
-		
-		
-		
-		return test;
-		
+		// System.out.println("LIST full: ");
+
+		for (String s : listFullInitialSchema) {
+			System.out.println(s);
+		}
+
+		for (String s : listInitialSchema) {
+			System.out.println(s);
+		}
+
+		for (String s : listFullInitialSchema) {
+			if (!listInitialSchema.contains(s)) {
+				System.out.println(s + " has not been matched!");
+				terms.add(s);
+			}
+		}
+
+		return terms;
+
 	}
 
 }
