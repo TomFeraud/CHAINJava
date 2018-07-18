@@ -219,6 +219,8 @@ public class DisplayMatchesController {
 		String[] initialSchemaValues = new String[initialSchema.length];
 		String[] repairedSchemaValues = new String[repairedSchema.length];
 
+		// String[] initialSplit = new String[initialSchema.length];
+		String head = "";
 		for (int i = 0; i < nbrMatchComponents; i++) {
 
 			String[] initialSplit = initialSchema[i].split(",");
@@ -242,14 +244,14 @@ public class DisplayMatchesController {
 				Matches test = new Matches(initialSplit[0], relations[i], repairedSplit[0]);
 				matchHead.setValue(test);
 			}
-
+			head = initialSplit[0];
 		}
 
 		System.out.println("NBR MATCH COMPONENTS: " + nbrMatchComponents);
 		String[] fullInitialSchema = fullInitialSchema();
 		if (fullInitialSchema.length > nbrMatchComponents) {
 			ArrayList<String> missingMatch = new ArrayList<String>();
-			missingMatch = findTermsWithoutMatch(fullInitialSchema, initialSchema);
+			missingMatch = findTermsWithoutMatch(fullInitialSchema, initialSchemaValues, head);
 			for (String s : missingMatch) {
 				node = new TreeItem<>(new Matches(s, "!", ""));
 				matchHead.getChildren().add(node);
@@ -264,23 +266,33 @@ public class DisplayMatchesController {
 		repairedColumn.setCellValueFactory(
 				(TreeTableColumn.CellDataFeatures<Matches, String> param) -> param.getValue().getValue().getRepaired());
 
-		/*
-		 * relationColumn.setCellFactory((TreeTableColumn<Matches, String> param) -> {
-		 * TreeTableCell<Matches,String> cell = new TreeTableCell<Matches, String>(){
-		 * 
-		 * @Override //by using Number we don't have to parse a String protected void
-		 * updateItem(String item, boolean empty) { super.updateItem(item, empty);
-		 * TreeTableRow<Matches> ttr = getTreeTableRow(); System.out.println("ITEM:"
-		 * +item); if (item == null || empty){ setText(null); ttr.setStyle("");
-		 * //setStyle("-fx-background-color:black"); } else
-		 * if(item.equalsIgnoreCase("<") || item.equalsIgnoreCase(">")) { setText(item);
-		 * setStyle("-fx-text-fill:#FFB740"); } else if(item.equalsIgnoreCase("=")) {
-		 * setText(item); setStyle("-fx-text-fill:#40C16D"); }
-		 * 
-		 * else { setStyle("-fx-text-fill:red");} }
-		 * 
-		 * }; return cell; });
-		 */
+		relationColumn.setCellFactory((TreeTableColumn<Matches, String> param) -> {
+			TreeTableCell<Matches, String> cell = new TreeTableCell<Matches, String>() {
+
+				@Override // by using Number we don't have to parse a String protected void
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					TreeTableRow<Matches> ttr = getTreeTableRow();
+					//System.out.println("ITEM:" + item);
+					if (item == null || empty) {
+						setText(null);
+						ttr.setStyle("");
+						// setStyle("-fx-background-color:black");
+					} else if (item.equalsIgnoreCase("<") || item.equalsIgnoreCase(">")) {
+						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:#FFB740;" );
+
+					} else if (item.equalsIgnoreCase("=")) {
+						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:#40C16D" );
+
+					} else {
+						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:red;" );
+					}
+					setText(item);
+
+				}
+			};
+			return cell;
+		});
 
 		this.simScore.setText("Similarity score: " + simScore);
 		treeTableView.setRoot(matchHead);
@@ -298,7 +310,7 @@ public class DisplayMatchesController {
 		return schemaSplit;
 	}
 
-	public ArrayList<String> findTermsWithoutMatch(String[] fullInitialSchema, String[] initialSchema) {
+	public ArrayList<String> findTermsWithoutMatch(String[] fullInitialSchema, String[] initialSchema, String head) {
 		ArrayList<String> terms = new ArrayList<String>();
 
 		ArrayList<String> listFullInitialSchema = new ArrayList<String>();
@@ -306,18 +318,19 @@ public class DisplayMatchesController {
 
 		for (int i = 0; i < initialSchema.length; i++) {
 			// System.out.println("Initial schema value: " +initialSchema[i]);
-			listInitialSchema.add(fullInitialSchema[i]);
+			listInitialSchema.add(initialSchema[i]);
 		}
+		listInitialSchema.add(head);
 		for (int i = 0; i < fullInitialSchema.length; i++) {
 			// System.out.println("FULL Initial schema value: " +fullInitialSchema[i]);
 			listFullInitialSchema.add(fullInitialSchema[i]);
 		}
-		// System.out.println("LIST full: ");
+		System.out.println("LIST full: ");
 
 		for (String s : listFullInitialSchema) {
 			System.out.println(s);
 		}
-
+		System.out.println("LIST : ");
 		for (String s : listInitialSchema) {
 			System.out.println(s);
 		}

@@ -43,51 +43,41 @@
         </tokens>
       </node>
       <node id="n2" parent-id="n0" preprocessed="true">
-        <name>identifiedDate</name>
-        <label-formula>n2_0 &amp; n2_1</label-formula>
-        <node-formula>(n2_0 &amp; n2_1) &amp; n0_0</node-formula>
+        <name>time</name>
+        <label-formula>n2_0</label-formula>
+        <node-formula>n2_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>identifieddate</text>
-            <lemma>identifieddate</lemma>
+            <text>time</text>
+            <lemma>time</lemma>
             <senses>
-              <sense id="v#620568"/>
-              <sense id="v#1028104"/>
-              <sense id="v#693710"/>
-              <sense id="v#716436"/>
-              <sense id="v#654017"/>
-              <sense id="v#620141"/>
-              <sense id="a#1379134"/>
-            </senses>
-          </token>
-          <token id="1">
-            <text>date</text>
-            <lemma>date</lemma>
-            <senses>
-              <sense id="n#15184543"/>
-              <sense id="n#10012076"/>
-              <sense id="n#8401740"/>
-              <sense id="n#15145165"/>
-              <sense id="n#15185626"/>
-              <sense id="n#15184779"/>
-              <sense id="n#7781049"/>
-              <sense id="v#2491462"/>
-              <sense id="v#737394"/>
-              <sense id="v#620873"/>
-              <sense id="v#2491850"/>
-              <sense id="v#736950"/>
+              <sense id="n#7324217"/>
+              <sense id="n#15295388"/>
+              <sense id="n#15147173"/>
+              <sense id="n#15270326"/>
+              <sense id="n#28468"/>
+              <sense id="n#7302920"/>
+              <sense id="n#15154879"/>
+              <sense id="n#15160774"/>
+              <sense id="n#4998860"/>
+              <sense id="n#15249488"/>
+              <sense id="v#491904"/>
+              <sense id="v#680466"/>
+              <sense id="v#703992"/>
+              <sense id="v#298687"/>
+              <sense id="v#297754"/>
             </senses>
           </token>
         </tokens>
       </node>
       <node id="n3" parent-id="n0" preprocessed="true">
-        <name>affectsGroundwater</name>
+        <name>kiki</name>
         <label-formula>n3_0</label-formula>
         <node-formula>n3_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>affectsgroundwater</text>
-            <lemma>affectsgroundwater</lemma>
+            <text>kiki</text>
+            <lemma>kiki</lemma>
             <senses/>
           </token>
         </tokens>

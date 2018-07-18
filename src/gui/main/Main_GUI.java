@@ -41,6 +41,7 @@ public class Main_GUI extends Application {
 	private ArrayList<ResultSet> resultsList;
 	
 	//Test
+	//contains the predicate + all values
 	private String initialQuerySchema;
 	
 
