@@ -409,8 +409,17 @@ public class DisplayResultsController {
 		// System.out.println("Column name: " + columnName);
 		// System.out.println(testJena.get(cptRow).get(columnName).toString());
 		s = listOfResults.get(cptRow).get(columnName).toString();
+		
+		
+		//Need to add a button or checkbox :)
+		boolean test = true;
+		if(test) {
+			s = formatStringResult(s);
+		}
+		
 		return s;
 	}
+
 
 	public boolean initialQuerySuccess(int result_status) {
 		if (result_status == 5) {
@@ -436,4 +445,29 @@ public class DisplayResultsController {
 		this.resultsTable = resultsTable;
 	}
 
+	private String formatStringResult(String s) {
+
+		String res = "";
+		if(s.contains("^^")) { // for example 17702.8"^^<http://www.w3.org/2001/XMLSchema#double
+			String[] test = s.split("[\\^^]"); // "\\" are escape characters
+			System.out.println("Test array:");
+			for(int i = 0; i<test.length; i++) {
+				System.out.println(test[i]);				
+			}
+			s = test[0];
+			System.out.println("s:" + s);
+		}
+		else if(s.contains("//")) { //For example http://dbpedia.org/resource/Cochrane_River
+			String[] test = s.split("[\\/]"); // "\\" are escape characters
+			System.out.println("Test array:");
+			for(int i = 0; i<test.length; i++) {
+				System.out.println(test[i]);				
+			}
+			int sizeSplit = test.length-1;
+			s = test[sizeSplit];
+			System.out.println("s:" + s);
+		}			
+			return s;
+	}
+	
 }

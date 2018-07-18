@@ -53,6 +53,7 @@ public class DisplayMatchesController {
 	@FXML
 	private Text simScore;
 
+	// The index of the selected repaired query in the DisplayRepairedQuery view
 	protected int selectedIndex;
 
 	// Reference to the main class
@@ -73,6 +74,11 @@ public class DisplayMatchesController {
 		this.main = mainApp;
 	}
 
+	/**
+	 * When the BACK button is clicked, this method is called. It loads the previous
+	 * view and controller (DisplayRepairedQuery)
+	 * 
+	 */
 	@FXML
 	public void back() {
 		FXMLLoader loader = new FXMLLoader();
@@ -99,11 +105,6 @@ public class DisplayMatchesController {
 		System.out.println("BACK !! :)");
 	}
 
-	////////
-	// These methods below may need to change/disappear ('cause at this step we
-	// suppose to have every information required /!\ expect which query from the
-	// list is selected)
-	///////
 	/**
 	 * Pass the repaired query to the controller so the new scene can be initialized
 	 * 
@@ -138,8 +139,6 @@ public class DisplayMatchesController {
 		this.repairedQuery = repairedQuery;
 	}
 
-	//////////////////////
-
 	public TreeTableColumn<Matches, String> getRelationColumn() {
 		return relationColumn;
 	}
@@ -172,12 +171,19 @@ public class DisplayMatchesController {
 		this.simScore = simScore;
 	}
 
+	/**
+	 * Format the tree table view (the container of the matches performs). It is
+	 * made of 3 columnds (initial, relation and repaired)
+	 * 
+	 * @param matchComponents
+	 *            The number of components matched
+	 * @param simScore
+	 *            The value of the similarity score
+	 */
 	public void treeTableViewFormatting(ArrayList<String[]> matchComponents, String simScore) {
 		String initialValues = "";
 		String repairedValues = "";
 		String semanticRelations = "";
-
-		System.out.println("TEST IN display matches : \n" + this.main.getInitialQuerySchema() + "\n");
 
 		TreeItem<Matches> matchHead = new TreeItem<>(new Matches("Head", "Is", "Empty____FAILURE"));
 		TreeItem<Matches> node;
@@ -192,26 +198,26 @@ public class DisplayMatchesController {
 			repairedValues += m[2] + ";";
 		}
 
-		System.out.println("TEST INITIAL VALUES:\n" + initialValues);
-		System.out.println("TEST REPAIRED VALUES:\n" + repairedValues);
+		// System.out.println("TEST INITIAL VALUES:\n" + initialValues);
+		// System.out.println("TEST REPAIRED VALUES:\n" + repairedValues);
 
 		// Split then store in array
 		String[] initialSchema = initialValues.split(";"); // after the narrowing down
 		String[] relations = semanticRelations.split(";");
 		String[] repairedSchema = repairedValues.split(";");
 
-		System.out.println("INITIAL SCHEMA:");
+		// System.out.println("INITIAL SCHEMA:");
 		for (int i = 0; i < initialSchema.length; i++) {
-			System.out.println(initialSchema[i]);
+			// System.out.println(initialSchema[i]);
 		}
 
 		for (int cpt = 0; cpt < relations.length; cpt++) {
-			System.out.println("RELATIONS: " + relations[cpt]);
+			// System.out.println("RELATIONS: " + relations[cpt]);
 		}
 
-		System.out.println("REPAIRED SCHEMA:");
+		// System.out.println("REPAIRED SCHEMA:");
 		for (int i = 0; i < repairedSchema.length; i++) {
-			System.out.println(repairedSchema[i]);
+			// System.out.println(repairedSchema[i]);
 		}
 
 		// Store the values (without the head)
@@ -247,7 +253,7 @@ public class DisplayMatchesController {
 			head = initialSplit[0];
 		}
 
-		System.out.println("NBR MATCH COMPONENTS: " + nbrMatchComponents);
+		// System.out.println("NBR MATCH COMPONENTS: " + nbrMatchComponents);
 		String[] fullInitialSchema = fullInitialSchema();
 		if (fullInitialSchema.length > nbrMatchComponents) {
 			ArrayList<String> missingMatch = new ArrayList<String>();
@@ -273,19 +279,19 @@ public class DisplayMatchesController {
 				protected void updateItem(String item, boolean empty) {
 					super.updateItem(item, empty);
 					TreeTableRow<Matches> ttr = getTreeTableRow();
-					//System.out.println("ITEM:" + item);
+					// System.out.println("ITEM:" + item);
 					if (item == null || empty) {
 						setText(null);
 						ttr.setStyle("");
 						// setStyle("-fx-background-color:black");
 					} else if (item.equalsIgnoreCase("<") || item.equalsIgnoreCase(">")) {
-						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:#FFB740;" );
+						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:#FFB740;");
 
 					} else if (item.equalsIgnoreCase("=")) {
-						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:#40C16D" );
+						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:#036319");
 
 					} else {
-						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:red;" );
+						setStyle("-fx-font-weight:bold;" + "-fx-text-fill:red;");
 					}
 					setText(item);
 
@@ -299,6 +305,12 @@ public class DisplayMatchesController {
 
 	}
 
+	/**
+	 * Compute the full initial schema (head included) Used to compare the
+	 * component matced with the initial so we know which ones did not matched
+	 * 
+	 * @return schemaSplit (the full initial schema)
+	 */
 	public String[] fullInitialSchema() {
 		String schema = this.main.getInitialQuerySchema();
 		int size = 0;
@@ -310,6 +322,15 @@ public class DisplayMatchesController {
 		return schemaSplit;
 	}
 
+	/**
+	 * Compute the term in the full initial schema without match and store them in an array list
+	 * 
+	 * @param fullInitialSchema
+	 * @param initialSchema
+	 * @param head
+	 * 
+	 * @return terms (the list of terms without match)
+	 */
 	public ArrayList<String> findTermsWithoutMatch(String[] fullInitialSchema, String[] initialSchema, String head) {
 		ArrayList<String> terms = new ArrayList<String>();
 

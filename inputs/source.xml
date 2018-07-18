@@ -71,13 +71,13 @@
         </tokens>
       </node>
       <node id="n3" parent-id="n0" preprocessed="true">
-        <name>kiki</name>
+        <name>azfgreg</name>
         <label-formula>n3_0</label-formula>
         <node-formula>n3_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>kiki</text>
-            <lemma>kiki</lemma>
+            <text>azfgreg</text>
+            <lemma>azfgreg</lemma>
             <senses/>
           </token>
         </tokens>

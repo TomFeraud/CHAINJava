@@ -156,9 +156,7 @@ public class Run_CHAIn {
 
 			current = getSchema.getSchemaFromQuery(query, queryType);
 
-			//TOM
-			//Because the schema and schema head dissapeard during the CHAIn process....
-			initialQuerySchema = current.getQuerySchema();
+			
 			
 
 
@@ -180,6 +178,11 @@ public class Run_CHAIn {
 			// queryData, targetSchemas, queryType,
 			// dataDir, ontologyPath, queryLim, simThresholdVal, resLimit);
 
+			
+			//TOM
+			//Because the schema and schema head dissapeard during the CHAIn process....
+			initialQuerySchema = current.getQuerySchema();
+			
 			this.repairedQueriesList = createRepairedQueries(current, queryData, targetSchemas, queryType, dataDir,
 					ontologyPath, queryLim, simThresholdVal, resLimit);
 
