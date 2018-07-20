@@ -14,6 +14,8 @@ import chain_source.Match_Struc;
 import gui.main.Main_GUI;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,12 +38,27 @@ public class DisplayResultsController {
 	@FXML
 	private Text bottomText;
 
-	// TEST
 	@FXML
 	private Button repairedQueriesButton;
 
+
+	@FXML
+	private CheckBox checkBox;
+	
+	boolean checkBoxSelected;
+
+	//These 2 variables are created here so we can access them from the checkbox listener
+	int nbrResponse;
+	int cptColumn;
+
 	// Reference to the main class
 	private Main_GUI main;
+
+	@FXML
+	public void initialize() {
+
+		// this.getCheckBox().setSelected(true);
+	}
 
 	/**
 	 * Use to link the controllor with the main class
@@ -64,6 +81,8 @@ public class DisplayResultsController {
 
 	private TableView<ObservableList<String>> createTableView(String[][] dataArray, String[] columnsArray) {
 		resultsTable.setItems(buildData(dataArray));
+
+		resultsTable.getColumns().clear(); // clear the columnds otherwise they add when check/uncheck url box
 
 		for (int i = 0; i < dataArray[0].length; i++) {
 			final int numColumn = i;
@@ -114,12 +133,11 @@ public class DisplayResultsController {
 
 			SendQueryController controller = loader.getController();
 			controller.setMainApp(this.main);
-			double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
+			double[] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 			controller.setQuery(this.main.getProjectModel().getInitialQuery().get());
 			controller.setInitialized(true);
 			controller.initialize();
 			controller.getSplitPane().setDividerPositions(pos[0]);
-
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -132,45 +150,45 @@ public class DisplayResultsController {
 	}
 
 	public void setTopText(int nbrResults) {
-		String test = "";
+		String text = "";
 		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
 		System.out.println("SETTOPTEXT NBRREPQUERIES: " + nbrRepairedQueries);
 		if (nbrRepairedQueries > 1) {
 			if (nbrResults > 1) {
-				test = nbrResults + " responses filtered according to your request";
-				test += "\nThere are " + nbrRepairedQueries + " repaired queries ";
-				test += "\nThe results according to the one with the highest similarity is displayed";
-				System.out.println(test);
+				text = nbrResults + " responses filtered according to your request";
+				text += "\nThere are " + nbrRepairedQueries + " repaired queries ";
+				text += "\nThe results according to the one with the highest similarity is displayed";
+				System.out.println(text);
 			} else if (nbrResults == 1) {
-				test = nbrResults + " response filtered according to your request";
-				test += "\nThere are " + nbrRepairedQueries + " repaired queries ";
-				test += "\nThe results according to the one with the highest similarity is displayed";
+				text = nbrResults + " response filtered according to your request";
+				text += "\nThere are " + nbrRepairedQueries + " repaired queries ";
+				text += "\nThe results according to the one with the highest similarity is displayed";
 			} else {
-				test = "Sorry, there is no response for your request";
-				test += "\nTry to look at the " + nbrRepairedQueries + " repaired queries generated ";
+				text = "Sorry, there is no response for your request";
+				text += "\nTry to look at the " + nbrRepairedQueries + " repaired queries generated ";
 			}
 		} else if (nbrRepairedQueries == 1) {
 			if (nbrResults > 1) {
-				test = nbrResults + " responses filtered according to your request";
-				test += "\nThere is " + nbrRepairedQueries + " repaired query ";
-				System.out.println(test);
+				text = nbrResults + " responses filtered according to your request";
+				text += "\nThere is " + nbrRepairedQueries + " repaired query ";
+				System.out.println(text);
 			} else if (nbrResults == 1) {
-				test = nbrResults + " response filtered according to your request";
-				test += "\nThere is " + nbrRepairedQueries + " repaired query ";
+				text = nbrResults + " response filtered according to your request";
+				text += "\nThere is " + nbrRepairedQueries + " repaired query ";
 			} else {
-				test = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
-				test += "\nTry to look at the repaired query generated ";
+				text = "Sorry, there is no response for your request. Try to modify the parameters or take a look at the repaired queries ";
+				text += "\nTry to look at the repaired query generated ";
 			}
 		} else {
 			if (nbrResults > 1) {
-				test = nbrResults + " responses filtered according to your request";
+				text = nbrResults + " responses filtered according to your request";
 			} else if (nbrResults == 1) {
-				test = nbrResults + " response filtered according to your request";
+				text = nbrResults + " response filtered according to your request";
 			} else {
-				test = "Sorry, there is no response for your request. Try to modify the parameters or type again your query ";
+				text = "Sorry, there is no response for your request. Try to modify the parameters or type again your query ";
 			}
 		}
-		this.topText.setText(test);
+		this.topText.setText(text);
 	}
 
 	// Need to add more detail explications (keep the return status displayed for
@@ -283,7 +301,8 @@ public class DisplayResultsController {
 		ResultSet copy = null;
 		ResultSet copy2 = null;
 		ResultSet copy3 = null;
-		int nbrResponse = 0;
+
+		nbrResponse = 0;
 
 		int result_status = this.main.getResult_status();
 
@@ -321,7 +340,7 @@ public class DisplayResultsController {
 			// The variable index is equal to the index of the greater similarity score so
 			// we can display the result according to its query
 			for (int cpt = 0; cpt < similarityTab.length; cpt++) {
-				// NEED TO WORK OUT HOW TO DO IF EQUALS LIKE IN EXAMPLE2...
+				// NEED TO WORK OUT HOW TO DO IF EQUALS
 				if (simMax < similarityTab[cpt]) {
 					simMax = similarityTab[cpt];
 					index = cpt;
@@ -346,7 +365,7 @@ public class DisplayResultsController {
 		// use to get the columns' name
 		Iterator<String> columnItName = ResultSetFormatter.toList(copy2).get(0).varNames();
 
-		int cptColumn = 0;
+		cptColumn = 0;
 
 		while (columnIterator.hasNext()) {
 			System.out.println(columnIterator.next());
@@ -378,12 +397,33 @@ public class DisplayResultsController {
 		 */
 
 		// results array
+
+		// results array
 		for (int i = 0; i < nbrResponse; i++) {
 			for (int cptC = 0; cptC < cptColumn; cptC++) {
 				resultsArray[i][cptC] = cellValue(i, cptC, listOfResults, columnsArray);
 			}
 		}
 		this.setResultsView(resultsArray, columnsArray);
+
+		// Hide/show URL when checked
+		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				// checkBox.setSelected(!newValue);
+				// System.out.println("NEW VALUE:" + newValue);
+				checkBoxSelected = newValue;
+				for (int i = 0; i < nbrResponse; i++) {
+					for (int cptC = 0; cptC < cptColumn; cptC++) {
+						resultsArray[i][cptC] = cellValue(i, cptC, listOfResults, columnsArray);
+					}
+				}
+
+				TableView<ObservableList<String>> resultsTable = createTableView(resultsArray, columnsArray);
+
+			}
+
+		});
 
 		return nbrResponse;
 	}
@@ -409,17 +449,14 @@ public class DisplayResultsController {
 		// System.out.println("Column name: " + columnName);
 		// System.out.println(testJena.get(cptRow).get(columnName).toString());
 		s = listOfResults.get(cptRow).get(columnName).toString();
-		
-		
-		//Need to add a button or checkbox :)
-		boolean test = true;
-		if(test) {
+
+		if (checkBoxSelected) {
+			// if(true) {
 			s = formatStringResult(s);
 		}
-		
+
 		return s;
 	}
-
 
 	public boolean initialQuerySuccess(int result_status) {
 		if (result_status == 5) {
@@ -447,27 +484,33 @@ public class DisplayResultsController {
 
 	private String formatStringResult(String s) {
 
-		String res = "";
-		if(s.contains("^^")) { // for example 17702.8"^^<http://www.w3.org/2001/XMLSchema#double
+		if (s.contains("^^")) { // for example 17702.8"^^<http://www.w3.org/2001/XMLSchema#double
 			String[] test = s.split("[\\^^]"); // "\\" are escape characters
-			System.out.println("Test array:");
-			for(int i = 0; i<test.length; i++) {
-				System.out.println(test[i]);				
+			// System.out.println("Test array:");
+			for (int i = 0; i < test.length; i++) {
+				// System.out.println(test[i]);
 			}
 			s = test[0];
-			System.out.println("s:" + s);
-		}
-		else if(s.contains("//")) { //For example http://dbpedia.org/resource/Cochrane_River
+			// System.out.println("s:" + s);
+		} else if (s.contains("//")) { // For example http://dbpedia.org/resource/Cochrane_River
 			String[] test = s.split("[\\/]"); // "\\" are escape characters
-			System.out.println("Test array:");
-			for(int i = 0; i<test.length; i++) {
-				System.out.println(test[i]);				
+			// System.out.println("Test array:");
+			for (int i = 0; i < test.length; i++) {
+				// System.out.println(test[i]);
 			}
-			int sizeSplit = test.length-1;
+			int sizeSplit = test.length - 1;
 			s = test[sizeSplit];
-			System.out.println("s:" + s);
-		}			
-			return s;
+			// System.out.println("s:" + s);
+		}
+		return s;
 	}
-	
+
+	public CheckBox getCheckBox() {
+		return checkBox;
+	}
+
+	public void setCheckBox(CheckBox checkBox) {
+		this.checkBox = checkBox;
+	}
+
 }

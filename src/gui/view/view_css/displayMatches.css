@@ -14,6 +14,10 @@ FlowPane {
 	-fx-background-color: #F0F0F0;
 }
 
+GridPane {
+	-fx-font-weight: bold;
+}
+
 
 
 .tree-table-row-cell:filled:selected:focused {

@@ -75,14 +75,14 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Symbol" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Meaning" GridPane.columnIndex="1" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="=" GridPane.rowIndex="1" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="equivalent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" GridPane.rowIndex="2" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="less general" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" GridPane.rowIndex="3" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="more general" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="!" GridPane.rowIndex="4" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="no match" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Text fill="#058922" strokeType="OUTSIDE" strokeWidth="0.0" text="=" GridPane.rowIndex="1" />
+                                    <Text fill="#036319" strokeType="OUTSIDE" strokeWidth="0.0" text="equivalent" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Text fill="#ffb740" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;" GridPane.rowIndex="2" />
+                                    <Text fill="#ffb740" strokeType="OUTSIDE" strokeWidth="0.0" text="less general" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Text fill="#ffb740" strokeType="OUTSIDE" strokeWidth="0.0" text="&gt;" GridPane.rowIndex="3" />
+                                    <Text fill="#ffb740" strokeType="OUTSIDE" strokeWidth="0.0" text="more general" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="!" GridPane.rowIndex="4" />
+                                    <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="no match" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                  </children>
                                  <columnConstraints>
                                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />

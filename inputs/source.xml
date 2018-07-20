@@ -71,26 +71,55 @@
         </tokens>
       </node>
       <node id="n3" parent-id="n0" preprocessed="true">
-        <name>azfgreg</name>
-        <label-formula>n3_0</label-formula>
-        <node-formula>n3_0 &amp; n0_0</node-formula>
+        <name>waterAffected</name>
+        <label-formula>n3_0 &amp; n3_1</label-formula>
+        <node-formula>(n3_0 &amp; n3_1) &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>azfgreg</text>
-            <lemma>azfgreg</lemma>
-            <senses/>
+            <text>wateraffected</text>
+            <lemma>wateraffected</lemma>
+            <senses>
+              <sense id="n#14869913"/>
+              <sense id="n#9248053"/>
+              <sense id="n#14871527"/>
+              <sense id="n#4569944"/>
+              <sense id="n#14879875"/>
+              <sense id="n#7951744"/>
+              <sense id="v#228662"/>
+              <sense id="v#2362872"/>
+              <sense id="v#69341"/>
+              <sense id="v#453053"/>
+            </senses>
+          </token>
+          <token id="1">
+            <text>affected</text>
+            <lemma>affect</lemma>
+            <senses>
+              <sense id="v#137133"/>
+              <sense id="v#19441"/>
+              <sense id="v#2682907"/>
+              <sense id="v#839722"/>
+              <sense id="v#1771801"/>
+              <sense id="a#71547"/>
+              <sense id="a#73656"/>
+              <sense id="a#1564296"/>
+            </senses>
           </token>
         </tokens>
       </node>
       <node id="n4" parent-id="n0" preprocessed="true">
-        <name>waterBodyId</name>
+        <name>waterCourse</name>
         <label-formula>n4_0</label-formula>
         <node-formula>n4_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>waterbodyid</text>
-            <lemma>waterbodyid</lemma>
-            <senses/>
+            <text>watercourse</text>
+            <lemma>watercourse</lemma>
+            <senses>
+              <sense id="n#9498309"/>
+              <sense id="n#9471510"/>
+              <sense id="n#4566561"/>
+            </senses>
           </token>
         </tokens>
       </node>

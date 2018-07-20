@@ -1,1 +1,1 @@
-waterBodyPressurestest(dataSource,time,azfgreg,waterBodyId)
+waterBodyPressurestest(dataSource,time,waterAffected,waterCourse)

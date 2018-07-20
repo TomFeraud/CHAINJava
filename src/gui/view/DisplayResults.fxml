@@ -26,9 +26,21 @@
                         <Text fx:id="topText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
-                  <HBox fx:id="topHbox2" alignment="CENTER" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" prefHeight="25.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+                  <HBox fx:id="topHbox2" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" prefHeight="25.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Responses:" />
+                        <CheckBox fx:id="checkBox" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="19.0" prefWidth="122.0" text="Hide URL" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin></CheckBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Responses:                          " HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Text>
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>

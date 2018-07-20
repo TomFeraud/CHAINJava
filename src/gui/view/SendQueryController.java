@@ -139,10 +139,10 @@ public class SendQueryController {
 					+ "PREFIX  sepaidw: <http://data.sepa.org.uk/id/Water/>   \n"
 					+ "PREFIX  sepaidloc: <http://data.sepa.org.uk/id/Location/> \n"
 					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "SELECT *  \n"
+					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "\nSELECT *  \n"
 					+ "FROM <queryData/sepa/sepa_datafiles/waterBodyPressurestest.n3>\n"
-					+ "WHERE { ?id sepaw:dataSource ?dataSource;\n" + "sepaw:identifiedDate  ?identifiedDate  ;\n"
-					+ "sepaw:affectsGroundwater ?affectsGroundwater ;\n" + "sepaw:waterBodyId ?waterBodyId .}" + "\n\n";
+					+ "WHERE { ?id sepaw:dataSource ?dataSource;\n" + "sepaw:time  ?time  ;\n"
+					+ "sepaw:waterAffected ?waterAffected ;\n" + "sepaw:waterCourse ?waterCourse .}" + "\n\n";
 
 			targetInit = "waterBodyPressures(dataSource, identifiedDate, affectsGroundwater, waterBodyId)";
 
@@ -182,7 +182,7 @@ public class SendQueryController {
 					+ "PREFIX  sepaidw: <http://data.sepa.org.uk/id/Water/>   \n"
 					+ "PREFIX  sepaidloc: <http://data.sepa.org.uk/id/Location/> \n"
 					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "SELECT *  \n"
+					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "\nSELECT *  \n"
 					+ "FROM <queryData/sepa/sepa_datafiles/surfaceWaterBodies.n3>\n"
 					+ "WHERE { ?id sepaw:river ?river;\n" + "sepaw:associatedGroundwaterId ?associatedGroundwaterId .}"
 					+ "\n\n";
@@ -205,7 +205,7 @@ public class SendQueryController {
 					+ "PREFIX  sepaidw: <http://data.sepa.org.uk/id/Water/>   \n"
 					+ "PREFIX  sepaidloc: <http://data.sepa.org.uk/id/Location/> \n"
 					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "SELECT *  \n"
+					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "\nSELECT *  \n"
 					+ "FROM <queryData/sepa/sepa_datafiles/water.n3>\n" + "WHERE { ?id sepaw:timePeriod ?timePeriod;\n"
 					+ "random:geo ?geo  ;\n" // The invalid bit - an undefined prefix
 					+ "sepaw:measure ?measure ;\n" + "sepaw:resource ?resource .}" + "\n\n";
@@ -227,7 +227,7 @@ public class SendQueryController {
 					+ "PREFIX  sepaidw: <http://data.sepa.org.uk/id/Water/>   \n"
 					+ "PREFIX  sepaidloc: <http://data.sepa.org.uk/id/Location/> \n"
 					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
-					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "SELECT *  \n"
+					+ "PREFIX  sepaw: <http://data.sepa.org.uk/ont/Water#> \n" + "\nSELECT *  \n"
 					+ "FROM <queryData/sepa/sepa_datafiles/waterBodyMeasures.n3>\n"
 					+ "WHERE { ?id sepaw:timePeriod ?timePeriod;\n" + "geo:geo ?geo  ;\n" + "sepaw:measure ?measure ;\n"
 					+ "sepaw:resource ?resource .}";
