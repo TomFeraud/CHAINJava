@@ -111,7 +111,6 @@ public class DisplayRepairedQueriesController {
 			resultsTable.getColumns().add(column);
 		}
 
-		// return resultsTable;
 		return resultsTable;
 	}
 
@@ -190,8 +189,6 @@ public class DisplayRepairedQueriesController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("BACK !! :)");
-		// System.out.println(this.main.getResultsList().get(0));
 
 	}
 
@@ -255,7 +252,6 @@ public class DisplayRepairedQueriesController {
 				ResultSet copy2 = null;
 				ResultSet copy3 = null;
 
-				// System.out.println(this.resultsList.get(0));
 				copy = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
 				copy2 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
 				copy3 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
@@ -269,7 +265,7 @@ public class DisplayRepairedQueriesController {
 				int cptColumn = 0;
 
 				while (columnIterator.hasNext()) {
-					System.out.println(columnIterator.next());
+					columnIterator.next();
 					cptColumn++;
 				}
 
@@ -316,8 +312,6 @@ public class DisplayRepairedQueriesController {
 	private String cellValue(int cptRow, int cptCol, List<QuerySolution> listOfResults, String[] columnsArray) {
 		String s = "";
 		String columnName = columnsArray[cptCol];
-		// System.out.println("Column name: " + columnName);
-		// System.out.println(testJena.get(cptRow).get(columnName).toString());
 		s = listOfResults.get(cptRow).get(columnName).toString();
 		return s;
 	}

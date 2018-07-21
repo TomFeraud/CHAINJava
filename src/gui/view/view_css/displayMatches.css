@@ -26,6 +26,10 @@ GridPane {
     -fx-text-fill: white;
 }
 
+.tree-table-view {
+    -fx-focus-color: green;
+}
+
 
 .tree-table-row-cell:filled:hover {
     /*-fx-background-color: #0093ff;*/
