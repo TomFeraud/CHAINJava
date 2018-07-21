@@ -102,78 +102,11 @@ public class DisplayMatchesController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("BACK !! :)");
-	}
-
-	/**
-	 * Pass the repaired query to the controller so the new scene can be initialized
-	 * 
-	 * @param results
-	 */
-	public void setRepairedQuery(String results) {
-		this.repairedQuery.setText(results);
-	}
-
-	/**
-	 * Pass the matches to the controller so the new scene can be initialized
-	 * 
-	 * @param results
-	 */
-	public void setInitialQuery(String q) {
-		this.initialQuery.setText(q);
-	}
-
-	public int getSelectedIndex() {
-		return selectedIndex;
-	}
-
-	public void setSelectedIndex(int selectedIndex) {
-		this.selectedIndex = selectedIndex;
-	}
-
-	public TextArea getRepairedQuery() {
-		return repairedQuery;
-	}
-
-	public void setRepairedQuery(TextArea repairedQuery) {
-		this.repairedQuery = repairedQuery;
-	}
-
-	public TreeTableColumn<Matches, String> getRelationColumn() {
-		return relationColumn;
-	}
-
-	public TreeTableView<Matches> getTreeTableView() {
-		return treeTableView;
-	}
-
-	public void setTreeTableView(TreeTableView<Matches> treeTableView) {
-		this.treeTableView = treeTableView;
-	}
-
-	public void setRelationColumn(TreeTableColumn<Matches, String> relationColumn) {
-		this.relationColumn = relationColumn;
-	}
-
-	public TreeTableColumn<Matches, String> getRepairedColumn() {
-		return repairedColumn;
-	}
-
-	public void setRepairedColumn(TreeTableColumn<Matches, String> repairedColumn) {
-		this.repairedColumn = repairedColumn;
-	}
-
-	public Text getSimScore() {
-		return simScore;
-	}
-
-	public void setSimScore(Text simScore) {
-		this.simScore = simScore;
 	}
 
 	/**
 	 * Format the tree table view (the container of the matches performs). It is
-	 * made of 3 columnds (initial, relation and repaired)
+	 * made of 3 columns (initial, relation and repaired)
 	 * 
 	 * @param matchComponents
 	 *            The number of components matched
@@ -198,34 +131,15 @@ public class DisplayMatchesController {
 			repairedValues += m[2] + ";";
 		}
 
-		// System.out.println("TEST INITIAL VALUES:\n" + initialValues);
-		// System.out.println("TEST REPAIRED VALUES:\n" + repairedValues);
-
 		// Split then store in array
 		String[] initialSchema = initialValues.split(";"); // after the narrowing down
 		String[] relations = semanticRelations.split(";");
 		String[] repairedSchema = repairedValues.split(";");
 
-		// System.out.println("INITIAL SCHEMA:");
-		for (int i = 0; i < initialSchema.length; i++) {
-			// System.out.println(initialSchema[i]);
-		}
-
-		for (int cpt = 0; cpt < relations.length; cpt++) {
-			// System.out.println("RELATIONS: " + relations[cpt]);
-		}
-
-		// System.out.println("REPAIRED SCHEMA:");
-		for (int i = 0; i < repairedSchema.length; i++) {
-			// System.out.println(repairedSchema[i]);
-		}
-
 		// Store the values (without the head)
-
 		String[] initialSchemaValues = new String[initialSchema.length];
 		String[] repairedSchemaValues = new String[repairedSchema.length];
 
-		// String[] initialSplit = new String[initialSchema.length];
 		String head = "";
 		for (int i = 0; i < nbrMatchComponents; i++) {
 
@@ -253,7 +167,6 @@ public class DisplayMatchesController {
 			head = initialSplit[0];
 		}
 
-		// System.out.println("NBR MATCH COMPONENTS: " + nbrMatchComponents);
 		String[] fullInitialSchema = fullInitialSchema();
 		if (fullInitialSchema.length > nbrMatchComponents) {
 			ArrayList<String> missingMatch = new ArrayList<String>();
@@ -279,7 +192,6 @@ public class DisplayMatchesController {
 				protected void updateItem(String item, boolean empty) {
 					super.updateItem(item, empty);
 					TreeTableRow<Matches> ttr = getTreeTableRow();
-					// System.out.println("ITEM:" + item);
 					if (item == null || empty) {
 						setText(null);
 						ttr.setStyle("");
@@ -306,15 +218,15 @@ public class DisplayMatchesController {
 	}
 
 	/**
-	 * Compute the full initial schema (head included) Used to compare the
-	 * component matced with the initial so we know which ones did not matched
+	 * Compute the full initial schema (head included) Used to compare the component
+	 * matced with the initial so we know which ones did not matched
 	 * 
 	 * @return schemaSplit (the full initial schema)
 	 */
 	public String[] fullInitialSchema() {
 		String schema = this.main.getInitialQuerySchema();
 		int size = 0;
-		String[] schemaSplit = schema.split("[,\\(\\)]"); // (,|\(|\))
+		String[] schemaSplit = schema.split("[,\\(\\)]"); // split ',' & '(' & ')'
 
 		size = schemaSplit.length;
 		System.out.println("Size of initial schema: " + size);
@@ -323,7 +235,8 @@ public class DisplayMatchesController {
 	}
 
 	/**
-	 * Compute the term in the full initial schema without match and store them in an array list
+	 * Compute the term in the full initial schema without match and store them in
+	 * an array list
 	 * 
 	 * @param fullInitialSchema
 	 * @param initialSchema
@@ -338,12 +251,10 @@ public class DisplayMatchesController {
 		ArrayList<String> listInitialSchema = new ArrayList<String>();
 
 		for (int i = 0; i < initialSchema.length; i++) {
-			// System.out.println("Initial schema value: " +initialSchema[i]);
 			listInitialSchema.add(initialSchema[i]);
 		}
 		listInitialSchema.add(head);
 		for (int i = 0; i < fullInitialSchema.length; i++) {
-			// System.out.println("FULL Initial schema value: " +fullInitialSchema[i]);
 			listFullInitialSchema.add(fullInitialSchema[i]);
 		}
 		System.out.println("LIST full: ");
@@ -365,6 +276,150 @@ public class DisplayMatchesController {
 
 		return terms;
 
+	}
+
+	/**
+	 * Pass the repaired query to the controller so the new scene can be initialized
+	 * 
+	 * @param results
+	 */
+	public void setRepairedQuery(String results) {
+		this.repairedQuery.setText(results);
+	}
+
+	/**
+	 * Pass the matches to the controller so the new scene can be initialized
+	 * 
+	 * @param q
+	 */
+	public void setInitialQuery(String q) {
+		this.initialQuery.setText(q);
+	}
+
+	/**
+	 * Gets the value of the selected index
+	 * 
+	 * @return selectedIndex
+	 */
+	public int getSelectedIndex() {
+		return selectedIndex;
+	}
+
+	/**
+	 * Sets the value of the selected index
+	 * 
+	 * @param selectedIndex
+	 */
+	public void setSelectedIndex(int selectedIndex) {
+		this.selectedIndex = selectedIndex;
+	}
+
+	/**
+	 * Gets the repaired query
+	 * 
+	 * @return
+	 */
+	public TextArea getRepairedQuery() {
+		return repairedQuery;
+	}
+
+	/**
+	 * Sets the repaired query
+	 * 
+	 * @param repairedQuery
+	 */
+	public void setRepairedQuery(TextArea repairedQuery) {
+		this.repairedQuery = repairedQuery;
+	}
+
+	/**
+	 * Gets the tree table view
+	 * 
+	 * @return treeTableView
+	 */
+	public TreeTableView<Matches> getTreeTableView() {
+		return treeTableView;
+	}
+
+	/**
+	 * Sets the tree table view
+	 * 
+	 * @param treeTableView
+	 */
+	public void setTreeTableView(TreeTableView<Matches> treeTableView) {
+		this.treeTableView = treeTableView;
+	}
+
+	/**
+	 * Gets the initial column
+	 * 
+	 * @return initialColumn
+	 */
+	public TreeTableColumn<Matches, String> getInitialColumn() {
+		return initialColumn;
+	}
+
+	/**
+	 * Sets the initial column
+	 * 
+	 * @param initialColumn
+	 */
+	public void setInitialColumn(TreeTableColumn<Matches, String> initialColumn) {
+		this.initialColumn = initialColumn;
+	}
+
+	/**
+	 * Gets the relation column
+	 * 
+	 * @return relationColumn
+	 */
+	public TreeTableColumn<Matches, String> getRelationColumn() {
+		return relationColumn;
+	}
+
+	/**
+	 * Sets the relation column
+	 * 
+	 * @param relationColumn
+	 */
+	public void setRelationColumn(TreeTableColumn<Matches, String> relationColumn) {
+		this.relationColumn = relationColumn;
+	}
+
+	/**
+	 * Gets the repaired column
+	 * 
+	 * @return repairedColumn
+	 */
+	public TreeTableColumn<Matches, String> getRepairedColumn() {
+		return repairedColumn;
+	}
+
+	/**
+	 * Sets the repaired column
+	 * 
+	 * @param repairedColumn
+	 */
+	public void setRepairedColumn(TreeTableColumn<Matches, String> repairedColumn) {
+		this.repairedColumn = repairedColumn;
+	}
+
+	/**
+	 * Gets the similarity score
+	 * 
+	 * @return simScore
+	 */
+	public Text getSimScore() {
+		return simScore;
+	}
+
+	/**
+	 * Sets the similarity score
+	 * 
+	 * @param simScore
+	 */
+	public void setSimScore(Text simScore) {
+		this.simScore = simScore;
 	}
 
 }

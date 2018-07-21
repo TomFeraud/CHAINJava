@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  *
  * @author Tom Feraud
  * 
- * @version 0.1
+ * @version 1.0
  */
 public class Main_GUI extends Application {
 
@@ -36,15 +36,9 @@ public class Main_GUI extends Application {
 	private Project projectModel;
 	private int result_status;
 	private int nbrRepairedQueries;
-	
-	
 	private ArrayList<ResultSet> resultsList;
-	
-	//Test
-	//contains the predicate + all values
+	// contains the predicate + all values
 	private String initialQuerySchema;
-	
-
 	// To access it from other controllers
 	private SendQueryController sendQueryController;
 
@@ -106,8 +100,6 @@ public class Main_GUI extends Application {
 		try {
 			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
 			mainContainair.setCenter(content); // Then add it to our main container
-
-			// SendQueryController controllor = loader.getController();
 			sendQueryController = loader.getController();
 			sendQueryController.setMainApp(this);
 
@@ -152,64 +144,130 @@ public class Main_GUI extends Application {
 		this.mainContainair = mainContainair;
 	}
 
+	/**
+	 * Gets the Run_CHAIn object of our application
+	 * 
+	 * @return run_CHAIn
+	 */
 	public Run_CHAIn getRun_CHAIn() {
 		return run_CHAIn;
 	}
 
+	/**
+	 * Sets the Run_CHAIn object of our application
+	 * 
+	 * @param run_CHAIn
+	 */
 	public void setRun_CHAIn(Run_CHAIn run_CHAIn) {
 		this.run_CHAIn = run_CHAIn;
 	}
 
+	/**
+	 * Gets the Project object of our application
+	 * 
+	 * @return projectModel
+	 */
 	public Project getProjectModel() {
 		return projectModel;
 	}
 
+	/**
+	 * Sets the Project object of our application
+	 * 
+	 * @param projectModel
+	 */
 	public void setProjectModel(Project projectModel) {
 		this.projectModel = projectModel;
 	}
 
+	/**
+	 * Gets the SendQueryController container of our application
+	 * 
+	 * @return sendQueryController
+	 */
 	public SendQueryController getSendQueryController() {
 		return sendQueryController;
 	}
 
+	/**
+	 * Sets the SendQueryController container of our application
+	 * 
+	 * @param sendQueryController
+	 */
 	public void setSendQueryController(SendQueryController sendQueryController) {
 		this.sendQueryController = sendQueryController;
 	}
 
+	/**
+	 * Gets the result status linked to our project returned by CHAIn
+	 * 
+	 * @return result_status
+	 */
 	public int getResult_status() {
 		return result_status;
 	}
 
+	/**
+	 * Sets the result status linked to our project returned by CHAIn
+	 * 
+	 * @param result_status
+	 */
 	public void setResult_status(int result_status) {
 		this.result_status = result_status;
 	}
 
+	/**
+	 * Gets the list of results
+	 * 
+	 * @return resultsList
+	 */
 	public ArrayList<ResultSet> getResultsList() {
 		return resultsList;
 	}
 
+	/**
+	 * Sets the list of results
+	 * 
+	 * @param resultsList
+	 */
 	public void setResultsList(ArrayList<ResultSet> resultsList) {
 		this.resultsList = resultsList;
 	}
 
+	/**
+	 * Gets the number of repaired queries
+	 * 
+	 * @return nbrRepairedQueries
+	 */
 	public int getNbrRepairedQueries() {
 		return nbrRepairedQueries;
 	}
 
+	/**
+	 * Sets the number of repaired queries
+	 * 
+	 * @param nbrRepairedQueries
+	 */
 	public void setNbrRepairedQueries(int nbrRepairedQueries) {
 		this.nbrRepairedQueries = nbrRepairedQueries;
 	}
 
-	//TEST
+	/**
+	 * Gets the initial schema of the initial query
+	 * 
+	 * @return initialQuerySchema
+	 */
 	public String getInitialQuerySchema() {
 		return initialQuerySchema;
 	}
 
+	/**
+	 * Sets the initial schema of the initial query
+	 * 
+	 * @param initialQuerySchema
+	 */
 	public void setInitialQuerySchema(String initialQuerySchema) {
 		this.initialQuerySchema = initialQuerySchema;
 	}
-	
-	
-	
-	
+
 }

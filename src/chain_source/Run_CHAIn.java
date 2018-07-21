@@ -45,13 +45,13 @@ public class Run_CHAIn {
 
 	///////////////////////// TOM
 	private Match_Struc current = null;
-
 	private ResultSet resultsFromARepairedQuery = null;
 	private ResultSet resultsFromInitialQuery = null;
 	private ArrayList<Match_Struc> repairedQueriesList = null;
-//List of the result(s) of the repaired query(ies)
+	// List of the result(s) of the repaired query(ies)
 	private ArrayList<ResultSet> listResultsFromRepairedQueries = null;
 	private String initialQuerySchema = "";
+	//////////////////////////
 
 	// main method for testing during implementation
 	public static void main(String[] args) {
@@ -128,10 +128,10 @@ public class Run_CHAIn {
 
 		// first step is trying to run the initial query
 
-		
-		query += "\nLIMIT " +queryLim; //TOM: otherwise the user have to enter manually the limit when framing the query
+		query += "\nLIMIT " + queryLim; // TOM: otherwise the user have to enter manually the limit when framing the
+										// query
 		current.setQuery(query);
-		
+
 		resultsFromInitialQuery = runQuery.runQuery(current, queryType, dataDir);
 
 		if ((resultsFromInitialQuery != null) && (resultsFromInitialQuery.hasNext())) {
@@ -156,10 +156,6 @@ public class Run_CHAIn {
 
 			current = getSchema.getSchemaFromQuery(query, queryType);
 
-			
-			
-
-
 			if (current == null) {
 				// then we have an invalid query
 				// terminate chain with appropriate message
@@ -178,11 +174,10 @@ public class Run_CHAIn {
 			// queryData, targetSchemas, queryType,
 			// dataDir, ontologyPath, queryLim, simThresholdVal, resLimit);
 
-			
-			//TOM
-			//Because the schema and schema head dissapeard during the CHAIn process....
+			// TOM
+			// Because the schema and schema head dissapeard during the CHAIn process....
 			initialQuerySchema = current.getQuerySchema();
-			
+
 			this.repairedQueriesList = createRepairedQueries(current, queryData, targetSchemas, queryType, dataDir,
 					ontologyPath, queryLim, simThresholdVal, resLimit);
 
@@ -215,7 +210,7 @@ public class Run_CHAIn {
 					System.out.println("Match_Struc:" + r);
 				}
 				System.out.println("End of the display for the repaired queries !\n ");
-				//Initialize our list to store the results in it
+				// Initialize our list to store the results in it
 				listResultsFromRepairedQueries = new ArrayList<ResultSet>();
 				for (int i = 0; i < repairedQueriesList.size(); i++) {
 					// try running new queries
@@ -258,7 +253,7 @@ public class Run_CHAIn {
 						}
 						result_status = REPAIREDQUERYRESULTS;
 					}
-					//Add to our list the result
+					// Add to our list the result
 					listResultsFromRepairedQueries.add(resultsFromARepairedQuery);
 				}
 			}
@@ -408,7 +403,7 @@ public class Run_CHAIn {
 		this.listResultsFromRepairedQueries = listResultsFromRepairedQueries;
 	}
 
-	//TEST
+	// TEST
 	public String getInitialQuerySchema() {
 		return initialQuerySchema;
 	}
@@ -417,7 +412,4 @@ public class Run_CHAIn {
 		this.initialQuerySchema = initialQuerySchema;
 	}
 
-	
-	
-	
 }

@@ -1,2 +1,3 @@
-chain_source
 gui.main
+gui.model
+gui.view

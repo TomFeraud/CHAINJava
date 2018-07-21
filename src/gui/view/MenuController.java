@@ -5,6 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * * The controller of the Menu view (the bar always at the top of the interface)
+ * 
+ * @author Tom Feraud
+ *
+ */
+
+
 public class MenuController {
 	// Reference to the main class
 	private Main_GUI main;
@@ -18,6 +26,10 @@ public class MenuController {
 		this.main = mainApp;
 	}
 
+	/**
+	 * Initialize and launch the first display (SendQuery viex) wit all the inputs empty
+	 * 
+	 */
 	@FXML
 	public void home() {
 		double [] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
@@ -26,7 +38,10 @@ public class MenuController {
 
 	}
 
-	// Exit application
+	/**
+	 * Exit the interface
+	 * 
+	 */
 	@FXML
 	public void exit() {
 		// Display a polite message
@@ -38,7 +53,9 @@ public class MenuController {
 		this.main.getMainStage().close();
 	}
 	
-	
+	////////////////////////////////////////////////////////////////////
+	// THE METHODs BELOW INITIALIZE THE PREDEFINED EXAMPLES
+	///////////////////////////////////////////////////////////////////
 	@FXML
 	// Ref test8_1_2 in Run_CHAIn_Test_Cases
 	// dbpedia query that  already runs successfully and does not require repair.
@@ -133,10 +150,7 @@ public class MenuController {
 		this.main.getSendQueryController().initialize();
 		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 	}
-	
-	
-	
-	
+
 	@FXML
 	// Ref test12 in Run_Query_Test_Cases
 	// Query has NOT run successfully

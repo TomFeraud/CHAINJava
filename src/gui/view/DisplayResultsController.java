@@ -27,6 +27,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * The controller of the DisplayResults view
+ * 
+ * @author Tom Feraud
+ *
+ */
+
 public class DisplayResultsController {
 
 	@FXML
@@ -41,24 +48,18 @@ public class DisplayResultsController {
 	@FXML
 	private Button repairedQueriesButton;
 
-
 	@FXML
 	private CheckBox checkBox;
-	
+
 	boolean checkBoxSelected;
 
-	//These 2 variables are created here so we can access them from the checkbox listener
+	// These 2 variables are created here so we can access them from the checkbox
+	// listener
 	int nbrResponse;
 	int cptColumn;
 
 	// Reference to the main class
 	private Main_GUI main;
-
-	@FXML
-	public void initialize() {
-
-		// this.getCheckBox().setSelected(true);
-	}
 
 	/**
 	 * Use to link the controllor with the main class
@@ -69,6 +70,13 @@ public class DisplayResultsController {
 		this.main = mainApp;
 	}
 
+	/**
+	 * Builds the data from the array of results in parameter
+	 * 
+	 * @param dataArray
+	 * 
+	 * @return data
+	 */
 	private ObservableList<ObservableList<String>> buildData(String[][] dataArray) {
 		ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
@@ -79,11 +87,18 @@ public class DisplayResultsController {
 		return data;
 	}
 
+	/**
+	 * Creates the table view by building the data and then creating the columns and
+	 * filling them
+	 * 
+	 * @param dataArray
+	 * @param columnsArray
+	 * 
+	 * @return resultsTable
+	 */
 	private TableView<ObservableList<String>> createTableView(String[][] dataArray, String[] columnsArray) {
 		resultsTable.setItems(buildData(dataArray));
-
-		resultsTable.getColumns().clear(); // clear the columnds otherwise they add when check/uncheck url box
-
+		resultsTable.getColumns().clear(); // clear the columns otherwise they add when check/uncheck url box
 		for (int i = 0; i < dataArray[0].length; i++) {
 			final int numColumn = i;
 			final TableColumn<ObservableList<String>, String> column = new TableColumn<>(columnsArray[i]);
@@ -94,6 +109,21 @@ public class DisplayResultsController {
 		return resultsTable;
 	}
 
+	/**
+	 * Sets the TableView resultsTable by calling createTableView()
+	 * 
+	 * @param dataArray
+	 * @param columnsArray
+	 */
+	public void setResultsView(String[][] dataArray, String[] columnsArray) {
+		TableView<ObservableList<String>> resultsTable = createTableView(dataArray, columnsArray);
+	}
+
+	/**
+	 * This is called when the next (repaired query) button is clicked It creates
+	 * and initialize the DisplayRepairedQueriesController
+	 * 
+	 */
 	@FXML
 	public void nextScene() {
 		if (this.main.getResult_status() == 0 || this.main.getResult_status() == 5 || this.main.getResult_status() == 6
@@ -123,6 +153,13 @@ public class DisplayResultsController {
 		}
 	}
 
+	/**
+	 * This is called when the back button is clicked
+	 * 
+	 * It creates a SendQueryController and sets the Main object of the application
+	 * to it
+	 * 
+	 */
 	@FXML
 	public void back() {
 		FXMLLoader loader = new FXMLLoader();
@@ -142,13 +179,14 @@ public class DisplayResultsController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// System.out.println("BACK !! :)");
 	}
 
-	public void setResultsView(String[][] dataArray, String[] columnsArray) {
-		TableView<ObservableList<String>> resultsTable = createTableView(dataArray, columnsArray);
-	}
-
+	/**
+	 * Sets the text at the top of the display It displays information about the
+	 * number of results and the number of repaired queries
+	 * 
+	 * @param nbrResults
+	 */
 	public void setTopText(int nbrResults) {
 		String text = "";
 		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
@@ -191,8 +229,15 @@ public class DisplayResultsController {
 		this.topText.setText(text);
 	}
 
-	// Need to add more detail explications (keep the return status displayed for
-	// testing)
+	/**
+	 * 
+	 * Sets the text at the bottom of the display It displays information about the
+	 * process outcome (i.e. results status) By changing the boolean (at the
+	 * beginning of the method) to true, the results status (e.g. "INVALIDQUERY"
+	 * will be displayed)
+	 * 
+	 * @param result_status
+	 */
 	public void setBottomTextAccordingToStatus(int result_status) {
 		boolean TEST = false; // if true, display the result status
 		String text = "";
@@ -276,6 +321,10 @@ public class DisplayResultsController {
 		this.bottomText.setText(text);
 	}
 
+	/**
+	 * Sets the text inside the "repaired query" button
+	 * 
+	 */
 	public void setTextButtonRepairedQueries() {
 		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
 		// Otherwise don't work...
@@ -296,6 +345,12 @@ public class DisplayResultsController {
 
 	}
 
+	/**
+	 * Formats the results for all cell of the table view and returns the number of
+	 * results (row)
+	 * 
+	 * @return nbrResponse
+	 */
 	public int resultsFormatting() {
 
 		ResultSet copy = null;
@@ -327,12 +382,7 @@ public class DisplayResultsController {
 			// Array of double which will contain the similarity score of the repaired
 			// queries
 			double[] similarityTab = new double[nbrRepairedQueries];
-			System.out.println("nbrRepaired queries: " + nbrRepairedQueries);
 			for (int cpt = 0; cpt < nbrRepairedQueries; cpt++) {
-				// System.out.println(ResultSetFormatter.toList(resultsList.get(cpt)));
-
-				System.out.println(
-						"Sim value: " + this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue());
 				similarityTab[cpt] = this.main.getRun_CHAIn().getRepairedQueriesList().get(cpt).getSimValue();
 			}
 			double simMax = 0;
@@ -349,15 +399,9 @@ public class DisplayResultsController {
 
 			// COPY THE RESULTS FOR THE REPAIRED QUERY WITH THE BEST MATCHING SCORE
 			// if equal, take the first one (< and no <=)
-			// To optimize!
 			copy = ResultSetFactory.copyResults(resultsList.get(index));
 			copy2 = ResultSetFactory.copyResults(resultsList.get(index));
 			copy3 = ResultSetFactory.copyResults(resultsList.get(index));
-
-			System.out.println("INDEX: " + index);
-			System.out.println(
-					"Result for query at index " + index + ": " + ResultSetFormatter.toList(resultsList.get(index)));
-
 		}
 
 		// use to know the number of columns
@@ -374,12 +418,6 @@ public class DisplayResultsController {
 
 		List<QuerySolution> listOfResults = ResultSetFormatter.toList(copy3);
 		nbrResponse = listOfResults.size();
-		/*
-		 * System.out.println("TOM:\n" + listOfResults);
-		 * System.out.println("TOM cptColumn:\n" + cptColumn);
-		 * System.out.println("TOM lis size:\n" + listOfResults.size());
-		 * System.out.println("TOM nb respnse:\n" + nbrResponse);
-		 */
 
 		// resultsArray contains all the row (except the first one which is the column
 		// name contained in columnsArray)
@@ -390,13 +428,6 @@ public class DisplayResultsController {
 		for (int cptC = 0; cptC < cptColumn; cptC++) {
 			columnsArray[cptC] = columnItName.next();
 		}
-
-		/*
-		 * System.out.println("Column array"); for (int j = 0; j < columnsArray.length;
-		 * j++) { System.out.println(columnsArray[j]); }
-		 */
-
-		// results array
 
 		// results array
 		for (int i = 0; i < nbrResponse; i++) {
@@ -410,15 +441,12 @@ public class DisplayResultsController {
 		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				// checkBox.setSelected(!newValue);
-				// System.out.println("NEW VALUE:" + newValue);
 				checkBoxSelected = newValue;
 				for (int i = 0; i < nbrResponse; i++) {
 					for (int cptC = 0; cptC < cptColumn; cptC++) {
 						resultsArray[i][cptC] = cellValue(i, cptC, listOfResults, columnsArray);
 					}
 				}
-
 				TableView<ObservableList<String>> resultsTable = createTableView(resultsArray, columnsArray);
 
 			}
@@ -429,7 +457,8 @@ public class DisplayResultsController {
 	}
 
 	/**
-	 * Compute the value of the according cell
+	 * Compute the value of the according cell and display or not the URL according
+	 * to the checkbox
 	 * 
 	 * @param cptRow
 	 *            The number of rows in the array
@@ -446,18 +475,21 @@ public class DisplayResultsController {
 	private String cellValue(int cptRow, int cptCol, List<QuerySolution> listOfResults, String[] columnsArray) {
 		String s = "";
 		String columnName = columnsArray[cptCol];
-		// System.out.println("Column name: " + columnName);
-		// System.out.println(testJena.get(cptRow).get(columnName).toString());
 		s = listOfResults.get(cptRow).get(columnName).toString();
-
 		if (checkBoxSelected) {
-			// if(true) {
 			s = formatStringResult(s);
 		}
 
 		return s;
 	}
 
+	/**
+	 * Has the initial query run successfully
+	 * 
+	 * @param result_status
+	 * 
+	 * @return boolean
+	 */
 	public boolean initialQuerySuccess(int result_status) {
 		if (result_status == 5) {
 			return true;
@@ -466,6 +498,13 @@ public class DisplayResultsController {
 		}
 	}
 
+	/**
+	 * Has the repaired query ran with results
+	 * 
+	 * @param result_status
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasRepairedQueryResult(int result_status) {
 		if (result_status == 10 || result_status == 12) {
 			return true;
@@ -474,30 +513,29 @@ public class DisplayResultsController {
 		}
 	}
 
+	/**
+	 * Gets the resultsTable
+	 * 
+	 * @return resultsTable
+	 */
 	public TableView<ObservableList<String>> getResultsTable() {
 		return resultsTable;
 	}
 
-	public void setResultsTable(TableView<ObservableList<String>> resultsTable) {
-		this.resultsTable = resultsTable;
-	}
-
+	/**
+	 * Format the string by cutting the URL to only show the "result" part
+	 * 
+	 * @param s
+	 * 
+	 * @return s
+	 */
 	private String formatStringResult(String s) {
 
 		if (s.contains("^^")) { // for example 17702.8"^^<http://www.w3.org/2001/XMLSchema#double
 			String[] test = s.split("[\\^^]"); // "\\" are escape characters
-			// System.out.println("Test array:");
-			for (int i = 0; i < test.length; i++) {
-				// System.out.println(test[i]);
-			}
 			s = test[0];
-			// System.out.println("s:" + s);
 		} else if (s.contains("//")) { // For example http://dbpedia.org/resource/Cochrane_River
 			String[] test = s.split("[\\/]"); // "\\" are escape characters
-			// System.out.println("Test array:");
-			for (int i = 0; i < test.length; i++) {
-				// System.out.println(test[i]);
-			}
 			int sizeSplit = test.length - 1;
 			s = test[sizeSplit];
 			// System.out.println("s:" + s);
@@ -505,12 +543,13 @@ public class DisplayResultsController {
 		return s;
 	}
 
+	/**
+	 * Gets the check box
+	 * 
+	 * @return checkBox
+	 */
 	public CheckBox getCheckBox() {
 		return checkBox;
-	}
-
-	public void setCheckBox(CheckBox checkBox) {
-		this.checkBox = checkBox;
 	}
 
 }

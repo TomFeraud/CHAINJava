@@ -72,6 +72,10 @@ public class SendQueryController {
 	}
 
 	// EASIER TO TEST WITH THIS (fill all the parameters' fields)
+	/**
+	 * Initialize the inputs using predefined examples and sets tooltips
+	 * 
+	 */
 	@FXML
 	public void initialize() {
 
@@ -299,6 +303,11 @@ public class SendQueryController {
 		this.main = mainApp;
 	}
 
+	/**
+	 * This is called when the send button is clicked
+	 * It creates and initialize the DisplayResultsController
+	 * 
+	 */
 	@FXML
 	public void launch() {
 
@@ -342,11 +351,12 @@ public class SendQueryController {
 
 			DisplayResultsController controller = loader.getController();
 			controller.setMainApp(this.main);
-			
-			double [] pos = this.getSplitPane().getDividerPositions();
+
+			// So the splitpane divider is the same size
+			double[] pos = this.getSplitPane().getDividerPositions();
 			this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
 
-			int nbrResponse = 666;
+			int nbrResponse = 666; // if 666 is displayed then there is an error
 			int result_status = this.main.getResult_status();
 
 			// Check if the initial query has run with results
@@ -389,6 +399,13 @@ public class SendQueryController {
 		}
 	}
 
+	/**
+	 * If the initial query has run successfully
+	 * 
+	 * @param result_status
+	 * 
+	 * @return boolean
+	 */
 	public boolean initialQuerySuccess(int result_status) {
 		if (result_status == 5) {
 			return true;
@@ -397,6 +414,13 @@ public class SendQueryController {
 		}
 	}
 
+	/**
+	 * If the repaired query has ran with results
+	 * 
+	 * @param result_status
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasRepairedQueryResult(int result_status) {
 		if (result_status == 10 || result_status == 12) {
 			return true;
@@ -405,6 +429,13 @@ public class SendQueryController {
 		}
 	}
 
+	/**
+	 * If the request has no results
+	 * 
+	 * @param result_status
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasNoResult(int result_status) {
 		if (result_status == 6 || result_status == 7 || result_status == 8 || result_status == 9
 				|| result_status == 11) {
@@ -414,6 +445,13 @@ public class SendQueryController {
 		}
 	}
 
+	/**
+	 * If there is no repaired query
+	 * 
+	 * @param result_status
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasNoRepairedQueries(int result_status) {
 		if (result_status == 5 || result_status == 6 || result_status == 7 || result_status == 8) {
 			return true;
@@ -422,106 +460,227 @@ public class SendQueryController {
 		}
 	}
 
+	/**
+	 * Gets the example
+	 * 
+	 * @return example
+	 */
 	public String getExample() {
 		return example;
 	}
 
+	/**
+	 * Sets the example
+	 * 
+	 * @param  example
+	 */
 	public void setExample(String example) {
 		this.example = example;
 	}
 
+	/**
+	 * Gets the query type
+	 * 
+	 * @return queryType
+	 */
 	public TextField getQueryType() {
 		return queryType;
 	}
 
+	/**
+	 * Sets the query type
+	 * 
+	 * @param queryType
+	 */
 	public void setQueryType(TextField queryType) {
 		this.queryType = queryType;
 	}
 
+	/**
+	 * Gets the minimum similarity value
+	 * 
+	 * @return minSim
+	 */
 	public TextField getMinSim() {
 		return minSim;
 	}
 
+	/**
+	 * Sets the minimum similarity value
+	 * 
+	 * @param minSim
+	 */
 	public void setMinSim(TextField minSim) {
 		this.minSim = minSim;
 	}
 
+	/**
+	 * Gets the maximum number of results wanted
+	 * 
+	 * @return maxNbrResultsWanted
+	 */
 	public TextField getMaxNbrResultsWanted() {
 		return maxNbrResultsWanted;
 	}
 
+	/**
+	 * Sets the maximum number of results wanted
+	 * 
+	 * @param maxNbrResultsWanted
+	 */
 	public void setMaxNbrResultsWanted(TextField maxNbrResultsWanted) {
 		this.maxNbrResultsWanted = maxNbrResultsWanted;
 	}
 
+	/**
+	 * Gets the ontology path
+	 * 
+	 * @return ontologyPath
+	 */
 	public TextField getOntologyPath() {
 		return ontologyPath;
 	}
 
+	/**
+	 * Sets the ontology path
+	 * 
+	 * @param ontologyPath
+	 */
 	public void setOntologyPath(TextField ontologyPath) {
 		this.ontologyPath = ontologyPath;
 	}
 
+	/**
+	 * Gets the dataset path
+	 * 
+	 * @return datasetPath
+	 */
 	public TextField getDatasetPath() {
 		return datasetPath;
 	}
 
+	/**
+	 * Sets the dataset path
+	 * 
+	 * @param datasetPath
+	 */
 	public void setDatasetPath(TextField datasetPath) {
 		this.datasetPath = datasetPath;
 	}
 
+	/**
+	 * Gets the maximumn number of queries produced
+	 * 
+	 * @return maxNbrQueriesProduced
+	 */
 	public TextField getMaxNbrQueriesProduced() {
 		return maxNbrQueriesProduced;
 	}
 
+	/**
+	 * Sets the maximumn number of queries produced
+	 * 
+	 * @param maxNbrQueriesProduced
+	 */
 	public void setMaxNbrQueriesProduced(TextField maxNbrQueriesProduced) {
 		this.maxNbrQueriesProduced = maxNbrQueriesProduced;
 	}
 
+	/**
+	 * Gets the query
+	 * 
+	 * @return query
+	 */
 	public TextArea getQuery() {
 		return query;
 	}
 
+	/**
+	 * Sets the query
+	 * 
+	 * @param query
+	 */
 	public void setQuery(String query) {
 		this.query.setText(query);
 	}
 
+	/**
+	 * Gets the targets
+	 * 
+	 * @return targets
+	 */
 	public TextArea getTargets() {
 		return targets;
 	}
 
+	/**
+	 * Sets the targets
+	 * 
+	 * @param targets
+	 */
 	public void setTargets(TextArea targets) {
 		this.targets = targets;
 	}
 
+	/**
+	 * Gets the Main object
+	 * 
+	 * @return main
+	 */
 	public Main_GUI getMain() {
 		return main;
 	}
 
-	public void setMain(Main_GUI main) {
-		this.main = main;
-	}
-
+	/**
+	 * Has the interface already been used since launched
+	 * 
+	 * @return initialized
+	 */
 	public boolean isInitialized() {
 		return initialized;
 	}
 
+	/**
+	 * Sets if the interface is initialized or not
+	 * 
+	 * @param initialized
+	 */
 	public void setInitialized(boolean initialized) {
 		this.initialized = initialized;
 	}
 
+	/**
+	 * Gets the button object
+	 * 
+	 * @return sendButton
+	 */
 	public Button getSendButton() {
 		return sendButton;
 	}
 
+	/**
+	 * Sets the button objecdt
+	 * 
+	 * @param sendButton
+	 */
 	public void setSendButton(Button sendButton) {
 		this.sendButton = sendButton;
 	}
 
+	/**
+	 * Gets the split pane
+	 * 
+	 * @return splitPane
+	 */
 	public SplitPane getSplitPane() {
 		return splitPane;
 	}
 
+	/**
+	 * Sets the split pane
+	 * 
+	 * @param splitPane
+	 */
 	public void setSplitPane(SplitPane splitPane) {
 		this.splitPane = splitPane;
 	}

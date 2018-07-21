@@ -32,7 +32,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
 /**
- * * The controller of the DisplayRepairedQueries view
+ * The controller of the DisplayRepairedQueries view
  * 
  * @author Tom Feraud
  *
@@ -64,10 +64,6 @@ public class DisplayRepairedQueriesController {
 	public DisplayRepairedQueriesController() {
 	}
 
-	@FXML
-	public void initialize() {
-	}
-
 	/**
 	 * Use to link the controllor with the main class
 	 * 
@@ -77,6 +73,13 @@ public class DisplayRepairedQueriesController {
 		this.main = mainApp;
 	}
 
+	/**
+	 * Builds the data from the array of results in parameter
+	 * 
+	 * @param dataArray
+	 * 
+	 * @return data
+	 */
 	private ObservableList<ObservableList<String>> buildData(String[][] dataArray) {
 		ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
 
@@ -87,6 +90,15 @@ public class DisplayRepairedQueriesController {
 		return data;
 	}
 
+	/**
+	 * Creates the table view by building the data and then creating the columns and
+	 * filling them
+	 * 
+	 * @param dataArray
+	 * @param columnsArray
+	 * 
+	 * @return resultsTable
+	 */
 	private TableView<ObservableList<String>> createTableView(String[][] dataArray, String[] columnsArray) {
 		resultsTable.setItems(buildData(dataArray));
 
@@ -103,11 +115,22 @@ public class DisplayRepairedQueriesController {
 		return resultsTable;
 	}
 
+	/**
+	 * Sets the TableView resultsTable by calling createTableView()
+	 * 
+	 * @param dataArray
+	 * @param columnsArray
+	 */
 	public void setResultsView(String[][] dataArray, String[] columnsArray) {
 		TableView<ObservableList<String>> resultsTable = new TableView<ObservableList<String>>();
 		resultsTable = createTableView(dataArray, columnsArray);
 	}
 
+	/**
+	 * This is called when the next (display matches) button is clicked It creates
+	 * and initialize the DisplayMatchesController
+	 * 
+	 */
 	@FXML
 	public void nextScene() {
 		FXMLLoader loader = new FXMLLoader();
@@ -120,47 +143,15 @@ public class DisplayRepairedQueriesController {
 			controller.setMainApp(this.main);
 
 			controller.setInitialQuery(this.main.getProjectModel().getInitialQuery().get());
-			// THIS WILL CHANGE ?
 			controller
 					.setRepairedQuery(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getQuery());
-			//////
-			// THIS WILL CHANGE TOO
+
 			ArrayList<String[]> matchComponents = this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex)
 					.getMatchComponents();
-			/////////////////////////////
-			String matchesStr = new String();
 			String simScore = Double
 					.toString(this.main.getRun_CHAIn().getRepairedQueriesList().get(selectedIndex).getSimValue());
-			//////////////////////////////////////
-			matchesStr = "";
-			matchesStr += "Similarity score: " + simScore + "\n\n";
-			for (String[] m : matchComponents) {
-				matchesStr += "(";
-				matchesStr += m[0];
-				matchesStr += ")";
-				matchesStr += m[1];
-				matchesStr += "(";
-				matchesStr += m[2];
-				matchesStr += ")";
-				matchesStr += "\n";
-			}
-			/// controller.setMatches(matchesStr);
-
 			controller.setSelectedIndex(selectedIndex);
-			/////////////////////////////////////////////
-			// TEST
-			
 			controller.treeTableViewFormatting(matchComponents, simScore);
-				 
-
-			/*
-			 * TreeView<String> testTree = new TreeView<String>(); TreeItem<String> root =
-			 * new TreeItem<>(initialSchemaHead); TreeItem<String> nodeA = new
-			 * TreeItem<>(testSchema[0]); root.getChildren().addAll(nodeA);
-			 * testTree.setRoot(root); controller.setTreeView(testTree);
-			 */
-
-			///////////////////////////////////////
 
 		} catch (
 
@@ -170,6 +161,13 @@ public class DisplayRepairedQueriesController {
 
 	}
 
+	/**
+	 * This is called when the back button is clicked
+	 * 
+	 * It creates a DisplayResultsController and sets the Main object of the
+	 * application to it
+	 * 
+	 */
 	@FXML
 	public void back() {
 		FXMLLoader loader = new FXMLLoader();
@@ -200,16 +198,26 @@ public class DisplayRepairedQueriesController {
 	/**
 	 * Pass the query to the controller so the new scene can be initialized
 	 * 
-	 * @param results
+	 * @param q
 	 */
 	public void setInitialQuery(String q) {
 		this.initialQuery.setText(q);
 	}
 
+	/**
+	 * Gets the list of repaired queries
+	 * 
+	 * @return listRepairedQueries
+	 */
 	public ListView<String> getListRepairedQueries() {
 		return listRepairedQueries;
 	}
 
+	/**
+	 * Sets the the list of repaired queries and add a listener to it so the index
+	 * of the repaired query selected is computed in real time
+	 * 
+	 */
 	public void setListRepairedQueries() {
 		// From this example we can work out how a datasource org. member can select one
 		// or
@@ -223,24 +231,19 @@ public class DisplayRepairedQueriesController {
 		this.listRepairedQueries.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				// change the label text value to the newly selected item
-				// results.setText("You Selected " + newValue);
 				selectedIndex = listRepairedQueries.getSelectionModel().getSelectedIndex();
-				// WORKING!
-
-				// System.out.println("INDEX: " + selectedIndex);
-				// System.out.println("Result for query at index " + selectedIndex + ": "
-				// + ResultSetFormatter.toList(resultsList.get(selectedIndex)));
-
 				setTableResults(selectedIndex);
-
 			}
 		});
 
 	}
 
+	/**
+	 * Sets the table of results according to the selected repaired query
+	 * 
+	 * @param selectedIndex
+	 */
 	public void setTableResults(int selectedIndex) {
-		System.out.println("TEST SELECTED INDEX: " + selectedIndex);
 
 		if (selectedIndex == -1) { // to initialize the display
 			resultsTable.setPlaceholder(new Label("Please select a repaired query to display the results"));
@@ -258,11 +261,6 @@ public class DisplayRepairedQueriesController {
 				copy3 = ResultSetFactory.copyResults(resultsList.get(selectedIndex));
 
 				int nbrResponse = 0;
-
-				System.out.println("INDEX: " + selectedIndex);
-				System.out.println("Result for query at index " + selectedIndex + ": "
-						+ ResultSetFormatter.toList(resultsList.get(selectedIndex)));
-
 				// use to know the number of columns
 				Iterator<String> columnIterator = ResultSetFormatter.toList(copy).get(0).varNames();
 				// use to get the columns' name
@@ -324,14 +322,31 @@ public class DisplayRepairedQueriesController {
 		return s;
 	}
 
+	/**
+	 * Gets the list of results
+	 * 
+	 * @return resultsList
+	 */
 	public ArrayList<ResultSet> getResultsList() {
 		return resultsList;
 	}
 
+	/**
+	 * Sets the list of results
+	 * 
+	 * @param resultsList
+	 */
 	public void setResultsList(ArrayList<ResultSet> resultsList) {
 		this.resultsList = resultsList;
 	}
 
+	/**
+	 * If the request has no results
+	 * 
+	 * @param result_status
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasNoResult(int result_status) {
 		if (result_status == 6 || result_status == 7 || result_status == 8 || result_status == 9
 				|| result_status == 11) {
@@ -341,6 +356,11 @@ public class DisplayRepairedQueriesController {
 		}
 	}
 
+	/**
+	 * Sets the text at the top of the interface It contains information about the
+	 * number of repaired queries in the list
+	 * 
+	 */
 	public void setTopText() {
 		int nbrRepairedQueries = this.main.getNbrRepairedQueries();
 
@@ -357,10 +377,20 @@ public class DisplayRepairedQueriesController {
 		this.topText.setText(text);
 	}
 
+	/**
+	 * Gets the value of the selected index
+	 * 
+	 * @return
+	 */
 	public int getSelectedIndex() {
 		return selectedIndex;
 	}
 
+	/**
+	 * Sets the value of the selected index
+	 * 
+	 * @param selectedIndex
+	 */
 	public void setSelectedIndex(int selectedIndex) {
 		this.selectedIndex = selectedIndex;
 	}
