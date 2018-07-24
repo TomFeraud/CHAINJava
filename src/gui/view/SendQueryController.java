@@ -3,19 +3,22 @@ package gui.view;
 import java.io.IOException;
 import java.util.ArrayList;
 import com.hp.hpl.jena.query.ResultSet;
+
 import gui.main.Main_GUI;
 import gui.model.Project;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.application.Platform;
 
 /**
  * The controller of the SendQuery view
@@ -49,8 +52,12 @@ public class SendQueryController {
 	@FXML
 	private TextArea targets;
 
+
 	@FXML
-	private Button sendButton;
+	private BorderPane borderPane;
+
+	@FXML
+	private ProgressIndicator progressIndicator;
 
 	// If the interface has already been used
 	private boolean initialized;
@@ -123,7 +130,7 @@ public class SendQueryController {
 					+ "PREFIX  res: <http://dbpedia.org/resource/> \n"
 					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
 					+ "PREFIX  foaf: <http://xlmns.com/foaf/0.1/> \n"
-					+ "PREFIX yago: <hhtp://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
+					+ "PREFIX yago: <http://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
 					+ "WHERE { ?id rdf:type dbo:River ;\n" + "dbo:length ?length ;\n" + ".}\n \n";
 
 			targetInit = "River(length)";
@@ -165,7 +172,7 @@ public class SendQueryController {
 					+ "PREFIX  res: <http://dbpedia.org/resource/> \n"
 					+ "PREFIX  rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
 					+ "PREFIX  foaf: <http://xlmns.com/foaf/0.1/> \n"
-					+ "PREFIX yago: <hhtp://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
+					+ "PREFIX yago: <http://dbpedia.org/class/yago/> \n\n" + "SELECT DISTINCT *  \n"
 					+ "WHERE { ?id rdf:type dbo:River ;\n"
 					+ "dbo:duration \"99300.0\"^^<http://www.w3.org/2001/XMLSchema#double> ;\n" + ".}\n";
 
@@ -304,12 +311,13 @@ public class SendQueryController {
 	}
 
 	/**
-	 * This is called when the send button is clicked
-	 * It creates and initialize the DisplayResultsController
+	 * This is called when the send button is clicked It creates and initialize the
+	 * DisplayResultsController
 	 * 
 	 */
 	@FXML
 	public void launch() {
+
 
 		// Information message to warn the user about the delay
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -317,86 +325,11 @@ public class SendQueryController {
 				"It will take some time to process. Please don't leave the interface." + "\nClick OK to continue");
 		alert.showAndWait();
 
-		// TEST
-		// Button button = this.getSendButton();
-		this.getSendButton().setText("CHARGING..");
-		// button.setBackground(value);
+		borderPane.setDisable(true);
+		
+		Thread thread = callToCHAIn();
+		thread.start();
 
-		// NEED TO ADD EXCEPTIONS ACCORDING TO THE ENTRIES
-		String qt = queryType.getText();
-		double minSimilarity = Double.parseDouble(minSim.getText());
-		int maxRes = Integer.parseInt(maxNbrResultsWanted.getText());
-		String ontPath = ontologyPath.getText();
-		String dataPath = datasetPath.getText();
-		int maxQProduced = Integer.parseInt(maxNbrQueriesProduced.getText());
-		String q = query.getText();
-		String t = targets.getText();
-
-		// Store in the ProjectModel object of the main class the initial parameters
-		// which will be uses through the process
-		this.main.getProjectModel().setParameters(qt, minSimilarity, maxRes, q, ontPath, dataPath, maxQProduced, t);
-		this.main.getProjectModel().setInitialized(true);
-		// Call to the runChain() method and store the results status in the
-		// result_status variable of our main class
-		this.main.setResult_status(this.main.getRun_CHAIn().runCHAIn(q, qt, t, dataPath, ontPath, maxRes, minSimilarity,
-				maxQProduced, null));
-		this.main.setInitialQuerySchema(this.main.getRun_CHAIn().getInitialQuerySchema());
-
-		// Change scene
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayResults.fxml"));
-		try {
-			AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the data
-			this.main.getMainContainair().setCenter(content); // Then add it to our main container
-
-			DisplayResultsController controller = loader.getController();
-			controller.setMainApp(this.main);
-
-			// So the splitpane divider is the same size
-			double[] pos = this.getSplitPane().getDividerPositions();
-			this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
-
-			int nbrResponse = 666; // if 666 is displayed then there is an error
-			int result_status = this.main.getResult_status();
-
-			// Check if the initial query has run with results
-			if (initialQuerySuccess(result_status) || hasRepairedQueryResult(result_status)) {
-				nbrResponse = controller.resultsFormatting();
-			}
-
-			// Store the list of results from the repaired queries
-			if (!hasNoRepairedQueries(result_status)) {
-				// Store the list of results from the repaired queries
-				ArrayList<ResultSet> resultsList = this.main.getRun_CHAIn().getListResultsFromRepairedQuery();
-				// Assign it to our Main class to use it elsewhere
-				this.main.setResultsList(resultsList);
-
-				int nbrRepairedQueries = resultsList.size();
-
-				this.main.setNbrRepairedQueries(nbrRepairedQueries);
-			} else {// no repaired query in the other case so we set the number to 0
-
-				this.main.setNbrRepairedQueries(0);
-
-			}
-
-			if (hasNoResult(result_status)) {
-				controller.setTopText(0);
-				controller.getResultsTable().setPlaceholder(new Label("No results were found for your request"));
-
-			} else {
-				controller.setTopText(nbrResponse);
-			}
-
-			controller.setBottomTextAccordingToStatus(result_status);
-			controller.setTextButtonRepairedQueries();
-
-			this.setInitialized(true);
-		} catch (
-
-		IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -472,7 +405,7 @@ public class SendQueryController {
 	/**
 	 * Sets the example
 	 * 
-	 * @param  example
+	 * @param example
 	 */
 	public void setExample(String example) {
 		this.example = example;
@@ -650,24 +583,6 @@ public class SendQueryController {
 	}
 
 	/**
-	 * Gets the button object
-	 * 
-	 * @return sendButton
-	 */
-	public Button getSendButton() {
-		return sendButton;
-	}
-
-	/**
-	 * Sets the button objecdt
-	 * 
-	 * @param sendButton
-	 */
-	public void setSendButton(Button sendButton) {
-		this.sendButton = sendButton;
-	}
-
-	/**
 	 * Gets the split pane
 	 * 
 	 * @return splitPane
@@ -683,6 +598,107 @@ public class SendQueryController {
 	 */
 	public void setSplitPane(SplitPane splitPane) {
 		this.splitPane = splitPane;
+	}
+
+	//////////////////////////////////////////
+
+
+	public Thread callToCHAIn() {
+		progressIndicator.setVisible(true);
+		Thread myThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// NEED TO ADD EXCEPTIONS ACCORDING TO THE ENTRIES
+				String qt = queryType.getText();
+				double minSimilarity = Double.parseDouble(minSim.getText());
+				int maxRes = Integer.parseInt(maxNbrResultsWanted.getText());
+				String ontPath = ontologyPath.getText();
+				String dataPath = datasetPath.getText();
+				int maxQProduced = Integer.parseInt(maxNbrQueriesProduced.getText());
+				String q = query.getText();
+				String t = targets.getText();
+
+				// Store in the ProjectModel object of the main class the initial parameters
+				// which will be uses through the process
+				getMain().getProjectModel().setParameters(qt, minSimilarity, maxRes, q, ontPath, dataPath, maxQProduced,
+						t);
+				getMain().getProjectModel().setInitialized(true);
+				// Call to the runChain() method and store the results status in the
+				// result_status variable of our main class
+				getMain().setResult_status(getMain().getRun_CHAIn().runCHAIn(q, qt, t, dataPath, ontPath, maxRes,
+						minSimilarity, maxQProduced, null));
+				getMain().setInitialQuerySchema(getMain().getRun_CHAIn().getInitialQuerySchema());
+
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						// Change scene
+						FXMLLoader loader = new FXMLLoader();
+						loader.setLocation(Main_GUI.class.getResource("/gui/view/DisplayResults.fxml"));
+						try {
+							AnchorPane content = (AnchorPane) loader.load(); // Gets the container wich contains the
+																				// data
+							getMain().getMainContainair().setCenter(content); // Then add it to our main container
+
+							DisplayResultsController controller = loader.getController();
+							controller.setMainApp(getMain());
+
+							// So the splitpane divider is the same size
+							double[] pos = getSplitPane().getDividerPositions();
+							getMain().getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
+
+							int nbrResponse = 666; // if 666 is displayed then there is an error
+							int result_status = getMain().getResult_status();
+
+							// Check if the initial query has run with results
+							if (initialQuerySuccess(result_status) || hasRepairedQueryResult(result_status)) {
+								nbrResponse = controller.resultsFormatting();
+							}
+
+							// Store the list of results from the repaired queries
+							if (!hasNoRepairedQueries(result_status)) {
+								// Store the list of results from the repaired queries
+								ArrayList<ResultSet> resultsList = getMain().getRun_CHAIn()
+										.getListResultsFromRepairedQuery();
+								// Assign it to our Main class to use it elsewhere
+								getMain().setResultsList(resultsList);
+
+								int nbrRepairedQueries = resultsList.size();
+
+								getMain().setNbrRepairedQueries(nbrRepairedQueries);
+							} else {// no repaired query in the other case so we set the number to 0
+
+								getMain().setNbrRepairedQueries(0);
+
+							}
+
+							if (hasNoResult(result_status)) {
+								controller.setTopText(0);
+								controller.getResultsTable()
+										.setPlaceholder(new Label("No results were found for your request"));
+
+							} else {
+								controller.setTopText(nbrResponse);
+							}
+
+							controller.setBottomTextAccordingToStatus(result_status);
+							controller.setTextButtonRepairedQueries();
+
+							setInitialized(true);
+						} catch (
+
+						IOException e) {
+							e.printStackTrace();
+						}
+					}
+
+				});
+
+			}
+		});
+
+		return myThread;
+
 	}
 
 }
