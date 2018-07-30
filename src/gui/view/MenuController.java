@@ -55,7 +55,7 @@ public class MenuController {
 	}
 
 	/**
-	 * Exit the interface
+	 * Provide some guidance
 	 * 
 	 */
 	@FXML
