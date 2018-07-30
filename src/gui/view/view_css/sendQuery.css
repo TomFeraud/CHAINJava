@@ -5,9 +5,6 @@
 	-fx-font-family:  "Noto Sans CJK SC Regular";
 }
 
-
-
-
 GridPane {
 	-fx-background-color: #F0F0F0;
 }
@@ -23,17 +20,11 @@ ProgressIndicator {
 .button:hover {
 	-fx-background-color: green;
 	-fx-text-fill: white;
-	/*-fx-background-image: url("image.jpg");
-	-fx-background-radius: 15px;
-	-fx-background-repeat: no-repeat;
-	-fx-background-position: 50% 50%;*/
 }
 
 
 
 #topHbox, #bottomHbox {
-	/*  -fx-background-color: #43D1AF; */
-	/* -fx-background-color: #305CB8; */
 	-fx-background-color: #43D174;
 	-fx-padding: 20px 0;
 	-fx-font-size: 113%;
@@ -51,7 +42,6 @@ ProgressIndicator {
 }
 
  .text-field {
-   /*  -fx-background-color: -fx-text-box-border, -fx-background ; */
     -fx-background-insets: 0, 0 0 1 0 ;
     -fx-background-radius: 3 ;
 } 	

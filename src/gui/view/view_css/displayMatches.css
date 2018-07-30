@@ -2,7 +2,8 @@
 	-fx-padding: 12px 12px;
 	-fx-border-radius: 7px;
 	-fx-background-color: #FAFAFA;
-	/*-fx-border-color: grey ; */
+	-fx-font-family:  "Noto Sans CJK SC Regular";
+
 }
 
 
@@ -21,7 +22,6 @@ GridPane {
 
 
 .tree-table-row-cell:filled:selected:focused {
-    /*-fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);*/
     -fx-background-color: linear-gradient(#43D174 0.0%, #40C16D 25.0%, #3AAF63 75.0%, #328F52 100.0%) !important;
     -fx-text-fill: white;
 }
@@ -32,7 +32,6 @@ GridPane {
 
 
 .tree-table-row-cell:filled:hover {
-    /*-fx-background-color: #0093ff;*/
     -fx-background-color: #5EE78D !important;
     -fx-text-fill: white;
 }
