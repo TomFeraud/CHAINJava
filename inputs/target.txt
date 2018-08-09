@@ -1,1 +1,1 @@
-waterBodyPressures(dataSource, identifiedDate, affectsGroundwater, waterBodyId)
+waterBodyMeasures(timePeriod, geo, measure, resource)

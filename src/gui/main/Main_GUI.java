@@ -47,11 +47,10 @@ public class Main_GUI extends Application {
 	}
 
 	/**
-	 * Constructor of our main class. STILL IN TESTING PHASE
+	 * Constructor of our main class.
 	 *
 	 */
 	public Main_GUI() {
-
 		run_CHAIn = new Run_CHAIn();
 		projectModel = new Project();
 	}

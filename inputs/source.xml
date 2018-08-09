@@ -1,124 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?><context>
   <node id="n0" preprocessed="true">
-    <name>waterBodyPressurestest</name>
+    <name>waterBodyMeasures</name>
     <label-formula>n0_0</label-formula>
     <node-formula>n0_0</node-formula>
     <tokens>
       <token id="0">
-        <text>waterbodypressurestest</text>
-        <lemma>waterbodypressurestest</lemma>
+        <text>waterbodymeasures</text>
+        <lemma>waterbodymeasures</lemma>
         <senses/>
       </token>
     </tokens>
     <children>
       <node id="n1" parent-id="n0" preprocessed="true">
-        <name>dataSource</name>
-        <label-formula>n1_0 &amp; n1_1</label-formula>
-        <node-formula>(n1_0 &amp; n1_1) &amp; n0_0</node-formula>
+        <name>timePeriod</name>
+        <label-formula>n1_0</label-formula>
+        <node-formula>n1_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>datasource</text>
-            <lemma>datasource</lemma>
+            <text>timeperiod</text>
+            <lemma>timeperiod</lemma>
             <senses>
-              <sense id="n#8479331"/>
-            </senses>
-          </token>
-          <token id="1">
-            <text>source</text>
-            <lemma>source</lemma>
-            <senses>
-              <sense id="n#8524579"/>
-              <sense id="n#6687867"/>
-              <sense id="n#5843082"/>
-              <sense id="n#4270724"/>
-              <sense id="n#10225604"/>
-              <sense id="n#10145714"/>
-              <sense id="n#13580156"/>
-              <sense id="n#9430745"/>
-              <sense id="n#7273332"/>
-              <sense id="v#2243318"/>
-              <sense id="v#668640"/>
+              <sense id="n#15137796"/>
             </senses>
           </token>
         </tokens>
       </node>
       <node id="n2" parent-id="n0" preprocessed="true">
-        <name>time</name>
+        <name>geo</name>
         <label-formula>n2_0</label-formula>
         <node-formula>n2_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>time</text>
-            <lemma>time</lemma>
-            <senses>
-              <sense id="n#7324217"/>
-              <sense id="n#15295388"/>
-              <sense id="n#15147173"/>
-              <sense id="n#15270326"/>
-              <sense id="n#28468"/>
-              <sense id="n#7302920"/>
-              <sense id="n#15154879"/>
-              <sense id="n#15160774"/>
-              <sense id="n#4998860"/>
-              <sense id="n#15249488"/>
-              <sense id="v#491904"/>
-              <sense id="v#680466"/>
-              <sense id="v#703992"/>
-              <sense id="v#298687"/>
-              <sense id="v#297754"/>
-            </senses>
+            <text>geo</text>
+            <lemma>geo</lemma>
+            <senses/>
           </token>
         </tokens>
       </node>
       <node id="n3" parent-id="n0" preprocessed="true">
-        <name>waterAffected</name>
-        <label-formula>n3_0 &amp; n3_1</label-formula>
-        <node-formula>(n3_0 &amp; n3_1) &amp; n0_0</node-formula>
+        <name>measure</name>
+        <label-formula>n3_0</label-formula>
+        <node-formula>n3_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>wateraffected</text>
-            <lemma>wateraffected</lemma>
+            <text>measure</text>
+            <lemma>measure</lemma>
             <senses>
-              <sense id="n#14869913"/>
-              <sense id="n#9248053"/>
-              <sense id="n#14871527"/>
-              <sense id="n#4569944"/>
-              <sense id="n#14879875"/>
-              <sense id="n#7951744"/>
-              <sense id="v#228662"/>
-              <sense id="v#2362872"/>
-              <sense id="v#69341"/>
-              <sense id="v#453053"/>
-            </senses>
-          </token>
-          <token id="1">
-            <text>affected</text>
-            <lemma>affect</lemma>
-            <senses>
-              <sense id="v#137133"/>
-              <sense id="v#19441"/>
-              <sense id="v#2682907"/>
-              <sense id="v#839722"/>
-              <sense id="v#1771801"/>
-              <sense id="a#71547"/>
-              <sense id="a#73656"/>
-              <sense id="a#1564296"/>
+              <sense id="n#175261"/>
+              <sense id="n#33914"/>
+              <sense id="n#6548844"/>
+              <sense id="n#998911"/>
+              <sense id="n#7275291"/>
+              <sense id="n#7108759"/>
+              <sense id="n#6877775"/>
+              <sense id="n#3741128"/>
+              <sense id="n#3739135"/>
+              <sense id="v#648747"/>
+              <sense id="v#490773"/>
+              <sense id="v#2710209"/>
+              <sense id="v#683348"/>
             </senses>
           </token>
         </tokens>
       </node>
       <node id="n4" parent-id="n0" preprocessed="true">
-        <name>waterCourse</name>
+        <name>resource</name>
         <label-formula>n4_0</label-formula>
         <node-formula>n4_0 &amp; n0_0</node-formula>
         <tokens>
           <token id="0">
-            <text>watercourse</text>
-            <lemma>watercourse</lemma>
+            <text>resource</text>
+            <lemma>resource</lemma>
             <senses>
-              <sense id="n#9498309"/>
-              <sense id="n#9471510"/>
-              <sense id="n#4566561"/>
+              <sense id="n#13352793"/>
+              <sense id="n#5161923"/>
+              <sense id="n#5641705"/>
             </senses>
           </token>
         </tokens>

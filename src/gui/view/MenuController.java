@@ -36,7 +36,6 @@ public class MenuController {
 		double[] pos = this.main.getSendQueryController().getSplitPane().getDividerPositions();
 		this.main.contentInit();
 		this.main.getSendQueryController().getSplitPane().setDividerPositions(pos[0]);
-
 	}
 
 	/**
@@ -49,7 +48,6 @@ public class MenuController {
 		Alert bye = new Alert(AlertType.INFORMATION);
 		bye.setHeaderText("Good bye!");
 		bye.showAndWait();
-
 		// Close the main stage (and so the application)
 		this.main.getMainStage().close();
 	}
